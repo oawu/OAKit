@@ -43,10 +43,10 @@
 		03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
 		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
-		0E04DD252292A52800DEA262 /* OAFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAFunc.swift; sourceTree = "<group>"; };
-		0E04DD262292A52800DEA262 /* OAShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAShadow.swift; sourceTree = "<group>"; };
-		0E04DD272292A52800DEA262 /* OABorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OABorder.swift; sourceTree = "<group>"; };
-		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OALayoutConstraint.swift; sourceTree = "<group>"; };
+		0E04DD252292A52800DEA262 /* OAFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAFunc.swift; path = OAKit/Classes/OAFunc.swift; sourceTree = "<group>"; };
+		0E04DD262292A52800DEA262 /* OAShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAShadow.swift; path = OAKit/Classes/OAShadow.swift; sourceTree = "<group>"; };
+		0E04DD272292A52800DEA262 /* OABorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OABorder.swift; path = OAKit/Classes/OABorder.swift; sourceTree = "<group>"; };
+		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OALayoutConstraint.swift; path = OAKit/Classes/OALayoutConstraint.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
 		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
 		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
