@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'OAKit_Example' do
+  pod 'OAKit', :path => '../'
+
+  target 'OAKit_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
