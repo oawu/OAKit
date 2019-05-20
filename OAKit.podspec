@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OAKit'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'OA Swift UIKit.'
   s.description      = <<-DESC
 OA 個人的 Swift UI 套件
@@ -22,7 +22,7 @@ OA 個人的 Swift UI 套件
   s.ios.deployment_target = '12.0'
   s.source_files = 'OAKit/Classes/**/*'
   s.frameworks = 'UIKit', 'Foundation'
-    
+
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   # s.resource_bundles = {
   #   'OAKit' => ['OAKit/Assets/*.png']
