@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import OAKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let view = UIView()
+        view.border(2, rgba(1, 2, 3, 1))
+
+        view.to(self.view).centerX().enable()
+        view.to(self.view).centerY().enable()
+        view.to(self.view).width(100).enable()
+        view.to(self.view).height(100).enable()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 

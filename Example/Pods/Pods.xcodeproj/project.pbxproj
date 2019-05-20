@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */; };
-		083B7B6D91CB20030ABFDE1089684030 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A3FBF1E7A145463DBB4E11587C1F4D /* ReplaceMe.swift */; };
+		0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* OAFunc.swift */; };
+		0E04DD292292A52800DEA262 /* OAShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD262292A52800DEA262 /* OAShadow.swift */; };
+		0E04DD2A2292A52800DEA262 /* OABorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD272292A52800DEA262 /* OABorder.swift */; };
+		0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */; };
 		2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		2F7506E3BD325EE24EBA8D2F333E5CE4 /* Pods-OAKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3CC64B3FFE8B7B9DF597173FD8ECCFE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -40,6 +43,10 @@
 		03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
 		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
+		0E04DD252292A52800DEA262 /* OAFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAFunc.swift; sourceTree = "<group>"; };
+		0E04DD262292A52800DEA262 /* OAShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAShadow.swift; sourceTree = "<group>"; };
+		0E04DD272292A52800DEA262 /* OABorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OABorder.swift; sourceTree = "<group>"; };
+		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OALayoutConstraint.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
 		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
 		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -65,7 +72,6 @@
 		ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OAKit-dummy.m"; sourceTree = "<group>"; };
 		AD97AE6B6623A0DB8177073274039163 /* Pods-OAKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C140B173D2BB5BBAA9219CFAFD587D3C /* Pods-OAKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		C2A3FBF1E7A145463DBB4E11587C1F4D /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = OAKit/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		D4E4869BED123670CEB4FD2AB4C70589 /* Pods-OAKit_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Tests-dummy.m"; sourceTree = "<group>"; };
 		E83A542DF16D23777FF35617C97D49C7 /* Pods_OAKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OAKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8FD8515A453FF80482BEEC4CD960F0C /* Pods-OAKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Example-dummy.m"; sourceTree = "<group>"; };
@@ -102,7 +108,10 @@
 		082C0CC7BA45DB9974CBEF7963EBC9D2 /* OAKit */ = {
 			isa = PBXGroup;
 			children = (
-				C2A3FBF1E7A145463DBB4E11587C1F4D /* ReplaceMe.swift */,
+				0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */,
+				0E04DD272292A52800DEA262 /* OABorder.swift */,
+				0E04DD252292A52800DEA262 /* OAFunc.swift */,
+				0E04DD262292A52800DEA262 /* OAShadow.swift */,
 				96631C0DFBA0476022703100A5DB7773 /* Pod */,
 				B2A3B2686353587789CD56E961E76BC5 /* Support Files */,
 			);
@@ -372,8 +381,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */,
 				0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */,
-				083B7B6D91CB20030ABFDE1089684030 /* ReplaceMe.swift in Sources */,
+				0E04DD292292A52800DEA262 /* OAShadow.swift in Sources */,
+				0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */,
+				0E04DD2A2292A52800DEA262 /* OABorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
