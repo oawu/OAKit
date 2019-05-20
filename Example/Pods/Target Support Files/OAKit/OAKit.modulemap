@@ -1,0 +1,6 @@
+framework module OAKit {
+  umbrella header "OAKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
