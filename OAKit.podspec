@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OAKit'
-  s.version          = '0.0.4'
-  s.summary          = 'OA Swift UIKit.'
+  s.version          = '0.0.5'
+  s.summary          = "OA's Swift UIKit."
   s.description      = <<-DESC
-OA 個人的 Swift UI 套件
+OA 個人常用的 Swift Lib
                        DESC
 
   s.homepage         = 'https://github.com/comdan66/OAKit'
