@@ -15,5 +15,11 @@ extension UIView {
         self.layer.shadowOffset  = CGSize(width: x, height: y);
         self.layer.shadowColor   = color.cgColor;
     }
+
+    public func border(_ width: CGFloat, _ color: UIColor) {
+        self.layer.borderWidth = width / UIScreen.main.scale;
+        self.layer.borderColor = color.cgColor;
+    }
 }
+
 

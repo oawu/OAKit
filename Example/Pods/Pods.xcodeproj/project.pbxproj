@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */; };
 		0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* OAFunc.swift */; };
-		0E04DD292292A52800DEA262 /* OAShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD262292A52800DEA262 /* OAShadow.swift */; };
-		0E04DD2A2292A52800DEA262 /* OABorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD272292A52800DEA262 /* OABorder.swift */; };
+		0E04DD292292A52800DEA262 /* OAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD262292A52800DEA262 /* OAView.swift */; };
+		0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD272292A52800DEA262 /* OAImageView.swift */; };
 		0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */; };
 		0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* OATimer.swift */; };
 		2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -45,8 +45,8 @@
 		072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
 		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
 		0E04DD252292A52800DEA262 /* OAFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAFunc.swift; path = OAKit/Classes/OAFunc.swift; sourceTree = "<group>"; };
-		0E04DD262292A52800DEA262 /* OAShadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAShadow.swift; path = OAKit/Classes/OAShadow.swift; sourceTree = "<group>"; };
-		0E04DD272292A52800DEA262 /* OABorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OABorder.swift; path = OAKit/Classes/OABorder.swift; sourceTree = "<group>"; };
+		0E04DD262292A52800DEA262 /* OAView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAView.swift; path = OAKit/Classes/OAView.swift; sourceTree = "<group>"; };
+		0E04DD272292A52800DEA262 /* OAImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAImageView.swift; path = OAKit/Classes/OAImageView.swift; sourceTree = "<group>"; };
 		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OALayoutConstraint.swift; path = OAKit/Classes/OALayoutConstraint.swift; sourceTree = "<group>"; };
 		0E04DD2D2292AC7200DEA262 /* OATimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OATimer.swift; path = OAKit/Classes/OATimer.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
@@ -110,9 +110,9 @@
 		082C0CC7BA45DB9974CBEF7963EBC9D2 /* OAKit */ = {
 			isa = PBXGroup;
 			children = (
-				0E04DD272292A52800DEA262 /* OABorder.swift */,
+				0E04DD272292A52800DEA262 /* OAImageView.swift */,
 				0E04DD252292A52800DEA262 /* OAFunc.swift */,
-				0E04DD262292A52800DEA262 /* OAShadow.swift */,
+				0E04DD262292A52800DEA262 /* OAView.swift */,
 				0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */,
 				0E04DD2D2292AC7200DEA262 /* OATimer.swift */,
 				96631C0DFBA0476022703100A5DB7773 /* Pod */,
@@ -386,10 +386,10 @@
 			files = (
 				0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */,
 				0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */,
-				0E04DD292292A52800DEA262 /* OAShadow.swift in Sources */,
+				0E04DD292292A52800DEA262 /* OAView.swift in Sources */,
 				0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */,
 				0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */,
-				0E04DD2A2292A52800DEA262 /* OABorder.swift in Sources */,
+				0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
