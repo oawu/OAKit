@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum OATimerKey {
+public enum OATimerKey {
     case test
 }
 
