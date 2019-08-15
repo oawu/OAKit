@@ -13,7 +13,7 @@ enum OATimerKey {
     case test
 }
 
-class OATimerOnly {
+public class OATimerOnly {
     
     @discardableResult
     public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
@@ -40,7 +40,7 @@ class OATimerOnly {
     }
 }
 
-class OATimerReplace {
+public class OATimerReplace {
     
     @discardableResult
     public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
@@ -67,7 +67,7 @@ class OATimerReplace {
     }
 }
 
-class OATimer {
+public class OATimer {
     
     public static var all:     [OATimerKey: Timer?] = [:]
     public static let only:    OATimerOnly          = OATimerOnly()
