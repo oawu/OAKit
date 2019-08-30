@@ -50,7 +50,7 @@
 		0E04DD272292A52800DEA262 /* OAImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAImageView.swift; path = OAKit/Classes/OAImageView.swift; sourceTree = "<group>"; };
 		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OALayoutConstraint.swift; path = OAKit/Classes/OALayoutConstraint.swift; sourceTree = "<group>"; };
 		0E04DD2D2292AC7200DEA262 /* OATimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OATimer.swift; path = OAKit/Classes/OATimer.swift; sourceTree = "<group>"; };
-		0EC520C92318EAE7001F37C1 /* OAUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAUrl.swift; sourceTree = "<group>"; };
+		0EC520C92318EAE7001F37C1 /* OAUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OAUrl.swift; path = OAKit/Classes/OAUrl.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
 		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
 		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
