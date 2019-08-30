@@ -13,17 +13,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let imageView = UIImageView()
         
-        imageView.url("https://www.ioa.tw/img/md5/2649ac3f3f605e0474053e8505e01247.jpg")
-        imageView.border(2, rgba(1, 2, 3, 1))
-
-        imageView.to(self.view).centerX().enable()
-        imageView.to(self.view).centerY().enable()
-        imageView.to(self.view).width(100).enable()
-        imageView.to(self.view).height(100).enable()
-        
-        // Do any additional setup after loading the view, typically from a nib.
+//        Url.post(url: "", with: "name=OA&uuid=123") { result in
+//            print(result)
+//        }
+//        Url.get.json(url: "") { result in
+//            print(result)
+//        }
     }
 
     override func didReceiveMemoryWarning() {

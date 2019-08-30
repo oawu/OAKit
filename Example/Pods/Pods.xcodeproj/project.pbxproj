@@ -13,6 +13,7 @@
 		0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD272292A52800DEA262 /* OAImageView.swift */; };
 		0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */; };
 		0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* OATimer.swift */; };
+		0EC520CA2318EAE7001F37C1 /* OAUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC520C92318EAE7001F37C1 /* OAUrl.swift */; };
 		2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		2F7506E3BD325EE24EBA8D2F333E5CE4 /* Pods-OAKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3CC64B3FFE8B7B9DF597173FD8ECCFE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -49,6 +50,7 @@
 		0E04DD272292A52800DEA262 /* OAImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAImageView.swift; path = OAKit/Classes/OAImageView.swift; sourceTree = "<group>"; };
 		0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OALayoutConstraint.swift; path = OAKit/Classes/OALayoutConstraint.swift; sourceTree = "<group>"; };
 		0E04DD2D2292AC7200DEA262 /* OATimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OATimer.swift; path = OAKit/Classes/OATimer.swift; sourceTree = "<group>"; };
+		0EC520C92318EAE7001F37C1 /* OAUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAUrl.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
 		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
 		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				0E04DD262292A52800DEA262 /* OAView.swift */,
 				0E04DD2B2292A60600DEA262 /* OALayoutConstraint.swift */,
 				0E04DD2D2292AC7200DEA262 /* OATimer.swift */,
+				0EC520C92318EAE7001F37C1 /* OAUrl.swift */,
 				96631C0DFBA0476022703100A5DB7773 /* Pod */,
 				B2A3B2686353587789CD56E961E76BC5 /* Support Files */,
 			);
@@ -389,6 +392,7 @@
 				0E04DD292292A52800DEA262 /* OAView.swift in Sources */,
 				0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */,
 				0E04DD2C2292A60600DEA262 /* OALayoutConstraint.swift in Sources */,
+				0EC520CA2318EAE7001F37C1 /* OAUrl.swift in Sources */,
 				0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
