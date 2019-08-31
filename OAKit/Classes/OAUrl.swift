@@ -33,13 +33,13 @@ public class UrlGet {
 }
 
 public class UrlPost {
-    public func json(url urlString: String, data: String?, closure: @escaping((UrlStatus) -> Void)) {
+    public func json(url urlString: String, data: String, closure: @escaping((UrlStatus) -> Void)) {
         guard let url = URL(string: urlString) else { return closure(.failure(0, "網址轉換錯誤")) }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        if let httpBody = data {
-            request.httpBody = httpBody.data(using: .utf8)
+        if data.count > 0 {
+            request.httpBody = data.data(using: .utf8)
         }
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -56,12 +56,28 @@ public class UrlPost {
             return closure(.success(json))
             }.resume()
     }
+
+    public func json(url urlString: String, data: String?, closure: @escaping((UrlStatus) -> Void)) {
+        guard let httpBody = data else { return self.json(url: urlString, data: "", closure: closure) }
+        return self.json(url: urlString, data: httpBody, closure: closure)
+    }
+
+    public func json(url urlString: String, data: [String: String], closure: @escaping((UrlStatus) -> Void)) {
+        guard data.count > 0 else { return self.json(url: urlString, data: "", closure: closure) }
+        return self.json(url: urlString, data: data.compactMap { $0 + "=" + $1 }.joined(separator: "&"), closure: closure)
+    }
 }
 
 public class Url {
     public static let get: UrlGet = UrlGet()
     
+    public static func post(url urlString: String, with data: String, closure: @escaping((UrlStatus) -> Void)) {
+        return UrlPost().json(url: urlString, data: data, closure: closure)
+    }
     public static func post(url urlString: String, with data: String?, closure: @escaping((UrlStatus) -> Void)) {
+        return UrlPost().json(url: urlString, data: data, closure: closure)
+    }
+    public static func post(url urlString: String, with data: [String: String], closure: @escaping((UrlStatus) -> Void)) {
         return UrlPost().json(url: urlString, data: data, closure: closure)
     }
 }
