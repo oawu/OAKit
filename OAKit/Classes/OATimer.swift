@@ -9,33 +9,29 @@
 import Foundation
 import UIKit
 
-public enum OATimerKey {
-    case test
-}
-
 public class OATimerOnly {
     
     @discardableResult
-    public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
+    public func repeats(key: String, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
         if let t = OATimer.all[key], let _ = t { return nil }
         OATimer.all[key] = Timer.scheduledTimer(withTimeInterval: timer, repeats: true, block: block)
         return OATimer.all[key]!
     }
     
     @discardableResult
-    public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
+    public func repeats(key: String, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
         return self.repeats(key: key, timer: timer) { _ in block() }
     }
     
     @discardableResult
-    public func delay(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
+    public func delay(key: String, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
         if let t = OATimer.all[key], let _ = t { return nil }
         OATimer.all[key] = Timer.scheduledTimer(withTimeInterval: timer, repeats: false, block: block)
         return OATimer.all[key]!
     }
     
     @discardableResult
-    public func delay(key: OATimerKey, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
+    public func delay(key: String, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
         return self.delay(key: key, timer: timer) { _ in block() }
     }
 }
@@ -43,37 +39,37 @@ public class OATimerOnly {
 public class OATimerReplace {
     
     @discardableResult
-    public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
+    public func repeats(key: String, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
         OATimer.clean(key: key)
         OATimer.all[key] = Timer.scheduledTimer(withTimeInterval: timer, repeats: true, block: block)
         return OATimer.all[key]!
     }
     
     @discardableResult
-    public func repeats(key: OATimerKey, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
+    public func repeats(key: String, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
         return self.repeats(key: key, timer: timer) { _ in block() }
     }
     
     @discardableResult
-    public func delay(key: OATimerKey, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
+    public func delay(key: String, timer: TimeInterval, block: @escaping (Timer) -> Void) -> Timer! {
         OATimer.clean(key: key)
         OATimer.all[key] = Timer.scheduledTimer(withTimeInterval: timer, repeats: false, block: block)
         return OATimer.all[key]!
     }
     
     @discardableResult
-    public func delay(key: OATimerKey, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
+    public func delay(key: String, timer: TimeInterval, block: @escaping () -> Void) -> Timer! {
         return self.delay(key: key, timer: timer) { _ in block() }
     }
 }
 
 public class OATimer {
     
-    public static var all:     [OATimerKey: Timer?] = [:]
+    public static var all:     [String: Timer?] = [:]
     public static let only:    OATimerOnly          = OATimerOnly()
     public static let replace: OATimerReplace       = OATimerReplace()
     
-    public static func has(key: OATimerKey) -> Bool {
+    public static func has(key: String) -> Bool {
         if let tmp = self.all[key], let _ = tmp {
             return true
         } else {
@@ -82,7 +78,7 @@ public class OATimer {
     }
     
     @discardableResult
-    public static func clean(key: OATimerKey) -> Bool {
+    public static func clean(key: String) -> Bool {
         
         if let tmp = self.all[key] {
             if let timer = tmp {

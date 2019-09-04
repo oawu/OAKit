@@ -14,12 +14,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Url.post(url: "", with: "name=OA&uuid=123") { result in
-//            print(result)
-//        }
-//        Url.get.json(url: "") { result in
-//            print(result)
-//        }
+        OATimer.replace.delay(key: "aa", timer: 5) {
+            print("1")
+        }
+        OATimer.replace.delay(key: "aa", timer: 2) {
+            print("2")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
