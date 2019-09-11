@@ -9,18 +9,28 @@
 import UIKit
 import OAKit
 
+class Book: OAModel {
+    static var key: String? = "Book"
+}
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        print(Book.deleteAll())
+        Book.create(["name": "OA1", "sex": "男生"])
+        Book.create(["name": "OA2", "sex": "男生"])
+        Book.create(["name": "OA3", "sex": "男生"])
+        Book.create(["name": "OA4", "sex": "男生"])
+        Book.create(["name": "OA5", "sex": "男生"])
         
-        OATimer.replace.delay(key: "aa", timer: 5) {
-            print("1")
-        }
-        OATimer.replace.delay(key: "aa", timer: 2) {
-            print("2")
-        }
-        
+        print(Book.all(type: [String: String].self))
+        print("====================")
+        print(Book.pops(type: [String: String].self, limit: 2))
+        print("====================")
+        print(Book.all(type: [String: String].self))
+
     }
 
     override func didReceiveMemoryWarning() {
