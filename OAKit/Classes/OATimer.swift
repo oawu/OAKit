@@ -113,7 +113,7 @@ public class OATimerReplace {
     
     @discardableResult
     public func `continue`(key: String, timer: TimeInterval) -> OATimerContinue? {
-        return self.continue(key: key, timer: 0, autoCleanKey: true)
+        return self.continue(key: key, timer: timer, autoCleanKey: true)
     }
     
     @discardableResult
@@ -167,6 +167,7 @@ public class OATimerContinue {
         guard self.blocks.count > 0 else {
             return self.finish()
         }
+
         guard !self.isClose else {
             return self.close()
         }
