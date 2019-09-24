@@ -20,6 +20,13 @@ extension UIView {
         self.layer.borderWidth = width / UIScreen.main.scale;
         self.layer.borderColor = color.cgColor;
     }
+    
+    public func border(_ width: CGFloat, _ color: UIColor, _ debug: Bool) {
+        guard debug else { return }
+
+        self.layer.borderWidth = width / UIScreen.main.scale;
+        self.layer.borderColor = color.cgColor;
+    }
 }
 
 
