@@ -152,11 +152,13 @@ public class OATimerContinue {
         self.defaultTimer = timer
     }
     
+    @discardableResult
     public func push(block: @escaping () -> Void) -> Self {
         self.blocks.append(OATimerContinueBlock(timer: self.defaultTimer, block: block))
         return self
     }
     
+    @discardableResult
     public func push(timer: TimeInterval, block: @escaping () -> Void) -> Self {
         self.blocks.append(OATimerContinueBlock(timer: timer, block: block))
         return self
