@@ -17,6 +17,11 @@ public extension OAModel {
         return val
     }
 
+    static func get<T>(type: T.Type) -> T? {
+        guard let key = self.key, let val？ = UserDefaults.standard.object(forKey: key), let val = val？ as? T else { return nil }
+        return val
+    }
+
     @discardableResult
     static func set<T: Any>(_ val: T) -> Bool {
         guard let key = self.key else { return false }
