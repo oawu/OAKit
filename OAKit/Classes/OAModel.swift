@@ -7,55 +7,83 @@
 
 import Foundation
 
-public protocol OAModel: class {
-    static var key: String? { get }
-}
-
-public extension OAModel {
-    static func get<T>(default: T) -> T {
-        guard let key = self.key, let val？ = UserDefaults.standard.object(forKey: key), let val = val？ as? T else { return `default` }
-        return val
+open class OAModel<T> {
+    public class var key: String {
+        return String(describing: self)
     }
-
-    static func get<T>(type: T.Type) -> T? {
-        guard let key = self.key, let val？ = UserDefaults.standard.object(forKey: key), let val = val？ as? T else { return nil }
-        return val
-    }
-
+    
     @discardableResult
-    static func set<T: Any>(_ val: T) -> Bool {
-        guard let key = self.key else { return false }
-        UserDefaults.standard.set(val, forKey: key)
+    public class func set(_ val: T) -> Bool {
+        UserDefaults.standard.set(val, forKey: self.key)
         return true
     }
-}
-
-public extension OAModel {
+    
     @discardableResult
-    static func create<T: Any>(_ val: T) -> Bool {
-        var vals: [T] = self.get(default: [])
+    public class func destroy() -> Bool {
+        UserDefaults.standard.removeObject(forKey: self.key)
+        return true
+    }
+    
+    public class func get() -> T? {
+        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? T else {
+            return nil
+        }
+        return val
+    }
+    
+    public class func get(default: T) -> T {
+        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? T else {
+            return `default`
+        }
+        return val
+    }
+    
+    @discardableResult
+    public class func setArray(_ val: [T]) -> Bool {
+        UserDefaults.standard.set(val, forKey: self.key)
+        return true
+    }
+    
+    public class func getArray(default: [T] = []) -> [T] {
+        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? [T] else {
+            return `default`
+        }
+        return val
+    }
+    
+    @discardableResult
+    public class func deleteAll() -> Bool {
+        return self.setArray([])
+    }
+    
+    @discardableResult
+    public class func push(_ val: T) -> Bool {
+        var vals: [T] = self.getArray()
         vals.append(val)
-        return self.set(vals)
-    }
-
-    @discardableResult
-    static func deleteAll() -> Bool {
-        return self.set([])
+        return self.setArray(vals)
     }
     
-    static func all<T>(type: T.Type) -> [T] {
-        return self.get(default: [T]())
+    public class func all() -> [T] {
+        return self.getArray()
     }
-
-    static func pops<T>(type: T.Type, limit limit？: Int? = nil) -> [T] {
-        var vars = self.get(default: [T]())
     
-        guard let limit = limit？, vars.count >= limit else {
-            self.set([])
+    public class func pops(limit: Int = -1) -> [T] {
+        var vars = self.getArray()
+        
+        guard limit >= 0, vars.count >= limit else {
+            self.setArray([])
             return vars
         }
+        
+        self.setArray(Array(vars[limit ..< vars.count]))
+        return Array(vars[0 ..< limit])
+    }
     
-        self.set(Array(vars[limit..<vars.count]))
-        return Array(vars[0..<limit])
+    public class func pop() -> T? {
+        let vars = self.pops(limit: 1)
+        guard vars.count > 0 else {
+            return nil
+        }
+        return vars.first
     }
 }

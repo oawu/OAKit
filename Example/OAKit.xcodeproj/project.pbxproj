@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EB12428234333290016F4D3 /* ModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB12427234333290016F4D3 /* ModelViewController.swift */; };
+		0EB1242A234335E60016F4D3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB12429234335E60016F4D3 /* MainController.swift */; };
+		0EB1242C234353B40016F4D3 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1242B234353B40016F4D3 /* TimerViewController.swift */; };
 		0EE6B90D232924B50079E143 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE6B90C232924B50079E143 /* ViewController.swift */; };
 		1BD8434BABBBAA4CE60A7050 /* Pods_OAKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6126CBAE9F64D70F665AF9 /* Pods_OAKit_Tests.framework */; };
 		1BF2D68ED9A6AB1AC272F42F /* Pods_OAKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CBD9C3DF4A8227D40BB2FA0 /* Pods_OAKit_Example.framework */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EB12427234333290016F4D3 /* ModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewController.swift; sourceTree = "<group>"; };
+		0EB12429234335E60016F4D3 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		0EB1242B234353B40016F4D3 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		0EE6B90C232924B50079E143 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3BD22C5B793EF7171EC9FCF6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		45F9D6CA33EEC3D388B77ADB /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OAKit_Example.debug.xcconfig"; path = "Target Support Files/Pods-OAKit_Example/Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +101,9 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				0EE6B90C232924B50079E143 /* ViewController.swift */,
+				0EB12429234335E60016F4D3 /* MainController.swift */,
+				0EB12427234333290016F4D3 /* ModelViewController.swift */,
+				0EB1242B234353B40016F4D3 /* TimerViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -337,8 +346,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB1242C234353B40016F4D3 /* TimerViewController.swift in Sources */,
+				0EB1242A234335E60016F4D3 /* MainController.swift in Sources */,
 				0EE6B90D232924B50079E143 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				0EB12428234333290016F4D3 /* ModelViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
