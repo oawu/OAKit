@@ -68,7 +68,7 @@ open class OAModel<T> {
     }
     
     public class func pops(limit: Int = -1) -> [T] {
-        var vars = self.getArray()
+        let vars = self.getArray()
         
         guard limit >= 0, vars.count >= limit else {
             self.setArray([])

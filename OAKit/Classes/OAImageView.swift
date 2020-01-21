@@ -9,10 +9,12 @@ import Foundation
 import UIKit
 
 extension UIImageView {
+
     public func url(_ url: URL, placeholder: UIImage? = nil) {
         if let image = placeholder {
             self.image = image
         }
+
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -24,8 +26,9 @@ extension UIImageView {
             DispatchQueue.main.async() {
                 self.image = image
             }
-            }.resume()
+        }.resume()
     }
+
     public func url(_ link: String, placeholder: UIImage? = nil) {
         if let image = placeholder {
             self.image = image

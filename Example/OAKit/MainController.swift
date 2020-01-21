@@ -10,8 +10,9 @@ import UIKit
 
 class MainController: UITableViewController {
     private let samples: [Sample] = [
-        Sample(title: "Model Sample", callClass: ModelViewController.self),
-        Sample(title: "Timer Sample", callClass: TimerViewController.self)
+        Sample(title: "Model Sample", vc: ModelViewController()),
+        Sample(title: "Timer Sample", vc: TimerViewController()),
+        Sample(title: "Request Sample", vc: RequestViewController(style: .plain)),
     ]
 
     override func viewDidLoad() {
@@ -37,32 +38,19 @@ class MainController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(self.samples[indexPath.row].viewController(), animated: true)
+        self.navigationController?.pushViewController(self.samples[indexPath.row].vc, animated: true)
     }
 }
 
 struct Sample {
-    private var _title: String!
-    private var callClass: UIViewController.Type!
-    
-    init(title: String, callClass: UIViewController.Type) {
-        self._title = title
-        self.callClass = callClass
-    }
-    
-    public func title() -> String {
-        return self._title
-    }
-    
-    public func viewController() -> UIViewController {
-        return self.callClass.init()
-    }
+    public let title: String
+    public let vc: UIViewController
 }
 
 class SampleCell: UITableViewCell {
     @discardableResult
     public func fetchUI(data: Sample) -> Self {
-        self.textLabel?.text = data.title()
+        self.textLabel?.text = data.title
         self.accessoryType = .disclosureIndicator
         return self
     }
