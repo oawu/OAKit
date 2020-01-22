@@ -70,6 +70,7 @@ public class OARequest {
     private var urlComponents: URLComponents?
     private var method: OARequestMethod = .GET
     private var model: Decodable.Type? = nil
+    private var cache: Bool = false
     
     public init () {
         
@@ -79,10 +80,24 @@ public class OARequest {
         self.url(url)
     }
     
+    public init(cache: Bool) {
+        self.cache(cache)
+    }
+
+    public init(url: String, cache: Bool) {
+        self.url(url).cache(cache)
+    }
+
     @discardableResult
     public func header(key: String, value: String) -> Self {
         guard !key.isEmpty else { return self }
         self.datass.append(.header(key, value))
+        return self
+    }
+
+    @discardableResult
+    public func cache(_ cache: Bool) -> Self {
+        self.cache = cache
         return self
     }
     
@@ -254,7 +269,17 @@ public class OARequest {
             request.setValue(val, forHTTPHeaderField: key)
         }
 
-        let session: URLSession = self.progress == nil ? URLSession.shared : URLSession(configuration: URLSessionConfiguration.default, delegate: OASessionDelegate(progress: self.progress!), delegateQueue:  OperationQueue.main)
+        let config = URLSessionConfiguration.default
+
+        if !self.cache {
+            config.requestCachePolicy = .reloadIgnoringLocalCacheData
+            config.urlCache = nil
+        }
+        
+        var session: URLSession = URLSession(configuration: config)
+        if let progress = self.progress {
+            session = URLSession(configuration: config, delegate: OASessionDelegate(progress: progress), delegateQueue:  OperationQueue.main)
+        }
 
         session.dataTask(with: request) { data, response, error in
             guard error == nil else {
