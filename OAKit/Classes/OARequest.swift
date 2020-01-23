@@ -80,11 +80,19 @@ public class OARequest {
         self.url(url)
     }
     
+    public init(url: URL) {
+        self.url(url)
+    }
+    
     public init(cache: Bool) {
         self.cache(cache)
     }
-
+    
     public init(url: String, cache: Bool) {
+        self.url(url).cache(cache)
+    }
+    
+    public init(url: URL, cache: Bool) {
         self.url(url).cache(cache)
     }
 
@@ -138,11 +146,19 @@ public class OARequest {
         return self.url(url).get(closure: closure)
     }
     
+    public func get(url: URL, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
+        return self.url(url).get(closure: closure)
+    }
+    
     public func get<T: Decodable>(model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return self.method(.GET).json(model: T.self, closure: closure)
     }
-
+    
     public func get<T: Decodable>(url: String, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
+        return self.url(url).get(model: T.self, closure: closure)
+    }
+    
+    public func get<T: Decodable>(url: URL, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return self.url(url).get(model: T.self, closure: closure)
     }
     
@@ -154,11 +170,19 @@ public class OARequest {
         return self.url(url).post(closure: closure)
     }
     
+    public func post(url: URL, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
+        return self.url(url).post(closure: closure)
+    }
+    
     public func post<T: Decodable>(model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return self.method(.POST).json(model: T.self, closure: closure)
     }
     
     public func post<T: Decodable>(url: String, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
+        return self.url(url).post(model: T.self, closure: closure)
+    }
+    
+    public func post<T: Decodable>(url: URL, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return self.url(url).post(model: T.self, closure: closure)
     }
     
@@ -187,7 +211,16 @@ public class OARequest {
     
     @discardableResult
     private func url(_ url: String) -> Self {
-        guard let urlComponents = URLComponents(string: url) else {
+        if let url = URL(string: url) {
+            return self.url(url)
+        } else {
+            return self
+        }
+    }
+    
+    @discardableResult
+    private func url(_ url: URL) -> Self {
+        guard let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             self.urlComponents = nil
             return self
         }
@@ -252,6 +285,7 @@ public class OARequest {
         if !params.isEmpty {
             self.urlComponents?.queryItems = params
         }
+
         guard let url = self.urlComponents?.url else {
             return failure(0, "網址錯誤")
         }
@@ -344,20 +378,36 @@ public class OARequest {
     public static func progress(_ progress: @escaping((Float) -> Void)) -> OARequest {
         return OARequest().progress(progress)
     }
-
+    
     public static func get(url: String, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
         return OARequest().get(url: url, closure: closure)
     }
-
+    
+    public static func get(url: URL, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
+        return OARequest().get(url: url, closure: closure)
+    }
+    
     public static func get<T: Decodable>(url: String, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return OARequest().get(url: url, model: T.self, closure: closure)
     }
-
+    
+    public static func get<T: Decodable>(url: URL, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
+        return OARequest().get(url: url, model: T.self, closure: closure)
+    }
+    
     public static func post(url: String, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
         return OARequest().post(url: url, closure: closure)
     }
-
+    
+    public static func post(url: URL, closure: @escaping((OARequestStatus<Any>) -> Void)) -> Void {
+        return OARequest().post(url: url, closure: closure)
+    }
+    
     public static func post<T: Decodable>(url: String, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
+        return OARequest().post(url: url, model: T.self, closure: closure)
+    }
+    
+    public static func post<T: Decodable>(url: URL, model: T.Type, closure: @escaping((OARequestStatus<T>) -> Void)) -> Void {
         return OARequest().post(url: url, model: T.self, closure: closure)
     }
 }
