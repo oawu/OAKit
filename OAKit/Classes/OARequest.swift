@@ -316,8 +316,10 @@ public class OARequest {
         }
 
         session.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                return failure(0, error!.localizedDescription)
+            if let error = error {
+                return error.localizedDescription == "The Internet connection appears to be offline."
+                    ? failure(0, "網路連線失敗")
+                    : failure(0, error.localizedDescription)
             }
 
             guard let httpResponse = response as? HTTPURLResponse else {
