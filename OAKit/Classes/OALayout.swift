@@ -214,7 +214,7 @@ public class OALayout {
     public func gEq(_ goal: Any? = nil) -> Self {
         return self.greaterThanOrEqual(goal)
     }
-    public func lEq(_ goal: Any?) -> Self {
+    public func lEq(_ goal: Any? = nil) -> Self {
         return self.lessThanOrEqual(goal)
     }
 
