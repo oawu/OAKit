@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0EB12428234333290016F4D3 /* ModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB12427234333290016F4D3 /* ModelViewController.swift */; };
+		0EB12428234333290016F4D3 /* StorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB12427234333290016F4D3 /* StorageViewController.swift */; };
 		0EB1242A234335E60016F4D3 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB12429234335E60016F4D3 /* MainController.swift */; };
 		0EB1242C234353B40016F4D3 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB1242B234353B40016F4D3 /* TimerViewController.swift */; };
 		0ED7F1BC23D596570028C062 /* RequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED7F1BB23D596570028C062 /* RequestViewController.swift */; };
@@ -32,7 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0EB12427234333290016F4D3 /* ModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewController.swift; sourceTree = "<group>"; };
+		0EB12427234333290016F4D3 /* StorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageViewController.swift; sourceTree = "<group>"; };
 		0EB12429234335E60016F4D3 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		0EB1242B234353B40016F4D3 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		0ED7F1BB23D596570028C062 /* RequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewController.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				0EE6B90C232924B50079E143 /* ViewController.swift */,
 				0EB12429234335E60016F4D3 /* MainController.swift */,
-				0EB12427234333290016F4D3 /* ModelViewController.swift */,
+				0EB12427234333290016F4D3 /* StorageViewController.swift */,
 				0ED7F1BB23D596570028C062 /* RequestViewController.swift */,
 				0EB1242B234353B40016F4D3 /* TimerViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -354,7 +354,7 @@
 				0EE6B90D232924B50079E143 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				0ED7F1BC23D596570028C062 /* RequestViewController.swift in Sources */,
-				0EB12428234333290016F4D3 /* ModelViewController.swift in Sources */,
+				0EB12428234333290016F4D3 /* StorageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

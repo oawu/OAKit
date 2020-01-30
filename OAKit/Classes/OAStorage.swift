@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class OAModel<T> {
+open class OAStorage<T> {
     public class var key: String {
         return String(describing: self)
     }

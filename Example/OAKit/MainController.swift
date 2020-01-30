@@ -10,7 +10,7 @@ import UIKit
 
 class MainController: UITableViewController {
     private let samples: [Sample] = [
-        Sample(title: "Model Sample", vc: ModelViewController()),
+        Sample(title: "Storage Sample", vc: StorageViewController()),
         Sample(title: "Timer Sample", vc: TimerViewController()),
         Sample(title: "Request Sample", vc: RequestViewController(style: .plain)),
     ]
