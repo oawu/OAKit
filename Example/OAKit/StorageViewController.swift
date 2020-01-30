@@ -9,8 +9,8 @@
 import UIKit
 import OAKit
 
-class BookStorage: OAStorage<String> {
-
+struct BookStorage: OAStorable {
+    var title: String
 }
 
 class StorageViewController: UIViewController {
@@ -27,91 +27,51 @@ class StorageViewController: UIViewController {
         scroll.to(self.view).right().enable()
         scroll.to(self.view).bottom().enable()
         
-        BookStorage.destroy()
+        OAStorage.truncate(model: BookStorage.self)
         
         let texts: [Step] = [
-            Step(title: "Storage Key", text: "BookStorage.key") {
-                return "\"" + BookStorage.key + "\""
+            Step(title: "清空", text: "OAStorage.truncate(model: BookStorage.self)") {
+                OAStorage.truncate(model: BookStorage.self) ? "true" : "false"
             },
-            Step(title: "單值"),
-            Step(title: "清空", text: "BookStorage.destroy()") {
-                return BookStorage.destroy() ? "true" : "false"
+            Step(title: "原型"),
+            Step(title: "寫入", text: "OAStorage.set(models: [BookStorage(title: \"ABC\")])") {
+                OAStorage.set(models: [BookStorage(title: "ABC")]) ? "true" : "false"
             },
-            Step(title: "讀取", text: "BookStorage.get()") {
-                guard let val = BookStorage.get() else { return "nil" }
-                return "\"" + val + "\""
+            Step(title: "讀取", text: "OAStorage.get(models: BookStorage.self).first?.title") {
+                "\(OAStorage.get(model: BookStorage.self).first?.title ?? "nil")"
             },
-            Step(title: "預設值讀取", text: "BookStorage.get(default: \"OB\")") {
-                return "\"" + BookStorage.get(default: "OB") + "\""
+            Step(title: "應用"),
+            Step(title: "新增", text: "OAStorage.create(model: BookStorage(title: \"Apple\"))") {
+                OAStorage.create(model: BookStorage(title: "Apple")) ? "true" : "false"
             },
-            Step(title: "寫入", text: "BookStorage.set(\"OA\")") {
-                return BookStorage.set("OA") ? "true" : "false"
+            Step(title: "數量", text: "OAStorage.all(model: BookStorage.self).count") {
+                "\(OAStorage.all(model: BookStorage.self).count)"
             },
-            Step(title: "讀取", text: "BookStorage.get()") {
-                guard let val = BookStorage.get() else { return "nil" }
-                return "\"" + val + "\""
+            Step(title: "取出", text: "OAStorage.all(model: BookStorage.self).first?.title") {
+                "\(OAStorage.all(model: BookStorage.self).first?.title ?? "nil")"
             },
-            Step(title: "預設值取值", text: "BookStorage.get(default: \"OB\")") {
-                return "\"" + BookStorage.get(default: "OB") + "\""
+            Step(title: "單取", text: "OAStorage.one(model: BookStorage.self)?.title") {
+                "\(OAStorage.one(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "陣列"),
-            Step(title: "清空", text: "BookStorage.deleteAll()") {
-                return BookStorage.deleteAll() ? "true" : "false"
+            Step(title: "第一筆", text: "OAStorage.first(model: BookStorage.self)?.title") {
+                "\(OAStorage.first(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "讀取", text: "BookStorage.all()") {
-                return "[" + BookStorage.all().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
+            Step(title: "最後筆", text: "OAStorage.last(model: BookStorage.self)?.title") {
+                "\(OAStorage.last(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "新增", text: "BookStorage.push(\"OA\")") {
-                return BookStorage.push("OA") ? "true" : "false"
+            Step(title: "其他"),
+            Step(title: "POP 第 1 次", text: "OAStorage.pop(model: BookStorage.self)?.title") {
+                "\(OAStorage.pop(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "再次新增", text: "BookStorage.push(\"OB\")") {
-                return BookStorage.push("OB") ? "true" : "false"
+            Step(title: "POP 第 2 次", text: "OAStorage.pop(model: BookStorage.self)?.title") {
+                "\(OAStorage.pop(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "讀取", text: "BookStorage.all()") {
-                return "[" + BookStorage.all().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
+            Step(title: "POP 第 3 次", text: "OAStorage.pop(model: BookStorage.self)?.title") {
+                "\(OAStorage.pop(model: BookStorage.self)?.title ?? "nil")"
             },
-            Step(title: "寫入", text: "BookStorage.setArray([\"OA\", \"OB\", \"OC\", \"OD\", \"OE\"])") {
-                return BookStorage.setArray(["OA", "OB", "OC", "OD", "OE"]) ? "true" : "false"
-            },
-            Step(title: "讀取", text: "BookStorage.getArray()") {
-                return "[" + BookStorage.getArray().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "POP limit", text: "BookStorage.pops(limit: 2)") {
-                return "[" + BookStorage.pops(limit: 2).compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "讀取", text: "BookStorage.getArray()") {
-                return "[" + BookStorage.getArray().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "POP one", text: "BookStorage.pop()") {
-                guard let val = BookStorage.pop() else { return "nil" }
-                return "\"" + val + "\""
-            },
-            Step(title: "讀取", text: "BookStorage.getArray()") {
-                return "[" + BookStorage.getArray().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "POP all", text: "BookStorage.pops()") {
-                return "[" + BookStorage.pops(limit: 2).compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "讀取", text: "BookStorage.getArray()") {
-                return "[" + BookStorage.getArray().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "陣列功能"),
-            Step(title: "清空", text: "BookStorage.setArray([])") {
-                return BookStorage.setArray([]) ? "true" : "false"
-            },
-            Step(title: "讀取", text: "BookStorage.getArray()") {
-                return "[" + BookStorage.getArray().compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "POP limit", text: "BookStorage.pops(limit: 2)") {
-                return "[" + BookStorage.pops(limit: 2).compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
-            Step(title: "POP one", text: "BookStorage.pop()") {
-                guard let val = BookStorage.pop() else { return "nil" }
-                return "\"" + val + "\""
-            },
-            Step(title: "POP all", text: "BookStorage.pops()") {
-                return "[" + BookStorage.pops(limit: 2).compactMap { "\"" + $0 + "\"" }.joined(separator: ", ") + "]"
-            },
+            Step(title: "數量", text: "OAStorage.all(model: BookStorage.self).count") {
+                "\(OAStorage.all(model: BookStorage.self).count)"
+            }
         ]
         
         var tmp: UIView?

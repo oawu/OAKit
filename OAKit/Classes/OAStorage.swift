@@ -7,83 +7,73 @@
 
 import Foundation
 
-open class OAStorage<T> {
-    public class var key: String {
-        return String(describing: self)
-    }
-    
+public protocol OAStorable: Codable {
+}
+
+public class OAStorage {
     @discardableResult
-    public class func set(_ val: T) -> Bool {
-        UserDefaults.standard.set(val, forKey: self.key)
+    public static func set<T: OAStorable>(models: [T]) -> Bool {
+        let strs = models.compactMap { try? JSONEncoder().encode($0) }.compactMap { String(data: $0, encoding: .utf8) }.joined(separator: ",")
+        UserDefaults.standard.set("[\(strs)]", forKey: String(describing: T.self))
         return true
     }
-    
+
     @discardableResult
-    public class func destroy() -> Bool {
-        UserDefaults.standard.removeObject(forKey: self.key)
-        return true
-    }
-    
-    public class func get() -> T? {
-        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? T else {
-            return nil
-        }
-        return val
-    }
-    
-    public class func get(default: T) -> T {
-        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? T else {
-            return `default`
-        }
-        return val
-    }
-    
-    @discardableResult
-    public class func setArray(_ val: [T]) -> Bool {
-        UserDefaults.standard.set(val, forKey: self.key)
-        return true
-    }
-    
-    public class func getArray(default: [T] = []) -> [T] {
-        guard let val？ = UserDefaults.standard.object(forKey: self.key), let val = val？ as? [T] else {
-            return `default`
-        }
-        return val
-    }
-    
-    @discardableResult
-    public class func deleteAll() -> Bool {
-        return self.setArray([])
-    }
-    
-    @discardableResult
-    public class func push(_ val: T) -> Bool {
-        var vals: [T] = self.getArray()
-        vals.append(val)
-        return self.setArray(vals)
-    }
-    
-    public class func all() -> [T] {
-        return self.getArray()
-    }
-    
-    public class func pops(limit: Int = -1) -> [T] {
-        let vars = self.getArray()
-        
-        guard limit >= 0, vars.count >= limit else {
-            self.setArray([])
-            return vars
+    public static func get<T: OAStorable>(model: T.Type) -> [T] {
+        guard let str = UserDefaults.standard.string(forKey: String(describing: T.self)), let data = str.data(using: .utf8), let objs = try? JSONDecoder().decode([T].self, from:data) else {
+            return []
         }
         
-        self.setArray(Array(vars[limit ..< vars.count]))
-        return Array(vars[0 ..< limit])
+        return objs
     }
     
-    public class func pop() -> T? {
-        let vars = self.pops(limit: 1)
-        guard vars.count > 0 else {
-            return nil
+    @discardableResult
+    public static func create<T: OAStorable>(model: T) -> Bool {
+        var models = self.all(model: T.self)
+        
+        if models.isEmpty {
+            return self.set(models: [model])
         }
-        return vars.first
+        models.append(model)
+        return self.set(models: models)
+    }
+    
+    @discardableResult
+    public static func truncate<T: OAStorable>(model: T.Type) -> Bool {
+        let empty: [T] = []
+        return self.set(models: empty)
+    }
+
+    @discardableResult
+    public static func all<T: OAStorable>(model: T.Type) -> [T] {
+        return self.get(model: model)
+    }
+    
+    @discardableResult
+    public static func count<T: OAStorable>(model: T.Type) -> Int {
+        return self.get(model: model).count
+    }
+    
+    @discardableResult
+    public static func one<T: OAStorable>(model: T.Type) -> T? {
+        return self.first(model: model)
+    }
+    
+    @discardableResult
+    public static func first<T: OAStorable>(model: T.Type) -> T? {
+        return self.all(model: model).first
+    }
+    
+    @discardableResult
+    public static func last<T: OAStorable>(model: T.Type) -> T? {
+        return self.all(model: model).last
+    }
+    
+    @discardableResult
+    public static func pop<T: OAStorable>(model: T.Type) -> T? {
+        var models = self.all(model: model)
+        let model = models.popLast()
+        guard self.set(models: models) else { return nil }
+        return model
     }
 }
