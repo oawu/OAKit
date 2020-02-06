@@ -54,3 +54,18 @@ public func arr22D(arr: [Any]!, unit: Int) -> [[Any]]! {
     }
     return anys;
 }
+
+public func randomString(count: Int = 32) -> String {
+    let allowed  = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let maxCount = allowed.count
+    var output   = ""
+
+    for _ in 0 ..< count {
+        let r = Int(arc4random_uniform(UInt32(maxCount)))
+        let randomIndex = allowed.index(allowed.startIndex, offsetBy: r)
+
+        output += String(allowed[randomIndex])
+    }
+
+    return output
+}

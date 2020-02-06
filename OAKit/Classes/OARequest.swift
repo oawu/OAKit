@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 public enum OARequestStatus<T> {
     case success(T)
     case failure(UInt16, String)
@@ -122,7 +123,7 @@ public class OARequest {
 
     public func file(key: String, data: Data, mimeType: String) -> Self {
         guard !key.isEmpty else { return self }
-        self.datass.append(.file(key, data, "\(arc4random())", mimeType))
+        self.datass.append(.file(key, data, "\(randomString(count: 10))", mimeType))
         return self
     }
     
@@ -227,21 +228,6 @@ public class OARequest {
         return self
     }
     
-    private func createBoundary(count: Int = 32) -> String {
-        let allowed  = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let maxCount = allowed.count
-        var output   = ""
-
-        for _ in 0 ..< count {
-            let r = Int(arc4random_uniform(UInt32(maxCount)))
-            let randomIndex = allowed.index(allowed.startIndex, offsetBy: r)
-
-            output += String(allowed[randomIndex])
-        }
-
-        return output
-    }
-    
     private func genFormData() -> Data {
         let files = self.datass.compactMap { $0.fileKeyData }
         let datas = self.datass.compactMap { $0.dataKeyVal }
@@ -250,7 +236,7 @@ public class OARequest {
             return datas.isEmpty ? Data() : datas.map { $0 + "=" + $1 }.joined(separator: "&").data(using: .utf8) ?? Data()
         }
 
-        let boundary = "--" + self.createBoundary()
+        let boundary = "--" + randomString()
         
         self.header(key: "Content-Type", value: "multipart/form-data; boundary=\(boundary)")
 
