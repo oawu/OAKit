@@ -109,30 +109,35 @@ public class OARequest {
         return self
     }
     
+    @discardableResult
     public func param(key: String, value: String) -> Self {
         guard !key.isEmpty else { return self }
         self.datass.append(.param(key, value))
         return self
     }
     
+    @discardableResult
     public func data(key: String, value: String) -> Self {
         guard !key.isEmpty else { return self }
         self.datass.append(.data(key, value))
         return self
     }
 
+    @discardableResult
     public func file(key: String, data: Data, mimeType: String) -> Self {
         guard !key.isEmpty else { return self }
         self.datass.append(.file(key, data, "\(randomString(count: 10))", mimeType))
         return self
     }
     
+    @discardableResult
     public func file(key: String, data: Data, fileName: String, mimeType: String) -> Self {
         guard !key.isEmpty else { return self }
         self.datass.append(.file(key, data, fileName, mimeType))
         return self
     }
     
+    @discardableResult
     public func progress(_ progress: @escaping((Float) -> Void)) -> Self {
         self.progress = progress
         return self
