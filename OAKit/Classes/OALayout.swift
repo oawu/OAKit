@@ -69,6 +69,8 @@ public class OALayout {
             attribute: self.goalAttr,
             multiplier: self.multiplier,
             constant: self.constant)
+        
+        constraint.isActive = false
 
         self.parent.addConstraint(constraint)
         return constraint
