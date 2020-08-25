@@ -13,6 +13,10 @@ struct Model: Decodable {
     public let title: String
 }
 
+struct Json: Codable {
+    public let title: String
+}
+
 struct Request {
     public let title: String
 }
@@ -81,7 +85,7 @@ class RequestViewController: UITableViewController {
         OARequest(url: self.url).header(key: "Hello", value: "123").get { print($0) }
     }
     private func getSample_05() {
-        OARequest(url: self.url).param(key: "Hello", value: "123").get { print($0) }
+        OARequest(url: self.url).query(key: "Hello", value: "123").get { print($0) }
     }
     private func getSample_06() {
         OARequest(url: self.url).progress{ print($0) }.post { print($0) }
@@ -138,27 +142,36 @@ class RequestViewController: UITableViewController {
         OARequest(url: self.url).header(key: "Hello", value: "123").post { print($0) }
     }
     private func getSample_15() {
-        OARequest(url: self.url).param(key: "Hello", value: "123").post { print($0) }
+        OARequest(url: self.url).query(key: "Hello", value: "123").post { print($0) }
     }
     private func getSample_16() {
-        OARequest(url: self.url).data(key: "Hello", value: "123").post { print($0) }
+        OARequest(url: self.url).form(key: "Hello", value: "123").post { print($0) }
     }
     private func getSample_17() {
-        guard let image = UIImage(named: "image name"), let imageData = UIImageJPEGRepresentation(image, 1) else {
+        OARequest(url: self.url).raw(text: "Hello").post { print($0) }
+    }
+    private func getSample_18() {
+        OARequest(url: self.url).raw(object: Json(title: "Hello")).post { print($0) }
+    }
+    private func getSample_19() {
+        OARequest(url: self.url).raw(objects: [Json(title: "Hello")]).post { print($0) }
+    }
+    private func getSample_20() {
+        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
             return
         }
 
         OARequest(url: self.url).file(key: "pic", data: imageData, mimeType: "image/jpg").post { print($0) }
     }
-    private func getSample_18() {
-        guard let image = UIImage(named: "image name"), let imageData = UIImageJPEGRepresentation(image, 1) else {
+    private func getSample_21() {
+        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
             return
         }
 
         OARequest(url: self.url).file(key: "pic", data: imageData, fileName: "pic", mimeType: "image/jpg").post { print($0) }
     }
-    private func getSample_19() {
-        guard let image = UIImage(named: "image name"), let imageData = UIImageJPEGRepresentation(image, 1) else {
+    private func getSample_22() {
+        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
             return
         }
 
@@ -182,10 +195,16 @@ class RequestViewController: UITableViewController {
         case [1, 4]: return self.getSample_14()
         case [1, 5]: return self.getSample_15()
         case [1, 6]: return self.getSample_16()
-            
+
         case [1, 7]: return self.getSample_17()
         case [1, 8]: return self.getSample_18()
         case [1, 9]: return self.getSample_19()
+            
+        
+        case [1, 10]: return self.getSample_20()
+        case [1, 11]: return self.getSample_21()
+
+        case [1, 12]: return self.getSample_22()
 
         default: break
         }
@@ -209,8 +228,12 @@ class RequestViewController: UITableViewController {
             Request(title: "return model sample 2"),
             
             Request(title: "with header"),
-            Request(title: "with param"),
-            Request(title: "with data"),
+            Request(title: "with query"),
+            Request(title: "with form"),
+            
+            Request(title: "with raw text"),
+            Request(title: "with raw json"),
+            Request(title: "with raw jsons"),
             
             Request(title: "with file sample 1"),
             Request(title: "with file sample 2"),
