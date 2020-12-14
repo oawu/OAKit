@@ -103,8 +103,9 @@ public class OARequest {
     }
 
     @discardableResult
-    public func header(key: String, value: String) -> Self {
+    public func header(key: String, value: String?) -> Self {
         guard !key.isEmpty else { return self }
+        guard let value = value else { return self }
         self.datass.append(.header(key, value))
         return self
     }
@@ -116,15 +117,17 @@ public class OARequest {
     }
 
     @discardableResult
-    public func query(key: String, value: String) -> Self {
+    public func query(key: String, value: String?) -> Self {
         guard !key.isEmpty else { return self }
+        guard let value = value else { return self }
         self.datass.append(.query(key, value))
         return self
     }
 
     @discardableResult
-    public func form(key: String, value: String) -> Self {
+    public func form(key: String, value: String?) -> Self {
         guard !key.isEmpty else { return self }
+        guard let value = value else { return self }
         self.datass.append(.form(key, value))
         return self
     }
@@ -167,15 +170,17 @@ public class OARequest {
     }
 
     @discardableResult
-    public func file(key: String, data: Data, mimeType: String) -> Self {
+    public func file(key: String, data: Data?, mimeType: String) -> Self {
         guard !key.isEmpty else { return self }
+        guard let data = data else { return self }
         self.datass.append(.file(key, data, "\(randomString(count: 10))", mimeType))
         return self
     }
 
     @discardableResult
-    public func file(key: String, data: Data, fileName: String, mimeType: String) -> Self {
+    public func file(key: String, data: Data?, fileName: String, mimeType: String) -> Self {
         guard !key.isEmpty else { return self }
+        guard let data = data else { return self }
         self.datass.append(.file(key, data, fileName, mimeType))
         return self
     }
@@ -398,15 +403,15 @@ public class OARequest {
         }.resume()
     }
 
-    public static func header(key: String, value: String) -> OARequest {
+    public static func header(key: String, value: String?) -> OARequest {
         return OARequest().header(key: key, value: value)
     }
 
-    public static func query(key: String, value: String) -> OARequest {
+    public static func query(key: String, value: String?) -> OARequest {
         return OARequest().query(key: key, value: value)
     }
 
-    public static func form(key: String, value: String) -> OARequest {
+    public static func form(key: String, value: String?) -> OARequest {
         return OARequest().form(key: key, value: value)
     }
     
@@ -433,13 +438,12 @@ public class OARequest {
     public static func form<T: Codable>(objects: [T]) -> OARequest {
         return Self.raw(objects: objects)
     }
-    
 
-    public static func file(key: String, data: Data, mimeType: String) -> OARequest {
+    public static func file(key: String, data: Data?, mimeType: String) -> OARequest {
         return OARequest().file(key: key, data: data, mimeType: mimeType)
     }
 
-    public static func file(key: String, data: Data, fileName: String, mimeType: String) -> OARequest {
+    public static func file(key: String, data: Data?, fileName: String, mimeType: String) -> OARequest {
         return OARequest().file(key: key, data: data, fileName: fileName, mimeType: mimeType)
     }
 
