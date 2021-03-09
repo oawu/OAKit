@@ -296,7 +296,7 @@ public class OARequest {
             }
 
             self.header(key: "Content-Type", value: "application/x-www-form-urlencoded")
-            return datas.map { $0.key + "=" + $0.val }.joined(separator: "&").data(using: .utf8) ?? Data()
+            return datas.map { "\($0.key)=\($0.val.replacingOccurrences(of: "+", with: "%2B"))" }.joined(separator: "&").data(using: .utf8) ?? Data()
         }
 
         let boundary = "--" + randomString()
