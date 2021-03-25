@@ -18,7 +18,7 @@ public class OATimerOnly {
         }
         return nil
     }
-    
+
     @discardableResult
     public func `repeat`(key: String, timer: TimeInterval, block: @escaping () -> Void) -> Timer? {
         return self.repeat(key: key, timer: timer) { _ in block() }
