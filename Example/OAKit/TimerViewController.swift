@@ -2,11 +2,10 @@
 //  TimerViewController.swift
 //  OAKit_Example
 //
-//  Created by 吳政賢 on 2019/10/1.
-//  Copyright © 2019 CocoaPods. All rights reserved.
+//  Created by 吳政賢 on 2021/03/25.
+//  Copyright © 2019 www.ioa.tw. All rights reserved.
 //
 
-import UIKit
 import UIKit
 
 class TimerViewController: UIViewController {

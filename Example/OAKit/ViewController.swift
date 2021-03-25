@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  OAKit
 //
-//  Created by comdan66 on 05/20/2019.
-//  Copyright (c) 2019 comdan66. All rights reserved.
+//  Created by 吳政賢 on 2021/03/25.
+//  Copyright © 2019 www.ioa.tw. All rights reserved.
 //
 
 import UIKit

@@ -8,12 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */; };
-		0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* OAFunc.swift */; };
-		0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD272292A52800DEA262 /* OAImageView.swift */; };
-		0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* OATimer.swift */; };
-		0E81E83B23D6120700739960 /* OARequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E81E83A23D6120700739960 /* OARequest.swift */; };
-		0EE6B9092328DA1A0079E143 /* OAStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE6B9082328DA1A0079E143 /* OAStorage.swift */; };
-		0EE946B223D6CA8B00D73E0A /* OALayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE946B123D6CA8B00D73E0A /* OALayout.swift */; };
+		0E04DD282292A52800DEA262 /* Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* Func.swift */; };
+		0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* Extension.swift */; };
+		0EE946B223D6CA8B00D73E0A /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE946B123D6CA8B00D73E0A /* Core.swift */; };
 		2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
 		2F7506E3BD325EE24EBA8D2F333E5CE4 /* Pods-OAKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3CC64B3FFE8B7B9DF597173FD8ECCFE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -45,12 +42,9 @@
 		03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
 		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
-		0E04DD252292A52800DEA262 /* OAFunc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAFunc.swift; path = OAKit/Classes/OAFunc.swift; sourceTree = "<group>"; };
-		0E04DD272292A52800DEA262 /* OAImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAImageView.swift; path = OAKit/Classes/OAImageView.swift; sourceTree = "<group>"; };
-		0E04DD2D2292AC7200DEA262 /* OATimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OATimer.swift; path = OAKit/Classes/OATimer.swift; sourceTree = "<group>"; };
-		0E81E83A23D6120700739960 /* OARequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OARequest.swift; path = OAKit/Classes/OARequest.swift; sourceTree = "<group>"; };
-		0EE6B9082328DA1A0079E143 /* OAStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OAStorage.swift; path = OAKit/Classes/OAStorage.swift; sourceTree = "<group>"; };
-		0EE946B123D6CA8B00D73E0A /* OALayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OALayout.swift; path = OAKit/Classes/OALayout.swift; sourceTree = "<group>"; };
+		0E04DD252292A52800DEA262 /* Func.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Func.swift; path = OAKit/Classes/Func.swift; sourceTree = "<group>"; };
+		0E04DD2D2292AC7200DEA262 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = OAKit/Classes/Extension.swift; sourceTree = "<group>"; };
+		0EE946B123D6CA8B00D73E0A /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Core.swift; path = OAKit/Classes/Core.swift; sourceTree = "<group>"; };
 		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
 		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
 		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -112,12 +106,9 @@
 		082C0CC7BA45DB9974CBEF7963EBC9D2 /* OAKit */ = {
 			isa = PBXGroup;
 			children = (
-				0E04DD272292A52800DEA262 /* OAImageView.swift */,
-				0E04DD252292A52800DEA262 /* OAFunc.swift */,
-				0EE946B123D6CA8B00D73E0A /* OALayout.swift */,
-				0E04DD2D2292AC7200DEA262 /* OATimer.swift */,
-				0E81E83A23D6120700739960 /* OARequest.swift */,
-				0EE6B9082328DA1A0079E143 /* OAStorage.swift */,
+				0E04DD252292A52800DEA262 /* Func.swift */,
+				0EE946B123D6CA8B00D73E0A /* Core.swift */,
+				0E04DD2D2292AC7200DEA262 /* Extension.swift */,
 				96631C0DFBA0476022703100A5DB7773 /* Pod */,
 				B2A3B2686353587789CD56E961E76BC5 /* Support Files */,
 			);
@@ -393,13 +384,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E04DD282292A52800DEA262 /* OAFunc.swift in Sources */,
+				0E04DD282292A52800DEA262 /* Func.swift in Sources */,
 				0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */,
-				0E81E83B23D6120700739960 /* OARequest.swift in Sources */,
-				0E04DD2E2292AC7200DEA262 /* OATimer.swift in Sources */,
-				0EE946B223D6CA8B00D73E0A /* OALayout.swift in Sources */,
-				0EE6B9092328DA1A0079E143 /* OAStorage.swift in Sources */,
-				0E04DD2A2292A52800DEA262 /* OAImageView.swift in Sources */,
+				0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */,
+				0EE946B223D6CA8B00D73E0A /* Core.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

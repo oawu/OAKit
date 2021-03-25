@@ -2,182 +2,56 @@
 //  URLViewController.swift
 //  OAKit_Example
 //
-//  Created by 吳政賢 on 2020/1/20.
-//  Copyright © 2020 CocoaPods. All rights reserved.
+//  Created by 吳政賢 on 2021/03/25.
+//  Copyright © 2019 www.ioa.tw. All rights reserved.
 //
 
 import UIKit
 import OAKit
 
-struct Model: Decodable {
-    public let title: String
-}
-
-struct Json: Codable {
-    public let title: String
-}
-
-struct Request {
-    public let title: String
-}
-
-class RequestCell: UITableViewCell {
-    @discardableResult
-    public func fetchUI(data: Request) -> Self {
-        self.textLabel?.text = data.title
-        self.accessoryType = .disclosureIndicator
-        return self
-    }
-}
-
 class RequestViewController: UITableViewController {
+    struct Model: Decodable {
+        public let title: String
+    }
+
+    struct Raw: Encodable {
+        public let title: String
+    }
+    
+    struct Request {
+        public let title: String
+    }
+    
+    class Cell: UITableViewCell {
+        @discardableResult
+        public func fetchUI(data: Request) -> Self {
+            self.textLabel?.text = data.title
+            self.accessoryType = .disclosureIndicator
+            return self
+        }
+    }
+    
     private let url = ""
-    
-    private func getSample_00() {
-        OARequest(url: self.url).get { result in
-            switch result {
-            case .success(let json):
-                print(json)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_01() {
-        OARequest.get(url: self.url) { result in
-            switch result {
-            case .success(let json):
-                print(json)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_02() {
-        OARequest(url: self.url).get(model: Model.self) { result in
-            switch result {
-            case .success(let model):
-                print(model.title)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_03() {
-        OARequest.get(url: self.url, model: Model.self) { result in
-            switch result {
-            case .success(let model):
-                print(model.title)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_04() {
-        OARequest(url: self.url).header(key: "Hello", value: "123").get { print($0) }
-    }
-    private func getSample_05() {
-        OARequest(url: self.url).query(key: "Hello", value: "123").get { print($0) }
-    }
-    private func getSample_06() {
-        OARequest(url: self.url).progress{ print($0) }.post { print($0) }
-    }
-    private func getSample_10() {
-        OARequest(url: self.url).post { result in
-            switch result {
-            case .success(let json):
-                print(json)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_11() {
-        OARequest.post(url: self.url) { result in
-            switch result {
-            case .success(let json):
-                print(json)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_12() {
-        OARequest(url: self.url).post(model: Model.self) { result in
-            switch result {
-            case .success(let model):
-                print(model.title)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_13() {
-        OARequest.post(url: self.url, model: Model.self) { result in
-            switch result {
-            case .success(let model):
-                print(model.title)
-                break
-            case .failure(let code, let msg):
-                print(code, msg)
-                break
-            }
-        }
-    }
-    private func getSample_14() {
-        OARequest(url: self.url).header(key: "Hello", value: "123").post { print($0) }
-    }
-    private func getSample_15() {
-        OARequest(url: self.url).query(key: "Hello", value: "123").post { print($0) }
-    }
-    private func getSample_16() {
-        OARequest(url: self.url).form(key: "Hello", value: "123").post { print($0) }
-    }
-    private func getSample_17() {
-        OARequest(url: self.url).raw(text: "Hello").post { print($0) }
-    }
-    private func getSample_18() {
-        OARequest(url: self.url).raw(object: Json(title: "Hello")).post { print($0) }
-    }
-    private func getSample_19() {
-        OARequest(url: self.url).raw(objects: [Json(title: "Hello")]).post { print($0) }
-    }
-    private func getSample_20() {
-        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
-            return
-        }
+    private let samples: [[Request]] = [[
+        Request(title: "Get"),
+        Request(title: "Fail"),
+        Request(title: "Response Decodable"),
+        Request(title: "Post file、header、query、form、progress"),
+        
+        Request(title: "Put raw text"),
+        Request(title: "Put raw Encodable Object"),
+        Request(title: "Put raw Encodable Objects"),
+    ]]
 
-        OARequest(url: self.url).file(key: "pic", data: imageData, mimeType: "image/jpg").post { print($0) }
-    }
-    private func getSample_21() {
-        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
-            return
-        }
-
-        OARequest(url: self.url).file(key: "pic", data: imageData, fileName: "pic", mimeType: "image/jpg").post { print($0) }
-    }
-    private func getSample_22() {
-        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else {
-            return
-        }
-
-        OARequest(url: self.url).file(key: "pic", data: imageData, mimeType: "image/jpg").progress{ print($0) }.post { print($0) }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.tableView.register(Cell.self, forCellReuseIdentifier: "Request.Cell")
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int { self.samples.count }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { self.samples[section].count }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { ((tableView.dequeueReusableCell(withIdentifier: "Request.Cell") as? Cell) ?? Cell(style: .default, reuseIdentifier: "RequestCell")).fetchUI(data: self.samples[indexPath.section][indexPath.row]) }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { section == 1 ? "Sample" : "Other Sample" }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath {
         case [0, 0]: return self.getSample_00()
@@ -186,89 +60,62 @@ class RequestViewController: UITableViewController {
         case [0, 3]: return self.getSample_03()
         case [0, 4]: return self.getSample_04()
         case [0, 5]: return self.getSample_05()
-            
-        case [1, 0]: return self.getSample_10()
-        case [1, 1]: return self.getSample_11()
-        case [1, 2]: return self.getSample_12()
-        case [1, 3]: return self.getSample_13()
-            
-        case [1, 4]: return self.getSample_14()
-        case [1, 5]: return self.getSample_15()
-        case [1, 6]: return self.getSample_16()
-
-        case [1, 7]: return self.getSample_17()
-        case [1, 8]: return self.getSample_18()
-        case [1, 9]: return self.getSample_19()
-            
-        
-        case [1, 10]: return self.getSample_20()
-        case [1, 11]: return self.getSample_21()
-
-        case [1, 12]: return self.getSample_22()
-
+        case [0, 6]: return self.getSample_06()
         default: break
         }
     }
     
-    private let samples: [[Request]] = [
-        [
-            Request(title: "return json sample 1"),
-            Request(title: "return json sample 2"),
-            Request(title: "return model sample 1"),
-            Request(title: "return model sample 2"),
-            
-            Request(title: "with header"),
-            Request(title: "with param"),
-        ],
-
-        [
-            Request(title: "return json sample 1"),
-            Request(title: "return json sample 2"),
-            Request(title: "return model sample 1"),
-            Request(title: "return model sample 2"),
-            
-            Request(title: "with header"),
-            Request(title: "with query"),
-            Request(title: "with form"),
-            
-            Request(title: "with raw text"),
-            Request(title: "with raw json"),
-            Request(title: "with raw jsons"),
-            
-            Request(title: "with file sample 1"),
-            Request(title: "with file sample 2"),
-
-            Request(title: "with progress"),
-        ]
-    ]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.tableView.register(RequestCell.self, forCellReuseIdentifier: "RequestCell")
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        self.samples.count
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.samples[section].count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell") as? RequestCell else {
-            return RequestCell(style: .default, reuseIdentifier: "RequestCell").fetchUI(data: self.samples[indexPath.section][indexPath.row])
+    private func getSample_00() {
+        OA.Request(url: self.url).get { data in
+            print(data)
         }
-        return cell.fetchUI(data: self.samples[indexPath.section][indexPath.row])
     }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 1:
-            return "GET Sample"
-        default:
-            return "POST Sample"
+    private func getSample_01() {
+        OA.Request(url: self.url).fail { code, message, response in
+            print(code, message, response ?? "")
+        }.get { result in
+            print(result)
         }
+    }
+    private func getSample_02() {
+        OA.Request(url: self.url).get { (model: Model) in
+            print(model)
+        }
+    }
+    private func getSample_03() {
+        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else { return }
+
+        OA.Request(url: self.url)
+            .header(key: "UserAgent", val: "La La La")
+            .query(key: "a", val: "+-*/")
+            .form(key: "a", val: "+-*/")
+            .file(key: "pic", mime: "image/jpg", data: imageData, name: "filename")
+            .progress { percent in
+                print(percent)
+            }
+            .post { data in
+                print(data)
+            }
+    }
+    private func getSample_04() {
+        OA.Request(url: self.url)
+            .raw(text: "test")
+            .put { data in
+                print(data)
+            }
+    }
+    private func getSample_05() {
+        OA.Request(url: self.url)
+            .raw(object: Raw(title: "test"))
+            .put { data in
+                print(data)
+            }
+    }
+    private func getSample_06() {
+        OA.Request(url: self.url)
+            .raw(objects: [Raw(title: "test1"), Raw(title: "test2")])
+            .put { data in
+                print(data)
+            }
     }
 }
