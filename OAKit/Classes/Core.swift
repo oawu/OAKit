@@ -411,7 +411,12 @@ public extension OA {
             self.join()
             let constraint = NSLayoutConstraint(item: self.child, attribute: childAttr, relatedBy: self.relation, toItem: self.goal, attribute: self.goalAttr, multiplier: self.multiplier, constant: self.constant)
 
-            self.parent.addConstraint(constraint)
+            if let goal = self.goal as? UIView {
+                goal.addConstraint(constraint)
+            } else {
+                self.parent.addConstraint(constraint)
+            }
+            
             constraint.isActive = isActive
             return constraint
         }
