@@ -373,6 +373,7 @@ public extension OA {
     class Layout {
         private let parent: UIView
         private let child: UIView
+        private let view: UIView
         private var goal: Any? = nil
         
         private var multiplier: CGFloat = 1
@@ -382,10 +383,11 @@ public extension OA {
         private var goalAttr: NSLayoutConstraint.Attribute = .notAnAttribute
         private var relation: NSLayoutConstraint.Relation = .equal
         
-        public init(parent: UIView, child: UIView) {
+        public init(parent: UIView, child: UIView, for view: UIView? = nil) {
             self.parent = parent
             self.child = child
             self.goal = parent
+            self.view = view ?? parent
         }
         
         public func multiplier(_ multiplier: CGFloat = 1) -> Self {
@@ -411,11 +413,7 @@ public extension OA {
             self.join()
             let constraint = NSLayoutConstraint(item: self.child, attribute: childAttr, relatedBy: self.relation, toItem: self.goal, attribute: self.goalAttr, multiplier: self.multiplier, constant: self.constant)
 
-            if let goal = self.goal as? UIView {
-                goal.addConstraint(constraint)
-            } else {
-                self.parent.addConstraint(constraint)
-            }
+            self.view.addConstraint(constraint)
             
             constraint.isActive = isActive
             return constraint
