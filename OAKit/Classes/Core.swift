@@ -122,7 +122,7 @@ public extension OA {
         private var params: [Param] = []
         private var isJson: Bool = true
         private var isCache: Bool = false
-        private var fail: ((UInt16, String, String?) -> ())? = nil
+        private var fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil
         private var progress: ((Float) -> ())? = nil
 
         public init() {}
@@ -156,7 +156,7 @@ public extension OA {
             return self
         }
 
-        @discardableResult public func set(fail: @escaping (UInt16, String, String?) -> ()) -> Self {
+        @discardableResult public func set(fail: @escaping (UInt16, String, String?, [String: [String]]?) -> ()) -> Self {
             self.fail = fail
             return self
         }
@@ -187,22 +187,37 @@ public extension OA {
         @discardableResult public func raw(text: String) -> Self { self.append(param: .rawText(text)) }
         @discardableResult public func raw<T: Encodable>(object: T) -> Self { self.append(param: .rawJsons("\([object].compactMap { try? JSONEncoder().encode($0) }.compactMap { String(data: $0, encoding: .utf8) }.joined(separator: ""))")) }
         @discardableResult public func raw<T: Encodable>(objects: [T]) -> Self { self.append(param: .rawJsons("[\(objects.compactMap { try? JSONEncoder().encode($0) }.compactMap { String(data: $0, encoding: .utf8) }.joined(separator: ","))]")) }
-        @discardableResult public func fail(fail: @escaping (UInt16, String, String?) -> ()) -> Self { self.set(fail: fail) }
+        @discardableResult public func fail(fail: @escaping (UInt16, String, String?, [String: [String]]?) -> ()) -> Self { self.set(fail: fail) }
+        @discardableResult public func fail(fail: @escaping (UInt16, String, String?) -> ()) -> Self { self.set(fail: { c, m, d,_ in fail(c, m, d) }) }
+        @discardableResult public func fail(fail: @escaping (UInt16, String) -> ()) -> Self { self.set(fail: { c, m, _,_ in fail(c, m) }) }
+        @discardableResult
+        public func fail<E: Decodable>(fail: @escaping (E, UInt16, String, String?, [String: [String]]?) -> ()) -> Self {
+            self.fail { code, message, detail, json in
+                guard let json = json, let data = try? JSONSerialization.data(withJSONObject: json as Any) else { return }
+                do { return fail(try JSONDecoder().decode(E.self, from: data), code, message, detail, json) } catch { }
+            }
+        }
+        
+        @discardableResult public func fail<E: Decodable>(fail: @escaping (E, UInt16, String, String?) -> ()) -> Self { self.fail { (e: E, c, d, m, _) in fail(e, c, d, m) } }
+        @discardableResult public func fail<E: Decodable>(fail: @escaping (E, UInt16, String) -> ()) -> Self { self.fail { (e: E, c, d, _, _) in fail(e, c, d) } }
+        @discardableResult public func fail<E: Decodable>(fail: @escaping (E, UInt16) -> ()) -> Self { self.fail { (e: E, c, _, _, _) in fail(e, c) } }
+        @discardableResult public func fail<E: Decodable>(fail: @escaping (E) -> ()) -> Self { self.fail { (e: E, _, _, _, _) in fail(e) } }
+
         @discardableResult public func progress(progress: @escaping (Float) -> ()) -> Self { self.set(progress: progress) }
         
         private static func decodable<T: Decodable>(request: OA.Request, data: Any, callback: @escaping (T) -> ()) {
             do {
                 return callback(try JSONDecoder().decode(T.self, from: try JSONSerialization.data(withJSONObject: data)))
             } catch DecodingError.keyNotFound(let key, let context) {
-                return request.fail?(200, "無法找到 \(key) 這個 Key 的值，錯誤原因：\(context.debugDescription)", "\(data)") ?? ()
+                return request.fail?(200, "無法找到 \(key) 這個 Key 的值，錯誤原因：\(context.debugDescription)", "\(data)", ["messages": ["context.debugDescription"]]) ?? ()
             } catch DecodingError.valueNotFound(let type, let context) {
-                return request.fail?(200, "無法找到 \(type) 這個 Type，錯誤原因：\(context.debugDescription)", "\(data)") ?? ()
+                return request.fail?(200, "無法找到 \(type) 這個 Type，錯誤原因：\(context.debugDescription)", "\(data)", ["messages": [context.debugDescription]]) ?? ()
             } catch DecodingError.typeMismatch(let type, let context) {
-                return request.fail?(200, "無法比對 \(type) 這個 Type，錯誤原因：\(context.debugDescription)", "\(data)") ?? ()
+                return request.fail?(200, "無法比對 \(type) 這個 Type，錯誤原因：\(context.debugDescription)", "\(data)", ["messages": [context.debugDescription]]) ?? ()
             } catch DecodingError.dataCorrupted(let context) {
-                return request.fail?(200, "資料格式有誤，錯誤原因：\(context.debugDescription)", "\(data)") ?? ()
+                return request.fail?(200, "資料格式有誤，錯誤原因：\(context.debugDescription)", "\(data)", ["messages": [context.debugDescription]]) ?? ()
             } catch {
-                return request.fail?(200, "執行 Decodable 發生錯誤，錯誤原因：\(error.localizedDescription)", "\(data)") ?? ()
+                return request.fail?(200, "執行 Decodable 發生錯誤，錯誤原因：\(error.localizedDescription)", "\(data)", ["messages": [error.localizedDescription]]) ?? ()
             }
         }
         
@@ -254,7 +269,7 @@ public extension OA {
         @discardableResult
         private func send(method: Method, isJson: Bool = true, callback: @escaping (Any, UInt16) -> ()) -> Self {
             guard let url？ = self.self.method(method).isJson(isJson).url, var urlComponents = URLComponents(url: url？, resolvingAgainstBaseURL: true) else {
-                self.fail?(0, "無效的 URL，其不可為 nil(1)", nil) ?? ()
+                self.fail?(0, "無效的 URL，其不可為 nil(1)", "無效的 URL，其不可為 nil(1)", ["messages": ["無效的 URL，其不可為 nil(1)"]]) ?? ()
                 return self
             }
             
@@ -268,7 +283,7 @@ public extension OA {
             }
             
             guard let url = urlComponents.url else {
-                self.fail?(0, "無效的 URL，其不可為 nil(2)", nil) ?? ()
+                self.fail?(0, "無效的 URL，其不可為 nil(2)", "無效的 URL，其不可為 nil(2)", ["messages": ["無效的 URL，其不可為 nil(2)"]]) ?? ()
                 return self
             }
 
@@ -295,17 +310,17 @@ public extension OA {
 
             session.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    return self.fail?(0, "發生錯誤，錯誤原因：\(error.localizedDescription)", nil) ?? ()
+                    return self.fail?(0, "發生錯誤，錯誤原因：\(error.localizedDescription)", error.localizedDescription, ["messages": [error.localizedDescription]]) ?? ()
                 }
 
                 guard let httpResponse = response as? HTTPURLResponse else {
-                    return self.fail?(0, "回應格式錯誤", nil) ?? ()
+                    return self.fail?(0, "回應格式錯誤", "回應格式錯誤", ["messages":["回應格式錯誤"]]) ?? ()
                 }
 
                 let code = UInt16(truncatingIfNeeded: httpResponse.statusCode)
 
                 guard let data = data else {
-                    return self.fail?(code, "資料錯誤", nil) ?? ()
+                    return self.fail?(code, "資料錯誤", "資料錯誤", ["messages":["資料錯誤"]]) ?? ()
                 }
 
                 let text = String(decoding: data, as: UTF8.self)
@@ -314,14 +329,14 @@ public extension OA {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: [])
                         guard let jsonData = json as? [String: [String]] else {
-                            return self.fail?(code, "狀態碼錯誤(2)", text) ?? ()
+                            return self.fail?(code, "狀態碼錯誤(2)", text, ["messages": ["狀態碼錯誤(2)"]]) ?? ()
                         }
                         guard let messages = jsonData["messages"] else {
-                            return self.fail?(code, "狀態碼錯誤(3)", jsonData.description) ?? ()
+                            return self.fail?(code, "狀態碼錯誤(3)", jsonData.description, jsonData) ?? ()
                         }
-                        return self.fail?(code, "狀態碼錯誤(4)，錯誤原因：\(messages.joined(separator: ", "))", jsonData.description) ?? ()
+                        return self.fail?(code, "狀態碼錯誤(4)，錯誤原因：\(messages.joined(separator: ", "))", jsonData.description, jsonData) ?? ()
                     } catch {
-                        return self.fail?(code, "狀態碼錯誤(1)，錯誤原因：\(error.localizedDescription)", text) ?? ()
+                        return self.fail?(code, "狀態碼錯誤(1)，錯誤原因：\(error.localizedDescription)", text, ["messages": [error.localizedDescription]]) ?? ()
                     }
                 }
 
@@ -330,13 +345,13 @@ public extension OA {
                 }
 
                 guard let mime = response?.mimeType, mime == "application/json" else {
-                    return self.fail?(code, "格式不是 Json(1)", text) ?? ()
+                    return self.fail?(code, "格式不是 Json(1)", text, ["messages": ["格式不是 Json(1)"]]) ?? ()
                 }
 
                 do {
                     return callback(try JSONSerialization.jsonObject(with: data, options: []), code)
                 } catch {
-                    return self.fail?(code, "格式不是 Json(2)，錯誤原因：\(error.localizedDescription)", text) ?? ()
+                    return self.fail?(code, "格式不是 Json(2)，錯誤原因：\(error.localizedDescription)", text, ["messages": [error.localizedDescription]]) ?? ()
                 }
             }.resume()
             return self
@@ -347,47 +362,196 @@ public extension OA {
         @discardableResult public func put(callback: @escaping (Any, UInt16) -> ()) -> Self { return self.send(method: .PUT, callback: callback) }
         @discardableResult public func delete(callback: @escaping (Any, UInt16) -> ()) -> Self { return self.send(method: .DELETE, callback: callback) }
         
+        @discardableResult public func get(callback: @escaping (Any) -> ()) -> Self { return self.get(callback: { data, _ in callback(data) }) }
+        @discardableResult public func post(callback: @escaping (Any) -> ()) -> Self { return self.post(callback: { data, _ in callback(data) }) }
+        @discardableResult public func put(callback: @escaping (Any) -> ()) -> Self { return self.put(callback: { data, _ in callback(data) }) }
+        @discardableResult public func delete(callback: @escaping (Any) -> ()) -> Self { return self.delete(callback: { data, _ in callback(data) }) }
+        
         @discardableResult public func get<T: Decodable>(callback: @escaping (T, UInt16) -> ()) -> Self { self.send(method: .GET, isJson: true) { data, code in Self.decodable(request: self, data: data) { callback($0, code) } } }
         @discardableResult public func post<T: Decodable>(callback: @escaping (T, UInt16) -> ()) -> Self { self.send(method: .POST, isJson: true) { data, code in Self.decodable(request: self, data: data) { callback($0, code) } } }
         @discardableResult public func put<T: Decodable>(callback: @escaping (T, UInt16) -> ()) -> Self { self.send(method: .PUT, isJson: true) { data, code in Self.decodable(request: self, data: data) { callback($0, code) } } }
         @discardableResult public func delete<T: Decodable>(callback: @escaping (T, UInt16) -> ()) -> Self { self.send(method: .DELETE, isJson: true) { data, code in Self.decodable(request: self, data: data) { callback($0, code) } } }
         
-        @discardableResult public func get(callback: @escaping (Any) -> ()) -> Self { return self.send(method: .GET) { data, _ in callback(data) } }
-        @discardableResult public func post(callback: @escaping (Any) -> ()) -> Self { return self.send(method: .POST) { data, _ in callback(data) } }
-        @discardableResult public func put(callback: @escaping (Any) -> ()) -> Self { return self.send(method: .PUT) { data, _ in callback(data) } }
-        @discardableResult public func delete(callback: @escaping (Any) -> ()) -> Self { return self.send(method: .DELETE) { data, _ in callback(data) } }
-        
-        @discardableResult public func get<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.send(method: .GET, isJson: true) { data, _ in Self.decodable(request: self, data: data, callback: callback) } }
-        @discardableResult public func post<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.send(method: .POST, isJson: true) { data, _ in Self.decodable(request: self, data: data, callback: callback) } }
-        @discardableResult public func put<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.send(method: .PUT, isJson: true) { data, _ in Self.decodable(request: self, data: data, callback: callback) } }
-        @discardableResult public func delete<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.send(method: .DELETE, isJson: true) { data, _ in Self.decodable(request: self, data: data, callback: callback) } }
+        @discardableResult public func get<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.get(callback: { (e: T, _) in callback(e) }) }
+        @discardableResult public func post<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.post(callback: { (e: T, _) in callback(e) }) }
+        @discardableResult public func put<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.put(callback: { (e: T, _) in callback(e) }) }
+        @discardableResult public func delete<T: Decodable>(callback: @escaping (T) -> ()) -> Self { self.delete(callback: { (e: T, _) in callback(e) }) }
         
         @discardableResult
-        private static func send(method: Method, isJson: Bool = true, url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, Request, UInt16) -> ()) -> Request {
+        private static func send(method: Method, isJson: Bool = true, url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, Request, UInt16) -> ()) -> Request {
             let request = Request(url: url).params(params)
             if let fail = fail { request.fail(fail: fail) }
             return request.send(method: method, isJson: isJson) { done($0, request, $1) }
         }
+        
+        @discardableResult
+        private static func send<E: Decodable>(method: Method, isJson: Bool = true, url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, Request, UInt16) -> ()) -> Request {
+            let request = Request(url: url).params(params)
+            if let fail = fail { request.fail(fail: fail) }
+            return request.send(method: method, isJson: isJson) { done($0, request, $1) }
+        }
+    
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.get(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.post(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.put(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.delete(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.get(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.post(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.put(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.delete(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        
+        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.get(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.post(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.put(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.delete(url: url, params: params, fail: fail) { a, _ in done(a) } }
+        
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }, done: done) }
+        
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }, done: done) }
 
-        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
-        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
-        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
-        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: fail) { t, _ in done(t) } }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: fail) { t, _ in done(t) } }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: fail) { t, _ in done(t) } }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: fail) { t, _ in done(t) } }
         
-        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
-        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
-        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
-        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }) { t, _ in done(t) } }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }) { t, _ in done(t) } }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }) { t, _ in done(t) } }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, d, _ in fail?(c, m, d) }) { t, _ in done(t) } }
         
-        @discardableResult public static func get(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
-        @discardableResult public static func post(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
-        @discardableResult public static func put(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
-        @discardableResult public static func delete(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
+        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }) { t, _ in done(t) } }
+        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }) { t, _ in done(t) } }
+        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }) { t, _ in done(t) } }
+        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { c, m, _, _ in fail?(c, m) }) { t, _ in done(t) } }
         
-        @discardableResult public static func get<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: fail) { data, requset, _ in Self.decodable(request: requset, data: data) { done($0) } } }
-        @discardableResult public static func post<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: fail) { data, requset, _ in Self.decodable(request: requset, data: data) { done($0) } } }
-        @discardableResult public static func put<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: fail) { data, requset, _ in Self.decodable(request: requset, data: data) { done($0) } } }
-        @discardableResult public static func delete<T: Decodable>(url: URL?, params: [Param] = [], fail: ((UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: fail) { data, requset, _ in Self.decodable(request: requset, data: data) { done($0) } } }
+        //
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: fail) { data, _, code in done(data, code) } }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }, done: done) }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }, done: done) }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }, done: done) }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }, done: done) }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }, done: done) }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }, done: done) }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }, done: done) }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }, done: done) }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }, done: done) }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }, done: done) }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }, done: done) }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }, done: done) }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }, done: done) }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }, done: done) }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }, done: done) }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any, UInt16) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }, done: done) }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: fail) { data, _, _ in done(data) } }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, _, _ in done(data) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, _, _ in done(data) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, _, _ in done(data) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, _, _ in done(data) } }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, _, _ in done(data) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, _, _ in done(data) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, _, _ in done(data) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, _, _ in done(data) } }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, _, _ in done(data) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, _, _ in done(data) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, _, _ in done(data) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, _, _ in done(data) } }
+        
+        @discardableResult public static func get<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .GET, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, _, _ in done(data) } }
+        @discardableResult public static func post<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .POST, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, _, _ in done(data) } }
+        @discardableResult public static func put<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .PUT, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, _, _ in done(data) } }
+        @discardableResult public static func delete<E: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (Any) -> ()) -> Request { Self.send(method: .DELETE, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, _, _ in done(data) } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: fail) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .GET, isJson: true, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .POST, isJson: true, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .PUT, isJson: true, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T, UInt16) -> ()) -> Request { Self.send(method: .DELETE, isJson: true, url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { data, requset, code in Self.decodable(request: requset, data: data) { done($0, code) } } }
+
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: fail) { (t: T, _) in done(t) } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: fail) { (t: T, _) in done(t) } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: fail) { (t: T, _) in done(t) } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?, [String: [String]]?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: fail) { (t: T, _) in done(t) } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String, String?) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, m, d, _) in fail?(e, c, m, d) }) { (t: T, _) in done(t) } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16, String) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, m, _, _) in fail?(e, c, m) }) { (t: T, _) in done(t) } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E, UInt16) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, c, _, _, _) in fail?(e, c) }) { (t: T, _) in done(t) } }
+        
+        @discardableResult public static func get<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.get(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func post<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.post(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func put<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.put(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { (t: T, _) in done(t) } }
+        @discardableResult public static func delete<E: Decodable, T: Decodable>(url: URL?, params: [Param] = [], fail: ((E) -> ())? = nil, done: @escaping (T) -> ()) -> Request { Self.delete(url: url, params: params, fail: { (e: E, _, _, _, _) in fail?(e) }) { (t: T, _) in done(t) } }
     }
 
     class Layout {
