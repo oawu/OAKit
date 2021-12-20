@@ -11,7 +11,7 @@ import OAKit
 
 class RequestViewController: UITableViewController {
     struct Model: Decodable {
-        public let title: String
+        let ip: String
     }
 
     struct Raw: Encodable {
@@ -22,7 +22,9 @@ class RequestViewController: UITableViewController {
         public let title: String
     }
     
-    class Cell: UITableViewCell {
+    class Cell: UITableViewCell, OA.Cell {
+        static let id: String = "Request.Cell"
+        
         @discardableResult
         public func fetchUI(data: Request) -> Self {
             self.textLabel?.text = data.title
@@ -45,14 +47,16 @@ class RequestViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(Cell.self, forCellReuseIdentifier: "Request.Cell")
+        self.tableView.reg(cell: Cell.self)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int { self.samples.count }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { self.samples[section].count }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { ((tableView.dequeueReusableCell(withIdentifier: "Request.Cell") as? Cell) ?? Cell(style: .default, reuseIdentifier: "RequestCell")).fetchUI(data: self.samples[indexPath.section][indexPath.row]) }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { tableView.gen(cell: Cell.self, indexPath: indexPath).fetchUI(data: self.samples[indexPath.section][indexPath.row]) }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { section == 1 ? "Sample" : "Other Sample" }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
         switch indexPath {
         case [0, 0]: return self.getSample_00()
         case [0, 1]: return self.getSample_01()
@@ -65,57 +69,14 @@ class RequestViewController: UITableViewController {
         }
     }
     
-    private func getSample_00() {
-        OA.Request(url: self.url).get { data in
-            print(data)
-        }
-    }
-    private func getSample_01() {
-        OA.Request(url: self.url).fail { code, message, response in
-            print(code, message, response ?? "")
-        }.get { result in
-            print(result)
-        }
-    }
-    private func getSample_02() {
-        OA.Request(url: self.url).get { (model: Model) in
-            print(model)
-        }
-    }
+    private func getSample_00() { OA.Request(url: self.url)?.get { (code: UInt16, data) in print(code, data) } }
+    private func getSample_01() { OA.Request(url: "\(self.url)abc")?.fail { (code: UInt16, messages) in print(code, messages) }.get { (code: UInt16, data) in print(code, data) } }
+    private func getSample_02() { OA.API(url: self.url)?.fail { (code: UInt16, messages) in print(code, messages) }.get { (model: Model, code: UInt16, data) in print(model, code, data) } }
     private func getSample_03() {
-        guard let image = UIImage(named: "image name"), let imageData = image.jpegData(compressionQuality: 1) else { return }
-
-        OA.Request(url: self.url)
-            .header(key: "UserAgent", val: "La La La")
-            .query(key: "a", val: "+-*/")
-            .form(key: "a", val: "+-*/")
-            .file(key: "pic", mime: "image/jpg", data: imageData, name: "filename")
-            .progress { percent in
-                print(percent)
-            }
-            .post { data in
-                print(data)
-            }
+        guard let image = UIImage(named: "demo"), let imageData = image.jpegData(compressionQuality: 1) else { return }
+        OA.Request(url: self.url)?.header(key: "UserAgent", val: "La La La").query(key: "a", val: "+-*/").form(key: "a", val: "+-*/").file(key: "pic", mime: "image/jpg", data: imageData, name: "filename").progress { print($0) }.post { print($0) }
     }
-    private func getSample_04() {
-        OA.Request(url: self.url)
-            .raw(text: "test")
-            .put { data in
-                print(data)
-            }
-    }
-    private func getSample_05() {
-        OA.Request(url: self.url)
-            .raw(object: Raw(title: "test"))
-            .put { data in
-                print(data)
-            }
-    }
-    private func getSample_06() {
-        OA.Request(url: self.url)
-            .raw(objects: [Raw(title: "test1"), Raw(title: "test2")])
-            .put { data in
-                print(data)
-            }
-    }
+    private func getSample_04() { OA.Request(url: self.url)?.raw(text: "test").put { print($0) } }
+    private func getSample_05() { OA.Request(url: self.url)?.raw(model: Raw(title: "test")).put { print($0) } }
+    private func getSample_06() { OA.Request(url: self.url)?.raw(models: [Raw(title: "test1"), Raw(title: "test2")]).put { print($0) } }
 }

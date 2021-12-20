@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OAKit
 
 class MainController: UITableViewController {
     
@@ -15,7 +16,9 @@ class MainController: UITableViewController {
         public let vc: UIViewController
     }
 
-    class Cell: UITableViewCell {
+    class Cell: UITableViewCell, OA.Cell {
+        static var id: String = "Main.Cell"
+        
         @discardableResult
         public func fetchUI(data: Sample) -> Self {
             self.textLabel?.text = data.title
@@ -33,11 +36,11 @@ class MainController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "OAKit 範例"
-        self.tableView.register(Cell.self, forCellReuseIdentifier: "Main.Cell")
+        self.tableView.reg(cell: Cell.self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int { 1 }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { self.samples.count }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { ((tableView.dequeueReusableCell(withIdentifier: "Main.Cell") as? Cell) ?? Cell(style: .default, reuseIdentifier: "Main.Cell")).fetchUI(data: self.samples[indexPath.row]) }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { tableView.gen(cell: Cell.self, indexPath: indexPath).fetchUI(data: self.samples[indexPath.row]) }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { self.navigationController?.pushViewController(self.samples[indexPath.row].vc, animated: true) }
 }
