@@ -26,28 +26,32 @@ public extension OA {
             return true
         }
 
-        public static func delay(key: String, second: TimeInterval, replace: Bool = true, repeats: Bool = false, block: @escaping () -> ()) {
+        @discardableResult public static func delay(key: String, second: TimeInterval, replace: Bool = true, repeats: Bool = false, block: @escaping () -> ()) -> Foundation.Timer {
             if let timer = Self.all[key] {
-                guard replace else { return }
+                guard replace else { return timer }
                 timer.invalidate()
-                guard Self.clean(key: key) else { return }
+                guard Self.clean(key: key) else { return timer }
             }
 
-            Self.all[key] = Foundation.Timer.scheduledTimer(withTimeInterval: second, repeats: repeats) { _ in
+            let timer: Foundation.Timer = Foundation.Timer.scheduledTimer(withTimeInterval: second, repeats: repeats) { _ in
                 if !repeats { Self.clean(key: key) }
                 block()
             }
+            Self.all[key] = timer
+            return timer
         }
 
-        public static func loop(key: String, second: TimeInterval, replace: Bool = true, block: @escaping () -> ()) {
+        @discardableResult public static func loop(key: String, second: TimeInterval, replace: Bool = true, block: @escaping () -> ()) -> Foundation.Timer {
             if let timer = Self.all[key] {
-                guard replace else { return }
+                guard replace else { return timer }
                 timer.invalidate()
-                guard Self.clean(key: key) else { return }
+                guard Self.clean(key: key) else { return timer }
             }
 
             block()
-            Self.all[key] = Foundation.Timer.scheduledTimer(withTimeInterval: second, repeats: true) { _ in block() }
+            let timer: Foundation.Timer = Foundation.Timer.scheduledTimer(withTimeInterval: second, repeats: true) { _ in block() }
+            Self.all[key] = timer
+            return timer
         }
     }
 }
