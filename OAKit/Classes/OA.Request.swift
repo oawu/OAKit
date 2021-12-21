@@ -86,8 +86,8 @@ public extension OA {
             }
         }
         public struct Error {
-            let code: UInt16
-            let messages: [String]
+            public let code: UInt16
+            public let messages: [String]
         }
 
         private let url: URL
@@ -104,11 +104,10 @@ public extension OA {
         
         private lazy var progress: ((Float) -> ())? = nil
 
-        public init?(url: URL?) {
-            guard let url = url else {
-                return nil
-            }
-            self.url = url
+        public init(url: URL) { self.url = url }
+        public convenience init?(url: URL?) {
+            guard let url = url else { return nil }
+            self.init(url: url)
         }
         public convenience init?(url: String) { self.init(url: URL(string: url)) }
         
