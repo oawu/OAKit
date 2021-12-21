@@ -106,6 +106,13 @@ extension UIView {
         return self
     }
 }
+extension Int {
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let fmt = NumberFormatter()
+        fmt.numberStyle = style
+        return fmt.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
+}
 extension UInt {
     public func format(style: NumberFormatter.Style = .decimal) -> String {
         let fmt = NumberFormatter()

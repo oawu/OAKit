@@ -11,7 +11,7 @@ import UIKit
 
 public extension OA {
     enum Func {
-        static func timeago(unixtime: UInt) -> String {
+        public static func timeago(unixtime: UInt) -> String {
             let diff = UInt(NSDate().timeIntervalSince1970) - unixtime
 
             let contitions: [[String: Any]] = [
@@ -39,7 +39,7 @@ public extension OA {
             return String(format: "%d 年前", diff / unit)
         }
         
-        static func randomString(count: Int = 32, allowed: String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") -> String {
+        public static func randomString(count: Int = 32, allowed: String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") -> String {
             let maxCount = allowed.count
             var output   = ""
 
@@ -53,7 +53,7 @@ public extension OA {
             return output
         }
 
-        static func arrTo2D(arr: [Any]!, unit: Int) -> [[Any]]! {
+        public static func arrTo2D(arr: [Any]!, unit: Int) -> [[Any]]! {
             guard let arri = arr, arri.count % unit == 0 else { return nil; }
             
             var anys:[[Any]]! = [];
