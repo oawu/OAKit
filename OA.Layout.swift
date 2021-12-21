@@ -59,7 +59,7 @@ public extension OA {
             return constraint
         }
 
-        private func tmlrxy(_ attr: NSLayoutConstraint.Attribute, constant: CGFloat? = nil) -> Self {
+        private func tblrxy(_ attr: NSLayoutConstraint.Attribute, constant: CGFloat? = nil) -> Self {
             if let constant = constant {
                 _ = self.constant(constant)
             }
@@ -96,13 +96,13 @@ public extension OA {
             return self
         }
 
-        public func top(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.top, constant: constant) }
-        public func left(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.left, constant: constant) }
-        public func right(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.right, constant: constant) }
-        public func bottom(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.bottom, constant: constant) }
-        public func centerX(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.centerX, constant: constant) }
-        public func centerY(_ constant: CGFloat? = nil) -> Self { self.tmlrxy(.centerY, constant: constant) }
-        
+        public func top(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.top, constant: constant) }
+        public func left(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.left, constant: constant) }
+        public func right(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.right, constant: constant) }
+        public func bottom(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.bottom, constant: constant) }
+        public func centerX(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.centerX, constant: constant) }
+        public func centerY(_ constant: CGFloat? = nil) -> Self { self.tblrxy(.centerY, constant: constant) }
+
         public func width(_ constant: CGFloat? = nil) -> Self { self.wh(.width, constant: constant) }
         public func height(_ constant: CGFloat? = nil) -> Self { self.wh(.height, constant: constant) }
         
