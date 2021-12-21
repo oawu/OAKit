@@ -24,15 +24,15 @@ public extension OA {
             self.afters.forEach { $0() }
         }
 
-        @discardableResult public func done(closure: @escaping (E, UInt16, Any) -> ()) -> Self {
-            self.dones.append(closure)
-            return self
-        }
         @discardableResult private func fail(code: UInt16, messages: [String]) -> Self {
             self.fails.forEach { $0(.init(code: code, messages: messages)) }
             return self
         }
 
+        @discardableResult public func done(closure: @escaping (E, UInt16, Any) -> ()) -> Self {
+            self.dones.append(closure)
+            return self
+        }
         @discardableResult public func done(closure: @escaping (E, Any, UInt16) -> ()) -> Self {
             self.dones.append { e, c, a in closure(e, a, c) }
             return self
@@ -57,6 +57,10 @@ public extension OA {
             self.dones.append { e, _, a in closure(e, a) }
             return self
         }
+        @discardableResult public func done(closure: @escaping (E, UInt16) -> ()) -> Self {
+            self.dones.append { e, c, _ in closure(e, c) }
+            return self
+        }
         @discardableResult public func done(closure: @escaping (UInt16, E) -> ()) -> Self {
             self.dones.append { e, c, _ in closure(c, e) }
             return self
@@ -69,7 +73,6 @@ public extension OA {
             self.dones.append { e, _, _ in closure(e) }
             return self
         }
-
         @discardableResult public func get(done: @escaping (E, UInt16, Any) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (E, Any, UInt16) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (UInt16, E, Any) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
@@ -77,9 +80,11 @@ public extension OA {
         @discardableResult public func get(done: @escaping (Any, E, UInt16) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (Any, UInt16, E) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (E, Any) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
+        @discardableResult public func get(done: @escaping (E, UInt16) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (UInt16, E) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (Any, E) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
         @discardableResult public func get(done: @escaping (E) -> ()) -> Self { self.method(.GET).done(closure: done).send() }
+
         @discardableResult public func post(done: @escaping (E, UInt16, Any) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (E, Any, UInt16) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (UInt16, E, Any) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
@@ -87,9 +92,11 @@ public extension OA {
         @discardableResult public func post(done: @escaping (Any, E, UInt16) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (Any, UInt16, E) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (E, Any) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
+        @discardableResult public func post(done: @escaping (E, UInt16) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (UInt16, E) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (Any, E) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
         @discardableResult public func post(done: @escaping (E) -> ()) -> Self { self.method(.POST).done(closure: done).send() }
+
         @discardableResult public func put(done: @escaping (E, UInt16, Any) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (E, Any, UInt16) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (UInt16, E, Any) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
@@ -97,9 +104,11 @@ public extension OA {
         @discardableResult public func put(done: @escaping (Any, E, UInt16) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (Any, UInt16, E) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (E, Any) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
+        @discardableResult public func put(done: @escaping (E, UInt16) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (UInt16, E) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (Any, E) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
         @discardableResult public func put(done: @escaping (E) -> ()) -> Self { self.method(.PUT).done(closure: done).send() }
+
         @discardableResult public func delete(done: @escaping (E, UInt16, Any) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (E, Any, UInt16) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (UInt16, E, Any) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
@@ -107,10 +116,11 @@ public extension OA {
         @discardableResult public func delete(done: @escaping (Any, E, UInt16) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (Any, UInt16, E) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (E, Any) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
+        @discardableResult public func delete(done: @escaping (E, UInt16) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (UInt16, E) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (Any, E) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
         @discardableResult public func delete(done: @escaping (E) -> ()) -> Self { self.method(.DELETE).done(closure: done).send() }
-        
+
         @discardableResult public override func send() -> Self {
             self.isAPI(true).done { (code: UInt16, data: Any) in
                 let model: E?
