@@ -223,9 +223,9 @@ public extension OA {
         private lazy var content: ((UIView) -> ())? = nil
 
         public class VC: UIViewController {
-            private let style: Style?, content: ((UIView) -> ())?, size: CGFloat, showed: (VC) -> ()
+            private let style: Style?, content: ((UIView) -> ())?, size: CGFloat, showed: (VC) -> (((VC) -> ())?)
 
-            init (style: Style? = .jelly, content: ((UIView) -> ())? = nil, showed: @escaping (VC) -> ()) {
+            init (style: Style? = .jelly, content: ((UIView) -> ())? = nil, showed: @escaping (VC) -> (((VC) -> ())?)) {
                 self.style = style
                 self.content = content
                 self.showed = showed
@@ -275,10 +275,11 @@ public extension OA {
 
             public override func viewDidAppear(_ animated: Bool) {
                 super.viewDidAppear(animated)
+                let completion = self.showed(self)
                 guard let style = self.style else {
                     self.box.alpha = 1
                     self.cover.alpha = 1
-                    return self.showed(self)
+                    return completion?(self) ?? ()
                 }
 
                 switch style {
@@ -286,7 +287,7 @@ public extension OA {
                         self.box.transform = .init(scaleX: 0.76, y: 0.76)
                         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.cover.alpha = 1 }, completion: nil)
                         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0.1, options: [.curveEaseIn, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.alpha = 1 }, completion: nil)
-                        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.transform = .init(scaleX: 1, y: 1) }, completion: { _ in self.showed(self) })
+                        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.transform = .init(scaleX: 1, y: 1) }, completion: { _ in completion?(self) })
 
                     case .jelly:
                         OA.Timer.delay(key: "OA.HUD.show.\(String(UInt(bitPattern: ObjectIdentifier(self))))", second: 0.1) {
@@ -294,7 +295,7 @@ public extension OA {
                             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.cover.alpha = 1 }, completion: nil)
                             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.35, delay: 0, options: [.curveEaseIn, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.alpha = 1 }, completion: nil)
                             let ani = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.4, animations: { self.box.transform = .init(scaleX: 1, y: 1) })
-                            ani.addAnimations { self.showed(self) }
+                            ani.addAnimations { completion?(self) }
                             ani.startAnimation()
                         }
                 }
@@ -355,7 +356,8 @@ public extension OA {
             DispatchQueue.main.async {
                 self.rootViewController = VC(style: style, content: self.content) {
                     self.vc = $0
-                    completion?($0)
+//                    completion?($0)
+                    return completion
                 }
                 self.isHidden = false
                 self.makeKeyAndVisible()
