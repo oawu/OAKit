@@ -14,12 +14,12 @@ public extension OA {
     class API<E: Decodable>: Request {
         private lazy var dones: [(E, UInt16, Any) -> ()] = []
         private lazy var afters: [() -> ()] = []
-        
+
         @discardableResult public override func after(after: @escaping () -> ()) -> Self {
             self.afters.append(after)
             return self
         }
-        
+
         private func after() {
             self.afters.forEach { $0() }
         }

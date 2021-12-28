@@ -21,7 +21,7 @@ class HUDViewController: UITableViewController {
             return self
         }
     }
-    private let samples: [String] = ["讀取中", "讀取後成功", "讀取後失敗"]
+    private let samples: [String] = ["讀取中", "讀取後成功", "讀取後失敗", "單純顯示、隱藏"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +50,12 @@ class HUDViewController: UITableViewController {
                     OA.HUD.content(type: .fail, description: "失敗！")?.hide(delay: 2)
                 }
             }
+        case [0, 3]:
+            OA.HUD.content(type: .loading, description: "讀取中…")?.show()
+            setTimeout(second: 3) {
+                OA.HUD.hide()
+            }
+            
         default: break
         }
     }

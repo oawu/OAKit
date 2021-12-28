@@ -16,7 +16,7 @@ public extension OA {
 
         @available(iOS 13.0, *)
         public static var scene: UIWindowScene? = nil
-        
+
         private static var _shared: HUD? = nil
 
         public static var shared: HUD? {
@@ -56,12 +56,12 @@ public extension OA {
             activityIndicatorView.startAnimating()
             activityIndicatorView.add(to: view).x().e()
             activityIndicatorView.color = UIColor.black.withAlphaComponent(0.6)
-            
+
             switch [title.isEmpty, description.isEmpty] {
             case [false, true]:
                 activityIndicatorView.add(to: view).y(4).e()
                 HUD.initD(str: title, view: view).t(28).e()
-                
+
             case [true, false]:
                 activityIndicatorView.add(to: view).y(-8).e()
                 HUD.initD(str: description, view: view).t().q(activityIndicatorView).b(20).e()
@@ -78,6 +78,7 @@ public extension OA {
             let ani: UIView = .init()
             ani.add(to: view).w(90).e()
             ani.add(to: view).h(90).e()
+            ani.add(to: view).x().e()
 
             let p1: UIBezierPath = .init()
             p1.addArc(withCenter: .init(x: 90 / 2, y: 90 / 2),
@@ -126,7 +127,6 @@ public extension OA {
             ani.layer.addSublayer(l1)
             ani.layer.addSublayer(l2)
             
-            ani.add(to: view).x().e()
             switch [title.isEmpty, description.isEmpty] {
             case [false, true]:
                 ani.add(to: view).y(12).e()
@@ -149,7 +149,8 @@ public extension OA {
             let ani: UIView = .init()
             ani.add(to: view).w(80).e()
             ani.add(to: view).h(72).e()
-            
+            ani.add(to: view).x().e()
+
             let path: UIBezierPath = .init()
             path.move(to: .init(x: 6, y: 6))
             path.addLine(to: .init(x: 74, y: 66))
@@ -177,9 +178,7 @@ public extension OA {
             animation.duration = 0.4
             animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
             layer.add(animation, forKey: "checkmarkStrokeAnim")
-            
-            
-            ani.add(to: view).x().e()
+
             switch [title.isEmpty, description.isEmpty] {
             case [false, true]:
                 ani.add(to: view).y(10).e()
@@ -202,7 +201,7 @@ public extension OA {
         @discardableResult public static func content(_ content: @escaping (UIView) -> ()) -> HUD? { Self.shared?.content(content) }
         @discardableResult public static func content(type: `Type`, title: String = "", description: String = "") -> HUD? { Self.shared?.content(type: type, title: title, description: description) }
         @discardableResult public static func show(style: Style? = .jelly, completion: ((VC) -> ())? = nil) -> HUD? { Self.shared?.show(style: style, completion: completion) }
-        @discardableResult public static func show(style: Style? = .jelly, completion: (() -> ())? = nil) -> HUD? { Self.shared?.show(style: style, completion: completion) }
+        @discardableResult public static func show(style: Style? = .jelly, completion: @escaping () -> ()) -> HUD? { Self.shared?.show(style: style, completion: completion) }
         @discardableResult public static func hide(delay: TimeInterval = 0, style: Style? = .general, completion: (() -> ())? = nil) -> HUD? { self.shared?.hide(delay: delay, style: style, completion: completion) }
 
         required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -213,20 +212,19 @@ public extension OA {
                 guard let scene = Self.scene else { return nil }
                 super.init(windowScene: scene)
                 self.frame = .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-
             } else {
                 super.init(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
             }
             
             self.windowLevel = UIWindow.Level.alert - 1
         }
-        
+
         private weak var vc: VC? = nil
         private lazy var content: ((UIView) -> ())? = nil
 
         public class VC: UIViewController {
             private let style: Style?, content: ((UIView) -> ())?, size: CGFloat, showed: (VC) -> ()
-            
+
             init (style: Style? = .jelly, content: ((UIView) -> ())? = nil, showed: @escaping (VC) -> ()) {
                 self.style = style
                 self.content = content
@@ -243,9 +241,9 @@ public extension OA {
 
             public override func viewDidLoad() {
                 super.viewDidLoad()
-                
+
                 self.cover.backgroundColor = .init(white: 0.0, alpha: 0.25)
-                
+
                 self.cover.alpha = 0
                 self.cover.add(to: self.view).t().e()
                 self.cover.add(to: self.view).b().e()
@@ -291,7 +289,7 @@ public extension OA {
                         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.transform = .init(scaleX: 1, y: 1) }, completion: { _ in self.showed(self) })
 
                     case .jelly:
-                        OA.Timer.delay(key: "OA.HUD.show.\(self.hashValue)", second: 0.1) {
+                        OA.Timer.delay(key: "OA.HUD.show.\(String(UInt(bitPattern: ObjectIdentifier(self))))", second: 0.1) {
                             self.box.transform = .init(scaleX: 0.65, y: 0.65)
                             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.cover.alpha = 1 }, completion: nil)
                             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.35, delay: 0, options: [.curveEaseIn, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.alpha = 1 }, completion: nil)
@@ -304,7 +302,7 @@ public extension OA {
             }
 
             public func hide(delay: TimeInterval = 0, style: Style? = .general, animated: Bool = true, completion: (() -> ())? = nil) {
-                OA.Timer.delay(key: "OA.HUD.hide.\(self.hashValue)", second: delay) {
+                OA.Timer.delay(key: "OA.HUD.hide.\(String(UInt(bitPattern: ObjectIdentifier(self))))", second: delay) {
 
                     guard let style = style else {
                         self.box.alpha = 0
@@ -336,7 +334,7 @@ public extension OA {
                     }
                 }
             }
-            
+
             public func content(_ content: @escaping (UIView) -> ()) {
                 DispatchQueue.main.async {
                     self.container.constraints.forEach { self.container.removeConstraint($0) }
@@ -364,7 +362,8 @@ public extension OA {
             }
             return self
         }
-        @discardableResult public func show(style: Style? = .jelly, completion: (() -> ())? = nil) -> Self { self.show(style: style) { _ in completion?() } }
+        @discardableResult public func show(style: Style? = .jelly, completion: @escaping() -> ()) -> Self { self.show(style: style) { _ in completion() } }
+
         @discardableResult public func hide(delay: TimeInterval = 0, style: Style? = .general, completion: (() -> ())? = nil) -> Self {
             DispatchQueue.main.async {
                 if let vc = self.rootViewController as? VC {

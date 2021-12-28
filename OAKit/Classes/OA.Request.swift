@@ -29,7 +29,7 @@ public extension OA {
                 self.progress(Float(totalBytesSent) / Float(totalBytesExpectedToSend))
             }
         }
-        
+
         public enum Method: String {
             case GET, POST, PUT, DELETE
         }
@@ -57,7 +57,7 @@ public extension OA {
                 rawText(Raw),
                 rawJson(Raw),
                 rawJsons(Raw)
-            
+
             public var header: KeyVal? {
                 guard case .header(let kv) = self else { return nil }
                 return kv
@@ -95,21 +95,25 @@ public extension OA {
         private lazy var params: [Param] = []
         private lazy var dones: [(UInt16, Any) -> ()] = []
         internal lazy var fails: [(Error) -> ()] = []
-        
+
         private lazy var befores: [() -> ()] = []
         private lazy var afters: [() -> ()] = []
         private lazy var isCache: Bool = false
         private lazy var isAPI: Bool = false
         private lazy var queue: DispatchQueue? = .main
-        
-        private lazy var progress: ((Float) -> ())? = nil
 
-        public init(url: URL) { self.url = url }
-        public convenience init?(url: URL?) {
-            guard let url = url else { return nil }
-            self.init(url: url)
+        private lazy var progress: ((Float) -> ())? = nil
+        private lazy var delay: TimeInterval? = nil
+
+        public init(url: URL, delay: TimeInterval? = nil) {
+            self.url = url
+            self.delay = delay
         }
-        public convenience init?(url: String) { self.init(url: URL(string: url)) }
+        public convenience init?(url: URL?, delay: TimeInterval? = nil) {
+            guard let url = url else { return nil }
+            self.init(url: url, delay: delay)
+        }
+        public convenience init?(url: String, delay: TimeInterval? = nil) { self.init(url: URL(string: url), delay: delay) }
         
         @discardableResult public func method(_ method: Method) -> Self {
             self.method = method
@@ -314,6 +318,12 @@ public extension OA {
         }
 
         @discardableResult public func send() -> Self {
+            guard let delay = self.delay else { return self._send() }
+            OA.Timer.delay(key: "OA.Request.\(String(UInt(bitPattern: ObjectIdentifier(self))))", second: delay) { self._send() }
+            return self
+        }
+
+        @discardableResult private func _send() -> Self {
             guard var urlComponents = URLComponents(url: self.url, resolvingAgainstBaseURL: true) else {
                 return self.fail(code: 0, messages: ["拆分網址組件失敗(1)", "網址：\(self.url)"])
             }
@@ -325,11 +335,11 @@ public extension OA {
                 guard let data = $0.query, let val = data.val.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) else { return nil }
                 return URLQueryItem(name: data.key, value: val)
             }
-            
+
             if !queries.isEmpty {
                 urlComponents.queryItems = queries
             }
-            
+
             guard let url = urlComponents.url else {
                 return self.fail(code: 0, messages: ["拆分網址組件失敗(2)", "網址：\(self.url)"])
             }
@@ -343,7 +353,7 @@ public extension OA {
             for header in self.params.compactMap({ $0.header }) {
                 request.setValue(header.val, forHTTPHeaderField: header.key)
             }
-            
+
             let config = URLSessionConfiguration.default
 
             if !self.isCache {
@@ -397,7 +407,7 @@ public extension OA {
                 guard self.isAPI || ((response?.mimeType ?? "") == "application/json") else {
                     return self.done(code: code, data: data).after()
                 }
-                
+
                 let json: Any?
                 let messages: [String]
                 do {
@@ -407,8 +417,7 @@ public extension OA {
                     json = nil
                     messages = ["轉換 Json 失敗", error.localizedDescription, text]
                 }
-                
-                
+
                 guard let json = json else {
                     return self.fail(code: code, messages: messages + [text]).after()
                 }

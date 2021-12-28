@@ -15,14 +15,14 @@ public extension OA {
         private let child: UIView
         private let view: UIView
         private var goal: Any? = nil
-        
+
         private var multiplier: CGFloat = 1
         private var constant: CGFloat = 0
-        
+
         private var childAttr: NSLayoutConstraint.Attribute? = nil
         private var goalAttr: NSLayoutConstraint.Attribute = .notAnAttribute
         private var relation: NSLayoutConstraint.Relation = .equal
-        
+
         public init(parent: UIView, child: UIView, for view: UIView? = nil) {
             self.parent = parent
             self.child = child
@@ -88,7 +88,7 @@ public extension OA {
             }
             return self
         }
-        
+
         private func relation(_ relation: NSLayoutConstraint.Relation, goal: Any? = nil) -> Self {
             self.relation = relation
             guard let goal = goal else { return self }
@@ -105,11 +105,11 @@ public extension OA {
 
         public func width(_ constant: CGFloat? = nil) -> Self { self.wh(.width, constant: constant) }
         public func height(_ constant: CGFloat? = nil) -> Self { self.wh(.height, constant: constant) }
-        
+
         public func equal(_ goal: Any? = nil) -> Self { self.relation(.equal, goal: goal) }
         public func greaterThanOrEqual(_ goal: Any? = nil) -> Self { self.relation(.greaterThanOrEqual, goal: goal) }
         public func lessThanOrEqual(_ goal: Any? = nil) -> Self { self.relation(.lessThanOrEqual, goal: goal) }
-        
+
         @discardableResult public func enable() -> NSLayoutConstraint? { self.create(isActive: true) }
         @discardableResult public func disable() -> NSLayoutConstraint? { self.create(isActive: false) }
         @discardableResult public func enable(constraint: inout NSLayoutConstraint?) -> NSLayoutConstraint? {
@@ -127,14 +127,14 @@ public extension OA {
         public func b(_ constant: CGFloat? = nil) -> Self { self.bottom(constant) }
         public func x(_ constant: CGFloat? = nil) -> Self { self.centerX(constant) }
         public func y(_ constant: CGFloat? = nil) -> Self { self.centerY(constant) }
-        
+
         public func w(_ constant: CGFloat? = nil) -> Self { self.width(constant) }
         public func h(_ constant: CGFloat? = nil) -> Self { self.height(constant) }
-        
+
         public func q(_ goal: Any? = nil) -> Self { self.equal(goal) }
         public func qG(_ goal: Any? = nil) -> Self { self.greaterThanOrEqual(goal) }
         public func qL(_ goal: Any? = nil) -> Self { self.lessThanOrEqual(goal) }
-        
+
         @discardableResult public func e() -> NSLayoutConstraint? { self.enable() }
         @discardableResult public func d() -> NSLayoutConstraint? { self.disable() }
         @discardableResult public func e(constraint: inout NSLayoutConstraint?) -> NSLayoutConstraint? { self.enable(constraint: &constraint) }

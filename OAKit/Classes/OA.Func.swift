@@ -22,23 +22,23 @@ public extension OA {
                 ["base": 30, "format": "%d 天前"],
                 ["base": 12, "format": "%d 個月前"]
             ]
-            
+
             var unit: UInt = 1
-            
+
             for contition in contitions {
                 if let base = contition["base"] as? Int, let format = contition["format"] as? String {
                     let tmp = UInt(base) * unit
-                    
+
                     if diff < tmp {
                         return String(format: format, diff / unit)
                     }
-                    
+
                     unit = tmp
                 }
             }
             return String(format: "%d 年前", diff / unit)
         }
-        
+
         public static func randomString(count: Int = 32, allowed: String = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") -> String {
             let maxCount = allowed.count
             var output   = ""
@@ -57,7 +57,7 @@ public extension OA {
             guard let arri = arr, arri.count % unit == 0 else { return nil; }
             
             var anys:[[Any]]! = [];
-            
+
             for (i, el) in arri.enumerated() {
                 if !anys.indices.contains(i / unit) {
                     anys.append([el])
@@ -69,3 +69,4 @@ public extension OA {
         }
     }
 }
+
