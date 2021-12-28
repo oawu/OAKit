@@ -10,6 +10,7 @@
 		0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */; };
 		0E04DD282292A52800DEA262 /* Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* Func.swift */; };
 		0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* Extension.swift */; };
+		0E25818F277ACE3F00EB4C63 /* OA.HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */; };
 		0EE946B223D6CA8B00D73E0A /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE946B123D6CA8B00D73E0A /* Core.swift */; };
 		0EEDFBFB2770EF5A009B6417 /* OA.Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFBFA2770EF5A009B6417 /* OA.Func.swift */; };
 		0EEDFBFD2770F029009B6417 /* OA.Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFBFC2770F029009B6417 /* OA.Request.swift */; };
@@ -51,6 +52,7 @@
 		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
 		0E04DD252292A52800DEA262 /* Func.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Func.swift; path = OAKit/Classes/Func.swift; sourceTree = "<group>"; };
 		0E04DD2D2292AC7200DEA262 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = OAKit/Classes/Extension.swift; sourceTree = "<group>"; };
+		0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.HUD.swift; path = OAKit/Classes/OA.HUD.swift; sourceTree = "<group>"; };
 		0EE946B123D6CA8B00D73E0A /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Core.swift; path = OAKit/Classes/Core.swift; sourceTree = "<group>"; };
 		0EEDFBFA2770EF5A009B6417 /* OA.Func.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Func.swift; path = OAKit/Classes/OA.Func.swift; sourceTree = "<group>"; };
 		0EEDFBFC2770F029009B6417 /* OA.Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Request.swift; path = OAKit/Classes/OA.Request.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				0EEDFC022770F0BB009B6417 /* OA.Timer.swift */,
 				0EEDFC042770F125009B6417 /* OA.Layout.swift */,
 				0EEDFC062770F3E6009B6417 /* OA.Cell.swift */,
+				0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */,
 				96631C0DFBA0476022703100A5DB7773 /* Pod */,
 				B2A3B2686353587789CD56E961E76BC5 /* Support Files */,
 			);
@@ -411,6 +414,7 @@
 				0EEDFC072770F3E6009B6417 /* OA.Cell.swift in Sources */,
 				0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */,
 				0EEDFC032770F0BB009B6417 /* OA.Timer.swift in Sources */,
+				0E25818F277ACE3F00EB4C63 /* OA.HUD.swift in Sources */,
 				0EEDFBFF2770F06E009B6417 /* OA.API.swift in Sources */,
 				0EEDFBFB2770EF5A009B6417 /* OA.Func.swift in Sources */,
 				0EEDFC012770F090009B6417 /* OA.Storage.swift in Sources */,
