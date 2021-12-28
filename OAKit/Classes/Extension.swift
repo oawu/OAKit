@@ -92,7 +92,7 @@ extension UIView {
         self.layer.borderColor = color.cgColor;
     }
     
-    @discardableResult public func blur(style: UIBlurEffect.Style) -> Self {
+    @discardableResult public func blur(style: UIBlurEffect.Style) -> UIVisualEffectView {
         let blur = UIVisualEffectView()
         blur.effect = UIBlurEffect(style: style)
         blur.clipsToBounds = true
@@ -102,7 +102,7 @@ extension UIView {
         blur.add(to: self).b().e()
         blur.add(to: self).l().e()
         blur.add(to: self).r().e()
-        return self
+        return blur
     }
 }
 extension Int {

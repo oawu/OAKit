@@ -147,7 +147,6 @@ public extension OA {
         }
         private static func fail(view: UIView, title: String = "", description: String = "") {
             let ani: UIView = .init()
-            ani.border(1, .red)
             ani.add(to: view).w(80).e()
             ani.add(to: view).h(72).e()
             
@@ -200,21 +199,11 @@ public extension OA {
             }
         }
 
-        @discardableResult public static func content(_ content: @escaping (UIView) -> ()) -> HUD? {
-            Self.shared?.content(content)
-        }
-        @discardableResult public static func content(type: `Type`, title: String = "", description: String = "") -> HUD? {
-            Self.shared?.content(type: type, title: title, description: description)
-        }
-        @discardableResult public static func show(style: Style? = .jelly, completion: ((VC) -> ())? = nil) -> HUD? {
-            Self.shared?.show(style: style, completion: completion)
-        }
-        @discardableResult public static func show(style: Style? = .jelly, completion: (() -> ())? = nil) -> HUD? {
-            Self.shared?.show(style: style, completion: completion)
-        }
-        @discardableResult public static func hide(delay: TimeInterval = 0, style: Style? = .general, completion: (() -> ())? = nil) -> HUD? {
-            self.shared?.hide(delay: delay, style: style, completion: completion)
-        }
+        @discardableResult public static func content(_ content: @escaping (UIView) -> ()) -> HUD? { Self.shared?.content(content) }
+        @discardableResult public static func content(type: `Type`, title: String = "", description: String = "") -> HUD? { Self.shared?.content(type: type, title: title, description: description) }
+        @discardableResult public static func show(style: Style? = .jelly, completion: ((VC) -> ())? = nil) -> HUD? { Self.shared?.show(style: style, completion: completion) }
+        @discardableResult public static func show(style: Style? = .jelly, completion: (() -> ())? = nil) -> HUD? { Self.shared?.show(style: style, completion: completion) }
+        @discardableResult public static func hide(delay: TimeInterval = 0, style: Style? = .general, completion: (() -> ())? = nil) -> HUD? { self.shared?.hide(delay: delay, style: style, completion: completion) }
 
         required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
@@ -256,8 +245,7 @@ public extension OA {
                 super.viewDidLoad()
                 
                 self.cover.backgroundColor = .init(white: 0.0, alpha: 0.25)
-                // self.cover.backgroundColor = .red
-
+                
                 self.cover.alpha = 0
                 self.cover.add(to: self.view).t().e()
                 self.cover.add(to: self.view).b().e()
@@ -268,7 +256,7 @@ public extension OA {
 
                 self.box.alpha = 0
                 self.box.layer.cornerRadius = 20
-                self.box.blur(style: .light).backgroundColor = .init(white: 0.8, alpha: 0.36)
+                self.box.blur(style: .light).backgroundColor = .init(white: 1, alpha: 0.36)
                 self.box.add(to: self.view).x().e()
                 self.box.add(to: self.view).y().e()
                 self.box.add(to: self.view).w(self.size).e()
@@ -303,12 +291,14 @@ public extension OA {
                         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.transform = .init(scaleX: 1, y: 1) }, completion: { _ in self.showed(self) })
 
                     case .jelly:
-                        self.box.transform = .init(scaleX: 0.7, y: 0.7)
-                        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.cover.alpha = 1 }, completion: nil)
-                        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.35, delay: 0, options: [.curveEaseIn, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.alpha = 1 }, completion: nil)
-                        let ani = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.4, animations: { self.box.transform = .init(scaleX: 1, y: 1) })
-                        ani.addAnimations { self.showed(self) }
-                        ani.startAnimation()
+                        OA.Timer.delay(key: "OA.HUD.show.\(self.hashValue)", second: 0.1) {
+                            self.box.transform = .init(scaleX: 0.65, y: 0.65)
+                            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: [.curveEaseOut, .transitionCrossDissolve, .allowUserInteraction], animations: { self.cover.alpha = 1 }, completion: nil)
+                            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.35, delay: 0, options: [.curveEaseIn, .transitionCrossDissolve, .allowUserInteraction], animations: { self.box.alpha = 1 }, completion: nil)
+                            let ani = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.4, animations: { self.box.transform = .init(scaleX: 1, y: 1) })
+                            ani.addAnimations { self.showed(self) }
+                            ani.startAnimation()
+                        }
                 }
                 
             }
@@ -385,6 +375,7 @@ public extension OA {
             }
             return self
         }
+
         @discardableResult private func close(completion: (() -> ())? = nil) -> Self {
             self.vc = nil
             self.rootViewController = nil
@@ -403,6 +394,7 @@ public extension OA {
             self.content = content
             return self
         }
+
         @discardableResult public func content(type: `Type`, title: String = "", description: String = "") -> Self {
             if let vc = self.vc {
                 vc.content(type: type, title: title, description: description)

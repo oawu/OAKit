@@ -31,6 +31,7 @@ class MainController: UITableViewController {
         .init(title: "Storage", vc: StorageViewController()),
         .init(title: "Timer", vc: TimerViewController()),
         .init(title: "Request", vc: RequestViewController(style: .plain)),
+        .init(title: "HUD", vc: HUDViewController(style: .plain)),
     ]
 
     override func viewDidLoad() {
