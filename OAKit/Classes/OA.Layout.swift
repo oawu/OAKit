@@ -13,8 +13,9 @@ public extension OA {
 
     class Layout {
         private static func quick(short ori: String, parent: UIView, child: UIView, for view: UIView? = nil) -> Layout? {
-            guard ori.count > 0 else { return nil }
             var mdf = ori.trimmingCharacters(in: .whitespaces).lowercased()
+            
+            guard mdf.count > 0 else { return nil }
 
             var index = mdf.index(mdf.startIndex, offsetBy: 1)
             let key1 = String(mdf[..<index])
@@ -22,6 +23,8 @@ public extension OA {
             guard ["l", "r", "t", "b", "x", "y", "w", "h"].contains(key1) else { return nil }
 
             mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+            if let num = Double(mdf) { mdf = "=\(num)" }
+            
             if mdf.isEmpty { mdf = "=\(key1),0.0" }
 
             index = mdf.index(mdf.startIndex, offsetBy: 1)
