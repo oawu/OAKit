@@ -26,8 +26,9 @@ public extension OA {
 
             index = mdf.index(mdf.startIndex, offsetBy: 1)
             var relation = String(mdf[..<index])
-            guard ["=", "<", ">"].contains(relation) else { return nil }
+            guard ["=", "<", ">", ","].contains(relation) else { return nil }
             mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+            if mdf.isEmpty { mdf = "\(key1)" }
 
             if let num = Double(mdf) {
                 if ["w", "h"].contains(key1) {
@@ -65,12 +66,14 @@ public extension OA {
             case "y": _ = layout.centerY()
             default: return nil
             }
+
             switch relation {
-            case "=": _ = layout.equal()
+            case "=", ",": _ = layout.equal()
             case "<": _ = layout.lessThanOrEqual()
             case ">": _ = layout.greaterThanOrEqual()
             default: return nil
             }
+
             switch key2 {
             case "t": _ = layout.top()
             case "b": _ = layout.bottom()
