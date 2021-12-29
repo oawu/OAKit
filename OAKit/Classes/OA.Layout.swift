@@ -10,7 +10,102 @@ import Foundation
 import UIKit
 
 public extension OA {
+
     class Layout {
+        private static func quick(short ori: String, parent: UIView, child: UIView, for view: UIView? = nil) -> Layout? {
+            guard ori.count > 0 else { return nil }
+            var mdf = ori.trimmingCharacters(in: .whitespaces).lowercased()
+
+            var index = mdf.index(mdf.startIndex, offsetBy: 1)
+            let key1 = String(mdf[..<index])
+
+            guard ["l", "r", "t", "b", "x", "y", "w", "h"].contains(key1) else { return nil }
+
+            mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+            if mdf.isEmpty { mdf = "=\(key1),0.0" }
+
+            index = mdf.index(mdf.startIndex, offsetBy: 1)
+            var relation = String(mdf[..<index])
+            guard ["=", "<", ">"].contains(relation) else { return nil }
+            mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+
+            if let num = Double(mdf) {
+                if ["w", "h"].contains(key1) {
+                    relation = "="
+                    mdf = "?,\(num)"
+                } else {
+                    mdf = "\(key1),\(num)"
+                }
+            }
+
+            index = mdf.index(mdf.startIndex, offsetBy: 1)
+            let key2 = String(mdf[..<index])
+            guard ["l", "r", "t", "b", "x", "y", "w", "h", "?"].contains(key2) else { return nil }
+
+            mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+            if mdf.isEmpty { mdf = ",0.0" }
+
+            index = mdf.index(mdf.startIndex, offsetBy: 1)
+            mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
+
+            let constant: CGFloat
+
+            if let num = Double(mdf) { constant = CGFloat(num) }
+            else { constant = 0.0 }
+
+            let layout: Layout = .init(parent: parent, child: child, for: view)
+            switch key1 {
+            case "t": _ = layout.top()
+            case "b": _ = layout.bottom()
+            case "l": _ = layout.left()
+            case "r": _ = layout.right()
+            case "w": _ = layout.width()
+            case "h": _ = layout.height()
+            case "x": _ = layout.centerX()
+            case "y": _ = layout.centerY()
+            default: return nil
+            }
+            switch relation {
+            case "=": _ = layout.equal()
+            case "<": _ = layout.lessThanOrEqual()
+            case ">": _ = layout.greaterThanOrEqual()
+            default: return nil
+            }
+            switch key2 {
+            case "t": _ = layout.top()
+            case "b": _ = layout.bottom()
+            case "l": _ = layout.left()
+            case "r": _ = layout.right()
+            case "w": _ = layout.width()
+            case "h": _ = layout.height()
+            case "x": _ = layout.centerX()
+            case "y": _ = layout.centerY()
+            case "?": break
+            default: return nil
+            }
+
+            return layout.constant(constant)
+        }
+
+        public static func quick(parent: UIView, child: UIView, enables: [String] = [], for view: UIView? = nil) -> [String: NSLayoutConstraint] {
+            var results: [String: NSLayoutConstraint] = [:]
+            for enable in enables {
+                if let result = self.quick(short: enable, parent: parent, child: child, for: view), let constraint = result.e() {
+                    results[enable] = constraint
+                }
+            }
+            return results
+        }
+        public static func quick(parent: UIView, child: UIView, disables: [String] = [], for view: UIView? = nil) -> [String: NSLayoutConstraint] {
+            var results: [String: NSLayoutConstraint] = [:]
+            for disable in disables {
+                if let result = self.quick(short: disable, parent: parent, child: child, for: view), let constraint = result.d() {
+                    results[disable] = constraint
+                }
+            }
+            return results
+        }
+
         private let parent: UIView
         private let child: UIView
         private let view: UIView
@@ -29,7 +124,7 @@ public extension OA {
             self.goal = parent
             self.view = view ?? parent
         }
-        
+
         public func multiplier(_ multiplier: CGFloat = 1) -> Self {
             self.multiplier = multiplier
             return self

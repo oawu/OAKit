@@ -78,7 +78,14 @@ extension SFSafariViewController {
 }
 
 extension UIView {
-    public func add(to parent: UIView, for view: UIView? = nil) -> OA.Layout { .init(parent: parent, child: self, for: view) }
+    @discardableResult public func add(to parent: UIView, for view: UIView) -> OA.Layout { .init(parent: parent, child: self, for: view) }
+    @discardableResult public func add(to parent: UIView) -> OA.Layout { .init(parent: parent, child: self, for: nil) }
+
+    @discardableResult public func add(to parent: UIView, enables: [String] = [], for view: UIView) -> [String: NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: view) }
+    @discardableResult public func add(to parent: UIView, disables: [String] = [], for view: UIView) -> [String: NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: view) }
+
+    @discardableResult public func add(to parent: UIView, enables: [String] = []) -> [String: NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: nil) }
+    @discardableResult public func add(to parent: UIView, disables: [String] = []) -> [String: NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: nil) }
 
     public func shadow(_ x: CGFloat, _ y: CGFloat, _ blur: CGFloat, _ color: UIColor, _ opacity: CGFloat? = nil) {
         self.layer.shadowOpacity = Float(opacity ?? 1);
@@ -91,7 +98,7 @@ extension UIView {
         self.layer.borderWidth = width / UIScreen.main.scale;
         self.layer.borderColor = color.cgColor;
     }
-    
+
     @discardableResult public func blur(style: UIBlurEffect.Style) -> UIVisualEffectView {
         let blur = UIVisualEffectView()
         blur.effect = UIBlurEffect(style: style)
