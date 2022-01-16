@@ -28,14 +28,13 @@ public extension OA {
             if mdf.isEmpty { mdf = "=\(key1),0.0" }
 
             index = mdf.index(mdf.startIndex, offsetBy: 1)
-            var relation = String(mdf[..<index])
+            let relation = String(mdf[..<index])
             guard ["=", "<", ">", ","].contains(relation) else { return nil }
             mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
             if mdf.isEmpty { mdf = "\(key1)" }
 
             if let num = Double(mdf) {
                 if ["w", "h"].contains(key1) {
-                    relation = "="
                     mdf = "?,\(num)"
                 } else {
                     mdf = "\(key1),\(num)"
@@ -56,7 +55,7 @@ public extension OA {
 
             if let num = Double(mdf) { constant = CGFloat(num) }
             else { constant = 0.0 }
-
+            
             let layout: Layout = .init(parent: parent, child: child, for: view)
             switch key1 {
             case "t": _ = layout.top()
