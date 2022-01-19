@@ -35,29 +35,29 @@ class HUDViewController: UITableViewController {
 
         switch indexPath {
         case [0, 0]:
-            OA.HUD.content(type: .loading, description: "讀取中…")?.show {
+            OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                 OA.HUD.hide(delay: 2)
             }
         case [0, 1]:
-            OA.HUD.content(type: .loading, description: "讀取中…")?.show {
+            OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                 setTimeout(second: 1) {
-                    OA.HUD.content(type: .done, description: "成功！")?.hide(delay: 2)
+                    OA.HUD.view(icon: .done, description: "成功！").hide(delay: 2)
                 }
             }
         case [0, 2]:
-            OA.HUD.content(type: .loading, description: "讀取中…")?.show {
+            OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                 setTimeout(second: 1) {
-                    OA.HUD.content(type: .fail, description: "失敗！")?.hide(delay: 2)
+                    OA.HUD.view(icon: .fail, description: "失敗！").hide(delay: 2)
                 }
             }
         case [0, 3]:
-            OA.HUD.content(type: .loading, description: "讀取中…")?.show()
+            OA.HUD.show(icon: .loading, description: "讀取中…")
             setTimeout(second: 3) {
                 OA.HUD.hide()
             }
         case [0, 4]:
-            OA.HUD.content(type: .loading, description: "讀取中…")?.show()
-            OA.HUD.content(type: .loading, description: "test…")
+            OA.HUD.show(icon: .loading, description: "讀取中…")
+            OA.HUD.show(icon: .loading, description: "test…")
 
             setTimeout(second: 3) {
                 OA.HUD.hide()
