@@ -19,10 +19,11 @@ public extension OA {
         public static var scene: UIWindowScene? = nil
         public static var window: UIWindow? = nil
     
-        public static func show(icon: Icon, title: String? = nil, description: String? = nil, animated: Bool = true, completion: ((VC) -> ())? = nil) {
+        @discardableResult
+        public static func show(icon: Icon, title: String? = nil, description: String? = nil, animated: Bool = true, completion: ((VC) -> ())? = nil) -> HUD.Type {
             if #available(iOS 13.0, *) {
                 if Self.scene == nil { Self.scene = UIApplication.shared.connectedScenes.filter ({ $0.activationState == .foregroundActive }).first as? UIWindowScene }
-                guard let scene = Self.scene else { return }
+                guard let scene = Self.scene else { return HUD.self }
                 self.window = .init(windowScene: scene)
                 self.window?.frame = .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             } else {
@@ -33,7 +34,9 @@ public extension OA {
             self.window?.rootViewController = VC(icon: icon, title: title, description: description, animated: animated, showed: { _ in completion })
             self.window?.isHidden = false
             self.window?.makeKeyAndVisible()
+            return HUD.self
         }
+
         public static func hide(delay: TimeInterval = 0, animated: Bool = true, completion: (() -> ())? = nil) {
             OA.Timer.delay(key: "OA.HUD.hide.\(String(UInt(bitPattern: ObjectIdentifier(self))))", second: delay) {
                 (self.window?.rootViewController as? VC)?.hide(animated: animated) {
