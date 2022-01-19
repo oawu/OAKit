@@ -13,7 +13,6 @@ import OAKit
 class ViewController: UIViewController {
     
     @objc func click(_ sender: UIButton? = nil) {
-       
     }
     override func viewDidLoad() {
         let button: UIButton = .init()

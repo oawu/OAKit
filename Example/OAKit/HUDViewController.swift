@@ -21,7 +21,7 @@ class HUDViewController: UITableViewController {
             return self
         }
     }
-    private let samples: [String] = ["讀取中", "讀取後成功", "讀取後失敗", "單純顯示、隱藏", "改變"]
+    private let samples: [String] = ["讀取中", "讀取後成功", "讀取後失敗", "單純顯示、隱藏", "改變", "進度"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +35,8 @@ class HUDViewController: UITableViewController {
 
         switch indexPath {
         case [0, 0]:
-            OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
-                OA.HUD.hide(delay: 2)
-            }
+            OA.HUD.show(icon: .loading, description: "讀取中…").hide(delay: 2)
+
         case [0, 1]:
             OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                 setTimeout(second: 1) {
@@ -62,6 +61,43 @@ class HUDViewController: UITableViewController {
             setTimeout(second: 3) {
                 OA.HUD.hide()
             }
+        case [0, 5]:
+            OA.HUD.show(icon: .progress, description: "讀取中…")
+            setTimeout(second: 1) {
+                OA.HUD.progress = 0.1
+                setTimeout(second: 0.1) {
+                    OA.HUD.progress = 0.3
+                    
+                    setTimeout(second: 0.1) {
+                        OA.HUD.progress = 0.4
+                        
+                        setTimeout(second: 0.1) {
+                            OA.HUD.progress = 0.5
+                            
+                            setTimeout(second: 0.1) {
+                                OA.HUD.progress = 0.7
+                                
+                                setTimeout(second: 0.1) {
+                                    OA.HUD.progress = 0.8
+                                    
+                                    setTimeout(second: 0.1) {
+                                        OA.HUD.progress = 0.9
+                                        
+                                        setTimeout(second: 0.1) {
+                                            OA.HUD.progress = 1.0
+                                            
+                                            setTimeout(second: 0.1) {
+                                                OA.HUD.view(icon: .done, description: "OK").hide(delay: 1)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
 
             
         default: break

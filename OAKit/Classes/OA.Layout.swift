@@ -113,7 +113,7 @@ public extension OA {
 
         private let parent: UIView
         private let child: UIView
-        private let view: UIView
+        private let forui: UIView
         private var goal: Any? = nil
 
         private var multiplier: CGFloat = 1
@@ -127,8 +127,10 @@ public extension OA {
             self.parent = parent
             self.child = child
             self.goal = parent
-            self.view = view ?? parent
+            self.forui = view ?? parent
         }
+        
+        public var view: UIView { self.child }
 
         public func multiplier(_ multiplier: CGFloat = 1) -> Self {
             self.multiplier = multiplier
@@ -153,7 +155,7 @@ public extension OA {
             self.join()
             let constraint = NSLayoutConstraint(item: self.child, attribute: childAttr, relatedBy: self.relation, toItem: self.goal, attribute: self.goalAttr, multiplier: self.multiplier, constant: self.constant)
 
-            self.view.addConstraint(constraint)
+            self.forui.addConstraint(constraint)
             
             constraint.isActive = isActive
             return constraint

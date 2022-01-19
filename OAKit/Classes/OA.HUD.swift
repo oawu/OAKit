@@ -12,15 +12,23 @@ import UIKit
 public extension OA {
     enum HUD {
         public enum Icon {
-            case loading, done, fail
+            case loading, done, fail, progress
         }
     
         @available(iOS 13.0, *)
         public static var scene: UIWindowScene? = nil
         public static var window: UIWindow? = nil
+
+        public static var progress: Float? {
+            get { (self.window?.rootViewController as? VC)?.progress }
+            set {
+                guard let newValue = newValue, let vc = self.window?.rootViewController as? VC else { return }
+                vc.progress = newValue
+            }
+        }
     
         @discardableResult
-        public static func show(icon: Icon, title: String? = nil, description: String? = nil, animated: Bool = true, completion: ((VC) -> ())? = nil) -> HUD.Type {
+        public static func show(icon: Icon = .loading, title: String? = nil, description: String? = nil, animated: Bool = true, completion: ((VC) -> ())? = nil) -> HUD.Type {
             if #available(iOS 13.0, *) {
                 if Self.scene == nil { Self.scene = UIApplication.shared.connectedScenes.filter ({ $0.activationState == .foregroundActive }).first as? UIWindowScene }
                 guard let scene = Self.scene else { return HUD.self }
@@ -75,6 +83,16 @@ public extension OA {
             private lazy var cover: UIView = .init()
             private lazy var container: UIView = .init()
             private lazy var anis: [UIViewPropertyAnimator] = []
+            private lazy var progressUI: UIProgressView = {
+                let progress: UIProgressView = .init(progressViewStyle: .default)
+                progress.progress = 0.0
+                return progress
+            }()
+            
+            public var progress: Float {
+                get { self.progressUI.progress }
+                set { DispatchQueue.main.async { self.progressUI.progress = newValue } }
+            }
 
             public override func viewDidLoad() {
                 super.viewDidLoad()
@@ -140,6 +158,40 @@ public extension OA {
                 self.container.subviews.forEach { $0.removeFromSuperview() }
 
                 switch icon {
+                case .progress:
+                    let view: UIActivityIndicatorView
+                    if #available(iOS 13.0, *) {
+                        view = .init(style: .large)
+                    } else {
+                        view = .init()
+                    }
+                    view.startAnimating()
+                    view.add(to: self.container, enable: "x")
+                    view.color = UIColor.black.withAlphaComponent(0.6)
+                    self.progressUI.add(to: self.container, enable: "x; w=\(self.size / 5 * 3)")
+                    
+                    switch [title.isEmpty, description.isEmpty] {
+                    case [false, true]:
+                        view.add(to: self.container, enable: "y=4")
+                        self.progressUI.add(to: self.container).t().q(view).b(24).e()
+                        self.initD(str: title).t(28).e()
+
+                    case [true, false]:
+                        view.add(to: self.container, enable: "y=-34")
+                        let desc = self.initD(str: description)
+                        desc.t().q(view).b(30).e()
+                        self.progressUI.add(to: self.container).t().q(desc.view).b(16).e()
+
+                    case [false, false]:
+                        view.add(to: self.container, enable: "y")
+                        self.initT(str: title).t(24).e()
+                        self.initD(str: description).t().q(view).b(15).e()
+
+                    default:
+                        view.add(to: self.container, enable: "y=-8")
+                        self.progressUI.add(to: self.container).t().q(view).b(24).e()
+                    }
+                    
                 case .loading:
                     let view: UIActivityIndicatorView
                     if #available(iOS 13.0, *) {
