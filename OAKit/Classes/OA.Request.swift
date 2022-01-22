@@ -100,7 +100,7 @@ public extension OA {
         private lazy var afters: [() -> ()] = []
         private lazy var isCache: Bool = false
         private lazy var isAPI: Bool = false
-        private lazy var queue: DispatchQueue? = .main
+        internal lazy var queue: DispatchQueue? = .main
 
         private lazy var progress: ((Float) -> ())? = nil
         private lazy var delay: TimeInterval? = nil
@@ -312,7 +312,7 @@ public extension OA {
             guard let queue = self.queue else { return self.befores.forEach { $0() } }
             return queue.async { self.befores.forEach { $0() } }
         }
-        private func after() {
+        internal func after() {
             guard let queue = self.queue else { return self.afters.forEach { $0() } }
             return queue.async { self.afters.forEach { $0() } }
         }

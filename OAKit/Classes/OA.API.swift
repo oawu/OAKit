@@ -13,16 +13,6 @@ public extension OA {
     
     class API<E: Decodable>: Request {
         private lazy var dones: [(E, UInt16, Any) -> ()] = []
-        private lazy var afters: [() -> ()] = []
-
-        @discardableResult public override func after(after: @escaping () -> ()) -> Self {
-            self.afters.append(after)
-            return self
-        }
-
-        private func after() {
-            self.afters.forEach { $0() }
-        }
 
         @discardableResult private func fail(code: UInt16, messages: [String]) -> Self {
             self.fails.forEach { $0(.init(code: code, messages: messages)) }
