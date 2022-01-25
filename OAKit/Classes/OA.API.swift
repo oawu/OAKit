@@ -14,11 +14,6 @@ public extension OA {
     class API<E: Decodable>: Request {
         private lazy var dones: [(E, UInt16, Any) -> ()] = []
 
-        @discardableResult private func fail(code: UInt16, messages: [String]) -> Self {
-            self.fails.forEach { $0(.init(code: code, messages: messages)) }
-            return self
-        }
-
         @discardableResult public func done(closure: @escaping (E, UInt16, Any) -> ()) -> Self {
             self.dones.append(closure)
             return self
@@ -136,8 +131,13 @@ public extension OA {
                 }
                 
                 guard let model = model else { return self.fail(code: code, messages: messages).after() }
-                
-                self.dones.forEach { $0(model, code, data) }
+
+                if let queue = self.queue {
+                    queue.async { self.dones.forEach { $0(model, code, data) } }
+                } else {
+                    self.dones.forEach { $0(model, code, data) }
+                }
+
                 self.after()
             }
             return super.send()

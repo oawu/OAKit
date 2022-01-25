@@ -168,7 +168,7 @@ public extension OA {
             }
             return self
         }
-        
+
         @discardableResult public func auth(bearer: String) -> Self { self.header(key: "Authorization", val: "Bearer \(bearer)") }
         @discardableResult public func userAgent(val: String) -> Self { self.header(key: "User-Agent", val: val) }
 
@@ -291,7 +291,7 @@ public extension OA {
 
             return body
         }
-        
+
         @discardableResult private func done(code: UInt16, data: Any) -> Self {
             guard let queue = self.queue else {
                 self.dones.forEach { $0(code, data) }
@@ -300,7 +300,7 @@ public extension OA {
             queue.async { self.dones.forEach { $0(code, data) } }
             return self
         }
-        @discardableResult private func fail(code: UInt16, messages: [String]) -> Self {
+        @discardableResult internal func fail(code: UInt16, messages: [String]) -> Self {
             guard let queue = self.queue else {
                 self.fails.forEach { $0(.init(code: code, messages: messages)) }
                 return self
@@ -421,7 +421,10 @@ public extension OA {
                 guard let json = json else {
                     return self.fail(code: code, messages: messages + [text]).after()
                 }
-                return self.done(code: code, data: json).after()
+
+                self.done(code: code, data: json)
+                if self.isAPI { return }
+                self.after()
             }
 
             self.before()
