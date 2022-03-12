@@ -28,7 +28,7 @@ public extension OA {
         public typealias Closure = () -> ()
         
         public enum Parse {
-            enum UFloat {
+            public enum UFloat {
                 private static func de0(strs: [String], re: Bool) -> [String] {
                     var nums: [String] = []
                     var has: Bool = false
@@ -66,7 +66,7 @@ public extension OA {
                     return strs.joined()
                 }
             }
-            enum `UInt` {
+            public enum `UInt` {
                 private static func de0(strs: [String]) -> [String] {
                     var nums: [String] = []
                     for str in strs {
@@ -95,13 +95,13 @@ public extension OA {
         }
 
         public enum Action {
-            class Button: NSObject, OA_UI_Action_Delegate {
+            public class Button: NSObject, OA_UI_Action_Delegate {
                 private var _click: Closure? = nil
 
                 public init(onClick click: Closure? = nil) {
                     self._click = click
                 }
-                @objc func click(_ sender: UIButton? = nil) {
+                @objc public func click(_ sender: UIButton? = nil) {
                     UIImpactFeedbackGenerator(style: .light).impactOccurred()
                     self._click?()
                 }
@@ -111,7 +111,7 @@ public extension OA {
                 }
             }
 
-            class TextInput: NSObject, OA_UI_Action_Delegate, UITextFieldDelegate, UITextViewDelegate {
+            public class TextInput: NSObject, OA_UI_Action_Delegate, UITextFieldDelegate, UITextViewDelegate {
                 private var _icon: Closure? = nil
                 private var _focus: Closure? = nil
                 private var _change: Closure? = nil
@@ -123,7 +123,7 @@ public extension OA {
                     self._change = onChange
                     self._blur = onBlur
                 }
-                @objc func click(_ sender: UIButton? = nil) {
+                @objc public func click(_ sender: UIButton? = nil) {
                     switch sender?.tag ?? 0 {
                     case 1:
                         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -155,18 +155,18 @@ public extension OA {
                 @objc func editingChanged(_ sender: UITextField? = nil) {
                     self._change?()
                 }
-                func textFieldDidEndEditing(_ textField: UITextField) {
+                public func textFieldDidEndEditing(_ textField: UITextField) {
                     self._blur?()
                 }
-                func textViewDidEndEditing(_ textView: UITextView) {
+                public func textViewDidEndEditing(_ textView: UITextView) {
                     self._blur?()
                 }
-                func textViewDidChange(_ textView: UITextView) {
+                public func textViewDidChange(_ textView: UITextView) {
                     self._change?()
                 }
             }
 
-            class Check<C: OA_UI_Item_Delegate>: NSObject, OA_UI_Action_Delegate {
+            public class Check<C: OA_UI_Item_Delegate>: NSObject, OA_UI_Action_Delegate {
                 private var _tags: [Int: C] = [:]
                 private var _click: ((C?) -> ())? = nil
                 public init(onClick click: ((C?) -> ())? = nil) {
@@ -181,7 +181,7 @@ public extension OA {
                     return self
                 }
 
-                @objc func click(_ sender: UIButton? = nil) {
+                @objc public func click(_ sender: UIButton? = nil) {
                     let i = sender?.tag ?? 0
                     guard let click = self._click else { return }
 
