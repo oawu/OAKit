@@ -15,7 +15,6 @@ public extension OA {
             case loading, done, fail, progress
         }
     
-        @available(iOS 13.0, *)
         public static var scene: UIWindowScene? = nil
         public static var window: UIWindow? = nil
 
@@ -29,15 +28,16 @@ public extension OA {
     
         @discardableResult
         public static func show(icon: Icon = .loading, title: String? = nil, description: String? = nil, animated: Bool = true, completion: ((VC) -> ())? = nil) -> HUD.Type {
-            if #available(iOS 13.0, *) {
-                if Self.scene == nil { Self.scene = UIApplication.shared.connectedScenes.filter ({ $0.activationState == .foregroundActive }).first as? UIWindowScene }
-                guard let scene = Self.scene else { return HUD.self }
-                self.window = .init(windowScene: scene)
-                self.window?.frame = .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-            } else {
-                self.window = .init(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
+            
+            if Self.scene == nil {
+                Self.scene = UIApplication.shared.connectedScenes.filter ({ $0.activationState == .foregroundActive }).first as? UIWindowScene
+            }
+            guard let scene = Self.scene else {
+                return HUD.self
             }
 
+            self.window = .init(windowScene: scene)
+            self.window?.frame = .init(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
             self.window?.windowLevel = UIWindow.Level.alert - 1
             self.window?.rootViewController = VC(icon: icon, title: title, description: description, animated: animated, showed: { _ in completion })
             self.window?.isHidden = false
@@ -159,12 +159,7 @@ public extension OA {
 
                 switch icon {
                 case .progress:
-                    let view: UIActivityIndicatorView
-                    if #available(iOS 13.0, *) {
-                        view = .init(style: .large)
-                    } else {
-                        view = .init()
-                    }
+                    let view: UIActivityIndicatorView = .init(style: .large)
                     view.startAnimating()
                     view.add(to: self.container, enable: "x")
                     view.color = UIColor.black.withAlphaComponent(0.6)
@@ -193,12 +188,7 @@ public extension OA {
                     }
                     
                 case .loading:
-                    let view: UIActivityIndicatorView
-                    if #available(iOS 13.0, *) {
-                        view = .init(style: .large)
-                    } else {
-                        view = .init()
-                    }
+                    let view: UIActivityIndicatorView = .init(style: .large)
                     view.startAnimating()
                     view.add(to: self.container, enable: "x")
                     view.color = UIColor.black.withAlphaComponent(0.6)

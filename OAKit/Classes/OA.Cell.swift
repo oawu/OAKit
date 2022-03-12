@@ -9,10 +9,10 @@ import Foundation
 
 import UIKit
 
-public protocol OACell: UITableViewCell {
+public protocol OATableCell: UITableViewCell {
     static var id: String { get }
 }
 
 extension OA {
-    public typealias Cell = OACell
+    public typealias TableCell = OATableCell
 }

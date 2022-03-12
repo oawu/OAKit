@@ -26,7 +26,7 @@ public extension OA {
             if let num = Double(mdf) { mdf = "=\(num)" }
             
             if mdf.isEmpty { mdf = "=\(key1),0.0" }
-
+            
             index = mdf.index(mdf.startIndex, offsetBy: 1)
             let relation = String(mdf[..<index])
             guard ["=", "<", ">", ","].contains(relation) else { return nil }
@@ -56,7 +56,10 @@ public extension OA {
             if let num = Double(mdf) { constant = CGFloat(num) }
             else { constant = 0.0 }
             
+            let isWH: Bool = ["w", "h"].contains(key1) && ["w", "h"].contains(key2) && constant == 0
+
             let layout: Layout = .init(parent: parent, child: child, for: view)
+            
             switch key1 {
             case "t": _ = layout.top()
             case "b": _ = layout.bottom()
@@ -70,9 +73,9 @@ public extension OA {
             }
 
             switch relation {
-            case "=", ",": _ = layout.equal()
-            case "<": _ = layout.lessThanOrEqual()
-            case ">": _ = layout.greaterThanOrEqual()
+            case "=", ",": _ = layout.equal(isWH ? child : nil)
+            case "<": _ = layout.lessThanOrEqual(isWH ? child : nil)
+            case ">": _ = layout.greaterThanOrEqual(isWH ? child : nil)
             default: return nil
             }
 
@@ -92,20 +95,20 @@ public extension OA {
             return layout.constant(constant)
         }
 
-        public static func quick(parent: UIView, child: UIView, enables: [String] = [], for view: UIView? = nil) -> [String: NSLayoutConstraint] {
-            var results: [String: NSLayoutConstraint] = [:]
+        public static func quick(parent: UIView, child: UIView, enables: [String] = [], for view: UIView? = nil) -> [NSLayoutConstraint] {
+            var results: [NSLayoutConstraint] = []
             for enable in enables {
                 if let result = self.quick(short: enable, parent: parent, child: child, for: view), let constraint = result.e() {
-                    results[enable] = constraint
+                    results.append(constraint)
                 }
             }
             return results
         }
-        public static func quick(parent: UIView, child: UIView, disables: [String] = [], for view: UIView? = nil) -> [String: NSLayoutConstraint] {
-            var results: [String: NSLayoutConstraint] = [:]
+        public static func quick(parent: UIView, child: UIView, disables: [String] = [], for view: UIView? = nil) -> [NSLayoutConstraint] {
+            var results: [NSLayoutConstraint] = []
             for disable in disables {
                 if let result = self.quick(short: disable, parent: parent, child: child, for: view), let constraint = result.d() {
-                    results[disable] = constraint
+                    results.append(constraint)
                 }
             }
             return results
