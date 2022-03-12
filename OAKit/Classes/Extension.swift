@@ -151,12 +151,12 @@ extension UIImage {
     }
 }
 extension TimeInterval {
-    var datetime: String {
+    public var datetime: String {
         let format: DateFormatter = .init()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return format.string(from: .init(timeIntervalSince1970: self))
     }
-    static var today: TimeInterval {
+    public static var today: TimeInterval {
         let format: DateFormatter = .init()
         format.dateFormat = "yyyy-MM-dd 00:00:00"
         format.timeZone = .current
@@ -165,7 +165,7 @@ extension TimeInterval {
     public static var now: TimeInterval { NSDate().timeIntervalSince1970 }
 }
 extension Date {
-   func format(format str: String) -> String {
+    public func format(format str: String) -> String {
         let format: DateFormatter = .init()
         format.dateFormat = str
         return format.string(from: self)
@@ -186,58 +186,58 @@ extension UInt {
     }
 }
 extension Int8 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension UInt8 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension Int16 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension UInt16 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension Int32 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension UInt32 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension Int64 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
 extension UInt64 {
-   public func format(style: NumberFormatter.Style = .decimal) -> String {
-       let format: NumberFormatter = .init()
-       format.numberStyle = style
-       return format.string(from: NSNumber(value: self)) ?? "\(self)"
-   }
+    public func format(style: NumberFormatter.Style = .decimal) -> String {
+        let format: NumberFormatter = .init()
+        format.numberStyle = style
+        return format.string(from: NSNumber(value: self)) ?? "\(self)"
+    }
 }
