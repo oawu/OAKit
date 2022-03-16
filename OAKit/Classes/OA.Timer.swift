@@ -11,24 +11,23 @@ import UIKit
 
 public extension OA {
     enum Timer {
-        private static var all: [String: Foundation.Timer] = [:]
+        private static var _all: [String: Foundation.Timer] = [:]
 
-        @discardableResult public static func has(key: String) -> Bool { self.all[key] != nil }
+        @discardableResult public static func has(key: String) -> Bool { self._all[key] != nil }
 
         @discardableResult public static func clean(key: String) -> Bool {
-            if let tmp = self.all[key] { tmp.invalidate() }
-            self.all.removeValue(forKey: key)
-            return self.all[key] == nil
+            if let tmp = self._all[key] { tmp.invalidate() }
+            self._all.removeValue(forKey: key)
+            return self._all[key] == nil
         }
 
         @discardableResult public static func cleanAll() -> Bool {
-            self.all.forEach { key, _ in self.clean(key: key) }
+            self._all.forEach { key, _ in self.clean(key: key) }
             return true
         }
 
         @discardableResult public static func delay(key: String, second: TimeInterval, replace: Bool = true, repeats: Bool = false, block: @escaping () -> ()) -> Foundation.Timer {
-            if let timer = Self.all[key] {
-                guard replace else { return timer }
+            if let timer = Self._all[key], replace {
                 timer.invalidate()
                 guard Self.clean(key: key) else { return timer }
             }
@@ -37,20 +36,20 @@ public extension OA {
                 if !repeats { Self.clean(key: key) }
                 block()
             }
-            Self.all[key] = timer
+            Self._all[key] = timer
             return timer
         }
 
-        @discardableResult public static func loop(key: String, second: TimeInterval, replace: Bool = true, block: @escaping () -> ()) -> Foundation.Timer {
-            if let timer = Self.all[key] {
-                guard replace else { return timer }
+        @discardableResult public static func loop(key: String, second: TimeInterval, replace: Bool = true, delay: Bool = false, block: @escaping () -> ()) -> Foundation.Timer {
+            if let timer = Self._all[key], replace {
                 timer.invalidate()
                 guard Self.clean(key: key) else { return timer }
             }
-
-            block()
+            
+            delay ? () : block()
+            
             let timer: Foundation.Timer = Foundation.Timer.scheduledTimer(withTimeInterval: second, repeats: true) { _ in block() }
-            Self.all[key] = timer
+            Self._all[key] = timer
             return timer
         }
     }
