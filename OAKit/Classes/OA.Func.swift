@@ -11,8 +11,9 @@ import UIKit
 
 public extension OA {
     enum Func {
-        public static func timeago(unixtime: UInt) -> String {
-            let diff = UInt(NSDate().timeIntervalSince1970) - unixtime
+        public static func timeago(unixtime: UInt64) -> String {
+            let now = UInt64(TimeInterval.now)
+            let diff = now > unixtime ? now - unixtime : 0
 
             let contitions: [[String: Any]] = [
                 ["base": 10, "format": "現在"],
@@ -23,11 +24,11 @@ public extension OA {
                 ["base": 12, "format": "%d 個月前"]
             ]
 
-            var unit: UInt = 1
+            var unit: UInt64 = 1
 
             for contition in contitions {
                 if let base = contition["base"] as? Int, let format = contition["format"] as? String {
-                    let tmp = UInt(base) * unit
+                    let tmp = UInt64(base) * unit
 
                     if diff < tmp {
                         return String(format: format, diff / unit)
