@@ -217,9 +217,9 @@ public extension OA {
                     }
                 case .done:
                     let ani: UIView = .init()
-                    ani.add(to: view).w(90).e()
-                    ani.add(to: view).h(90).e()
-                    ani.add(to: view).x().e()
+                    ani.add(to: self.container).w(90).e()
+                    ani.add(to: self.container).h(90).e()
+                    ani.add(to: self.container).x().e()
 
                     let p1: UIBezierPath = .init()
                     p1.addArc(withCenter: .init(x: 90 / 2, y: 90 / 2), radius: 90 / 2, startAngle: -CGFloat.pi / 2, endAngle: -CGFloat.pi / 2 + 0.001, clockwise: false)
@@ -283,9 +283,9 @@ public extension OA {
                     }
                 case .fail:
                     let ani: UIView = .init()
-                    ani.add(to: view).w(80).e()
-                    ani.add(to: view).h(72).e()
-                    ani.add(to: view).x().e()
+                    ani.add(to: self.container).w(80).e()
+                    ani.add(to: self.container).h(72).e()
+                    ani.add(to: self.container).x().e()
 
                     let path: UIBezierPath = .init()
                     path.move(to: .init(x: 6, y: 6))
