@@ -16,6 +16,7 @@ public extension OA {
         }
     
         public static var scene: UIWindowScene? = nil
+        public static var mainWindow: UIWindow? = nil
         public static var window: UIWindow? = nil
 
         public static var progress: Float? {
@@ -91,22 +92,27 @@ public extension OA {
             
             public var progress: Float {
                 get { self.progressUI.progress }
-                set { DispatchQueue.main.async { self.progressUI.progress = newValue } }
+                set { self.progressUI.setProgress(newValue, animated: true) }
             }
 
             public override func viewDidLoad() {
                 super.viewDidLoad()
                 
                 self.cover.backgroundColor = .init(white: 0.0, alpha: 0.25)
-
+                
                 self.cover.alpha = 0
                 self.cover.add(to: self.view, enable: "t; b; l; r; x; y")
+                if let size = OA.HUD.mainWindow?.frame.size {
+                    self.cover.add(to: self.view, enable: "w=\(size.width); h=\(size.height)")
+                }
                 
                 self.box.alpha = 0
                 self.box.layer.cornerRadius = 20
                 self.box.blur(style: .light).backgroundColor = .init(white: 1, alpha: 0.36)
-                self.box.add(to: self.view, enable: "x; y; w=\(self.size); h=\(self.size)")
-                
+                self.box.add(to: self.view, enable: "w=\(self.size); h=\(self.size)")
+                self.box.add(to: self.view).q(self.cover).x().e()
+                self.box.add(to: self.view).q(self.cover).y().e()
+
                 self.container.alpha = 0.85
                 self.container.layer.masksToBounds = true
                 self.container.layer.cornerRadius = self.box.layer.cornerRadius

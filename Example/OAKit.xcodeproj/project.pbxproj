@@ -40,6 +40,7 @@
 		0EB12427234333290016F4D3 /* VC.Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC.Storage.swift; sourceTree = "<group>"; };
 		0EB12429234335E60016F4D3 /* VC.Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC.Main.swift; sourceTree = "<group>"; };
 		0EB1242B234353B40016F4D3 /* VC.Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC.Timer.swift; sourceTree = "<group>"; };
+		0EB1BC7327F0428400803DE2 /* OAKit_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OAKit_Example.entitlements; sourceTree = "<group>"; };
 		0ED7F1BB23D596570028C062 /* VC.Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC.Request.swift; sourceTree = "<group>"; };
 		0EE1B2DE27940052005F0FA6 /* VC.Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC.Layout.swift; sourceTree = "<group>"; };
 		0EE6B90C232924B50079E143 /* VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VC.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				0EB1BC7327F0428400803DE2 /* OAKit_Example.entitlements */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for OAKit */,
 				607FACE81AFB9204008FA782 /* Tests */,
@@ -515,6 +517,7 @@
 			baseConfigurationReference = 45F9D6CA33EEC3D388B77ADB /* Pods-OAKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OAKit_Example.entitlements;
 				DEVELOPMENT_TEAM = V6T9TGS4ET;
 				INFOPLIST_FILE = OAKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -522,8 +525,10 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -532,6 +537,7 @@
 			baseConfigurationReference = BB7F8EEABF075BF432DE8315 /* Pods-OAKit_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = OAKit_Example.entitlements;
 				DEVELOPMENT_TEAM = V6T9TGS4ET;
 				INFOPLIST_FILE = OAKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -539,8 +545,10 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -36,18 +36,18 @@ extension VC {
 
             switch indexPath {
             case [0, 0]:
-                OA.HUD.show(icon: .loading, description: "讀取中…").hide(delay: 2)
+                OA.HUD.show(icon: .loading, description: "讀取中…").hide(delay: 5)
 
             case [0, 1]:
                 OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                     setTimeout(second: 1) {
-                        OA.HUD.view(icon: .done, description: "成功！").hide(delay: 2)
+                        OA.HUD.view(icon: .done, description: "成功！").hide(delay: 5)
                     }
                 }
             case [0, 2]:
                 OA.HUD.show(icon: .loading, description: "讀取中…") {_ in
                     setTimeout(second: 1) {
-                        OA.HUD.view(icon: .fail, description: "失敗！").hide(delay: 2)
+                        OA.HUD.view(icon: .fail, description: "失敗！").hide(delay: 5)
                     }
                 }
             case [0, 3]:

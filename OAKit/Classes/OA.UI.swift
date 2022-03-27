@@ -260,12 +260,12 @@ public extension OA {
 
             return (cell: cell, header: header)
         }
-        @discardableResult public static func scroll(to base: UIView, type: OA.UI.Stack.`Type` = .vertical, padding: UIEdgeInsets = .init(top: 4, left: 16, bottom: 24, right: 16)) -> OA.UI.Stack {
+        @discardableResult public static func scroll(to base: UIView, type: OA.UI.Stack.`Type` = .vertical, padding: UIEdgeInsets = .init(top: 4, left: 16, bottom: 24, right: 16), enable: String = "t; l; b; r; x; y") -> OA.UI.Stack {
             OA.UI.Stack(ui: { () -> UIScrollView in
                 let scroll: UIScrollView = .init()
                 scroll.contentInsetAdjustmentBehavior = .always
                 return scroll
-            }(), type: type, padding: padding).add(to: base)
+            }(), type: type, padding: padding).add(to: base, enable: enable)
         }
 
         public class Unit: NSObject {
@@ -794,9 +794,9 @@ public extension OA {
                 return self
             }
 
-            @discardableResult public func add(to view: UIView) -> Self {
+            @discardableResult public func add(to view: UIView, enable: String = "t; l; b; r; x; y") -> Self {
                 self._isShow = nil
-                self.frame.add(to: view, enable: "t; l; b; r; x; y")
+                self.frame.add(to: view, enable: enable)
                 return self
             }
             @discardableResult public func add(to parent: Stack) -> Self {

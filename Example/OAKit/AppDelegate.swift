@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OAKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.backgroundColor = UIColor.white
         self.window!.rootViewController = UINavigationController(rootViewController: VC.Main())
         self.window!.makeKeyAndVisible()
+        OA.HUD.mainWindow = self.window
         
         return true
     }

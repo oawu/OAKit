@@ -32,14 +32,17 @@ extension VC {
             
             let error = OA.UI.Error()
             
-            let scroll = OA.UI.scroll(to: self.view)
-                .append(OA.UI.Stack(ui: UIScrollView(), type: .horizontal).height(100)
-                            .append(OA.UI.Stack(ui: UIView().border(5, .blue)).width(150))
-                            .append(OA.UI.Stack(ui: UIView().border(5, .red)).width(30))
-                            .append(OA.UI.Stack(ui: UIView().border(5, .green)).width(50))
-                            .append(OA.UI.Stack(ui: UIView().border(5, .purple)).width(80))
-                            .append(OA.UI.Stack(ui: UIView().border(5, .yellow)).width(120))
-                )
+            let horizontal = OA.UI.Stack(ui: UIScrollView(), type: .horizontal).height(100)
+                .append(OA.UI.Stack(ui: UIView().border(5, .blue)).width(150))
+                .append(OA.UI.Stack(ui: UIView().border(5, .red)).width(30))
+                .append(OA.UI.Stack(ui: UIView().border(5, .green)).width(50))
+                .append(OA.UI.Stack(ui: UIView().border(5, .purple)).width(80))
+                .append(OA.UI.Stack(ui: UIView().border(5, .yellow)).width(120))
+            
+            horizontal.body.border(1, .red)
+            
+            let scroll = OA.UI.scroll(to: self.view, enable: "x; y")
+                .append(horizontal)
                 .append(OA.UI.Input(title: "標題"))
                 .append(OA.UI.Input(title: "地址", icon: .init(systemName: "location.magnifyingglass")))
                 .append(OA.UI.Input(title: "數字", type: .uint))
@@ -57,6 +60,12 @@ extension VC {
             scroll.append(OA.UI.Button(title: "確定").on(click: {
                 error.messages = ["錯誤 1", "錯誤 2"]
             }))
+            
+            scroll.frame.border(1, .red)
+            scroll.frame.add(to: self.view).t().q(self.view.safeAreaLayoutGuide).t().e()
+            scroll.frame.add(to: self.view).l().q(self.view.safeAreaLayoutGuide).l().e()
+            scroll.frame.add(to: self.view).b().q(self.view.safeAreaLayoutGuide).b().e()
+            scroll.frame.add(to: self.view).r().q(self.view.safeAreaLayoutGuide).r().e()
         }
     }
 }
