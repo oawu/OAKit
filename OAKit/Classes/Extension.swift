@@ -27,8 +27,10 @@ extension UINavigationController {
             return
         }
         guard animated, let coordinator = transitionCoordinator else {
+            self.popViewController(animated: false)
             return completion()
         }
+        self.popViewController(animated: true)
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
 }
