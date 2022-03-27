@@ -22,15 +22,13 @@ extension UINavigationController {
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
     public func popViewController(animated: Bool, completion: (() -> ())?) {
+        self.popViewController(animated: animated)
         guard let completion = completion else {
-            self.popViewController(animated: animated)
             return
         }
         guard animated, let coordinator = transitionCoordinator else {
-            self.popViewController(animated: false)
             return completion()
         }
-        self.popViewController(animated: true)
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
 }
