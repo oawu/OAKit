@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OAKit'
-  s.version          = '0.5.8'
+  s.version          = '0.5.9'
   s.summary          = "OA's Swift UIKit."
   s.description      = <<-DESC
 OA 個人常用的 Swift Lib
@@ -25,7 +25,7 @@ OA 個人常用的 Swift Lib
 
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   # s.resource_bundles = {
-  #   'OAKit' => ['OAKit/Assets/*.png']
+  #   'OAKit' => ['OAKit/Assets/**/*.xcassets']
   # }
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.dependency 'AFNetworking', '~> 2.3'

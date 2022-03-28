@@ -7,291 +7,335 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */; };
-		0E04DD282292A52800DEA262 /* Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD252292A52800DEA262 /* Func.swift */; };
-		0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04DD2D2292AC7200DEA262 /* Extension.swift */; };
-		0E25818F277ACE3F00EB4C63 /* OA.HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */; };
-		0E63299327DCF406000DDDB3 /* OA.UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E63299227DCF406000DDDB3 /* OA.UI.swift */; };
-		0EE946B223D6CA8B00D73E0A /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE946B123D6CA8B00D73E0A /* Core.swift */; };
-		0EEDFBFB2770EF5A009B6417 /* OA.Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFBFA2770EF5A009B6417 /* OA.Func.swift */; };
-		0EEDFBFD2770F029009B6417 /* OA.Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFBFC2770F029009B6417 /* OA.Request.swift */; };
-		0EEDFBFF2770F06E009B6417 /* OA.API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFBFE2770F06E009B6417 /* OA.API.swift */; };
-		0EEDFC012770F090009B6417 /* OA.Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFC002770F090009B6417 /* OA.Storage.swift */; };
-		0EEDFC032770F0BB009B6417 /* OA.Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFC022770F0BB009B6417 /* OA.Timer.swift */; };
-		0EEDFC052770F125009B6417 /* OA.Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFC042770F125009B6417 /* OA.Layout.swift */; };
-		0EEDFC072770F3E6009B6417 /* OA.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEDFC062770F3E6009B6417 /* OA.Cell.swift */; };
-		2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		2F7506E3BD325EE24EBA8D2F333E5CE4 /* Pods-OAKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3CC64B3FFE8B7B9DF597173FD8ECCFE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		3FB2613D85D68CF76091DD42D7B4EA53 /* Pods-OAKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F8FD8515A453FF80482BEEC4CD960F0C /* Pods-OAKit_Example-dummy.m */; };
-		5E6E03C217C0227CFDCB6BE1388A1DFB /* Pods-OAKit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DB9B95ED91481F0C77E9E32A595B3C7 /* Pods-OAKit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0C5D85997821AD52F3F92B9E12EA795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		AE01E41079A68E7A45DC79A3C39221B0 /* OAKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E1E8D910F8650A014A9D6DA2878B3BE9 /* Pods-OAKit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E4869BED123670CEB4FD2AB4C70589 /* Pods-OAKit_Tests-dummy.m */; };
+		1F2CF77AAE320A9A903FDCA769F55C10 /* OAKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 91B0F55DBFC0B2D0F283E4C5C493CF8D /* OAKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2E429837D0B5EE927E1AFB87828513FD /* OA.HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48477EEC86CA8453A49B5702ACA0440D /* OA.HUD.swift */; };
+		36C01CDFD25817EAF9BF73DF3B260BA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		3FF1DFA3586134A898E87222FEEC5E28 /* OA.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0DD8D1783921EDB0B34127172A67BB /* OA.Cell.swift */; };
+		415805E88DBB8CEA136F535A089FA207 /* OA.UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F927D77DDA96F1AF1C1706E9205EAA /* OA.UI.swift */; };
+		4545AFB773D8890535063F5E3803CA21 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402D28D3228D9633D7F0EFA92B101659 /* Core.swift */; };
+		483B608A3A4D61A380D95E913B8F32EB /* OA.Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF55A60C229FB24098641C9300BB43 /* OA.Timer.swift */; };
+		52D9B82D1CAA5792B234DF0BB98B54A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */; };
+		539928096139A6B055752305EE252F21 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		53B18F69EAED1D491172F8C18DD7FCA4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AFDFD531CB0C276F62A7BE9B13B9E3 /* Extension.swift */; };
+		6257206EDC134608D4F65825C9AC7296 /* OAKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 421A3448B9457F1C03A97DB4B5362573 /* OAKit-dummy.m */; };
+		62C6107E671150C1D6522810C7892072 /* Pods-OAKit_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 51D38F07248AFEB6822F945AEFA631B7 /* Pods-OAKit_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		636263432838AB0EE2F23732D4E7D965 /* Pods-OAKit_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 36607082F2341FAAE7E8DEA9EB556028 /* Pods-OAKit_Tests-dummy.m */; };
+		71F9C4ED2AB7895BC45A82EFC86D5C77 /* OA.Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8413A2108B696308A3E00F4CAAE058 /* OA.Request.swift */; };
+		9D979AD806B58C5EB8F678EBE173FAE3 /* Pods-OAKit_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = ED97B6FB811BEA84A4C0F918BCE65B55 /* Pods-OAKit_Example-dummy.m */; };
+		A0580554570CEE7A56E5ACF1DE8050A3 /* OA.Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24FE264A2C74BBE464636A43536538F /* OA.Storage.swift */; };
+		A80E059A572DEADCC2836B2611F5A1A0 /* OA.API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53773D1F288C2D554A4FD479F74B6E88 /* OA.API.swift */; };
+		B7F329DE3CD0CC8B5FC398FFEFE88733 /* OA.Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993F12B13B6AE0A51F6F97BE293BC928 /* OA.Func.swift */; };
+		C32153736937999EEDF021042618C6FA /* Pods-OAKit_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EAA87EF1ED59AEF85995553D3556889F /* Pods-OAKit_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF8A7978B4FACEECFA4B2A882D75246E /* OA.Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BE6B28E440E9430EBFA1FD5F6384A5 /* OA.Layout.swift */; };
+		DA8392FB4725CB6190CF0FADD52DE0B0 /* Func.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF599439F096E6442215B077976A94 /* Func.swift */; };
+		F0BBED90FDC82C1B2B19099E4B67F7DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		40AB86C5CE2BF6BB8A2791B4625DEA7B /* PBXContainerItemProxy */ = {
+		2C20E4B9D3DBC4F59046A48EA19D1E2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 74EFC783712FA3DECD4AFAC730341D2D;
+			remoteGlobalIDString = BD62A47A8063FE3CC4DAD24E83E17E8A;
 			remoteInfo = OAKit;
 		};
-		BC0D6D6A5D0161ACF574F06308BB8F8E /* PBXContainerItemProxy */ = {
+		B174B7DCA4AAAA20F01821044820EE2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D0DF25F91D9C81CA58F515A378F40B2;
+			remoteGlobalIDString = 399646582946357B2F7051812AEE2EB0;
 			remoteInfo = "Pods-OAKit_Example";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
-		0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.xcconfig; sourceTree = "<group>"; };
-		0E04DD252292A52800DEA262 /* Func.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Func.swift; path = OAKit/Classes/Func.swift; sourceTree = "<group>"; };
-		0E04DD2D2292AC7200DEA262 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = OAKit/Classes/Extension.swift; sourceTree = "<group>"; };
-		0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.HUD.swift; path = OAKit/Classes/OA.HUD.swift; sourceTree = "<group>"; };
-		0E63299227DCF406000DDDB3 /* OA.UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.UI.swift; path = OAKit/Classes/OA.UI.swift; sourceTree = "<group>"; };
-		0EE946B123D6CA8B00D73E0A /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Core.swift; path = OAKit/Classes/Core.swift; sourceTree = "<group>"; };
-		0EEDFBFA2770EF5A009B6417 /* OA.Func.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Func.swift; path = OAKit/Classes/OA.Func.swift; sourceTree = "<group>"; };
-		0EEDFBFC2770F029009B6417 /* OA.Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Request.swift; path = OAKit/Classes/OA.Request.swift; sourceTree = "<group>"; };
-		0EEDFBFE2770F06E009B6417 /* OA.API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.API.swift; path = OAKit/Classes/OA.API.swift; sourceTree = "<group>"; };
-		0EEDFC002770F090009B6417 /* OA.Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Storage.swift; path = OAKit/Classes/OA.Storage.swift; sourceTree = "<group>"; };
-		0EEDFC022770F0BB009B6417 /* OA.Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Timer.swift; path = OAKit/Classes/OA.Timer.swift; sourceTree = "<group>"; };
-		0EEDFC042770F125009B6417 /* OA.Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Layout.swift; path = OAKit/Classes/OA.Layout.swift; sourceTree = "<group>"; };
-		0EEDFC062770F3E6009B6417 /* OA.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OA.Cell.swift; path = OAKit/Classes/OA.Cell.swift; sourceTree = "<group>"; };
-		0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
-		103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
-		13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		153FEFB2487673E613D57853D3CB5805 /* Pods_OAKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OAKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2DB9B95ED91481F0C77E9E32A595B3C7 /* Pods-OAKit_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OAKit_Tests-umbrella.h"; sourceTree = "<group>"; };
-		317B037679ED2151A304836027AF7E4C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		32437A08D8139EB3CD0CD9829CCAC99F /* Pods-OAKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		36189A79A8EC6D114E896B07D5F411F5 /* Pods-OAKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OAKit_Example-frameworks.sh"; sourceTree = "<group>"; };
-		39EA327129E0AC93CB1D84DEB28B9386 /* Pods-OAKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.release.xcconfig"; sourceTree = "<group>"; };
-		4F799DB892E62D55E23913BA2DC000AA /* OAKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OAKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6045EB71E804D221069A3C0F84DA2281 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		615E22D483340E729DF660D2641482B5 /* Pods-OAKit_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Example-Info.plist"; sourceTree = "<group>"; };
-		635697F1D28348D89D2C0A661E6EF3EB /* OAKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = OAKit.modulemap; sourceTree = "<group>"; };
-		6ED68FFDC40D1B500A6C757EAF512CDA /* Pods-OAKit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		71ACEA1956C86CB95640D1026FED89D3 /* Pods-OAKit_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OAKit_Example.modulemap"; sourceTree = "<group>"; };
-		8140679B0AD2E7073FD27A65E6629D48 /* Pods-OAKit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OAKit_Tests.modulemap"; sourceTree = "<group>"; };
-		85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OAKit_Example-umbrella.h"; sourceTree = "<group>"; };
-		897581F30AFF0CFCC2411B74F5AD3899 /* Pods-OAKit_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Tests-Info.plist"; sourceTree = "<group>"; };
-		9D01A2307DA3BA7DB233AB27C555AA66 /* OAKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = OAKit.podspec; sourceTree = "<group>"; tabWidth = 2; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A9FD412F8F85B1608818B9D4994F88CE /* Pods-OAKit_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OAKit-dummy.m"; sourceTree = "<group>"; };
-		AD97AE6B6623A0DB8177073274039163 /* Pods-OAKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C140B173D2BB5BBAA9219CFAFD587D3C /* Pods-OAKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		D4E4869BED123670CEB4FD2AB4C70589 /* Pods-OAKit_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Tests-dummy.m"; sourceTree = "<group>"; };
-		E83A542DF16D23777FF35617C97D49C7 /* Pods_OAKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OAKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8FD8515A453FF80482BEEC4CD960F0C /* Pods-OAKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Example-dummy.m"; sourceTree = "<group>"; };
+		0AE80D716801F22F7A52DC70C198760E /* Pods-OAKit_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OAKit_Tests.modulemap"; sourceTree = "<group>"; };
+		1C0DD8D1783921EDB0B34127172A67BB /* OA.Cell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Cell.swift; path = OAKit/Classes/OA.Cell.swift; sourceTree = "<group>"; };
+		1E8AED7FFD019058FAF4F7298D0F6827 /* Pods-OAKit_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OAKit_Example.modulemap"; sourceTree = "<group>"; };
+		226065C00FB1992E63B24E0EB663A13D /* OAKit.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = OAKit.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		24F927D77DDA96F1AF1C1706E9205EAA /* OA.UI.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.UI.swift; path = OAKit/Classes/OA.UI.swift; sourceTree = "<group>"; };
+		260A8144A0A491287D186E63DFA3EFB3 /* Pods-OAKit_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Example-acknowledgements.plist"; sourceTree = "<group>"; };
+		291CC30C7F8130148A87E2122D5956EC /* Pods-OAKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		2FFF55A60C229FB24098641C9300BB43 /* OA.Timer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Timer.swift; path = OAKit/Classes/OA.Timer.swift; sourceTree = "<group>"; };
+		302EA03E36C1D277220D9244015D238B /* Pods-OAKit_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-OAKit_Example"; path = Pods_OAKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31BF599439F096E6442215B077976A94 /* Func.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Func.swift; path = OAKit/Classes/Func.swift; sourceTree = "<group>"; };
+		36607082F2341FAAE7E8DEA9EB556028 /* Pods-OAKit_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Tests-dummy.m"; sourceTree = "<group>"; };
+		3C61BB5CA4521A2C72A6114EE22DAC10 /* Pods-OAKit_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OAKit_Example-frameworks.sh"; sourceTree = "<group>"; };
+		3E7F7B7D32BBF144F963198CF58B39B4 /* Pods-OAKit_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		402D28D3228D9633D7F0EFA92B101659 /* Core.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Core.swift; path = OAKit/Classes/Core.swift; sourceTree = "<group>"; };
+		421A3448B9457F1C03A97DB4B5362573 /* OAKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "OAKit-dummy.m"; sourceTree = "<group>"; };
+		468526071674088A8C4B4D14CFC5DB5F /* Pods-OAKit_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OAKit_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		48477EEC86CA8453A49B5702ACA0440D /* OA.HUD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.HUD.swift; path = OAKit/Classes/OA.HUD.swift; sourceTree = "<group>"; };
+		4CFD5A17F9C9E01CEDC7E3AA89597A03 /* OAKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = OAKit.modulemap; sourceTree = "<group>"; };
+		4DD40203D43A57FFDA5A79D35474903C /* Pods-OAKit_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Tests-Info.plist"; sourceTree = "<group>"; };
+		51D38F07248AFEB6822F945AEFA631B7 /* Pods-OAKit_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OAKit_Example-umbrella.h"; sourceTree = "<group>"; };
+		53773D1F288C2D554A4FD479F74B6E88 /* OA.API.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.API.swift; path = OAKit/Classes/OA.API.swift; sourceTree = "<group>"; };
+		5570A5A29282D9E5565A8220D6B65DAE /* Pods-OAKit_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-OAKit_Tests"; path = Pods_OAKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		680A183256A6983DB3AA49DE953D14DB /* Pods-OAKit_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		70D9CD4536E3723A273976D9AD0E7732 /* Pods-OAKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Example.release.xcconfig"; sourceTree = "<group>"; };
+		78A02DC9B9FECE459871FA07F79F6B55 /* OAKit */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OAKit; path = OAKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91B0F55DBFC0B2D0F283E4C5C493CF8D /* OAKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-umbrella.h"; sourceTree = "<group>"; };
+		993F12B13B6AE0A51F6F97BE293BC928 /* OA.Func.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Func.swift; path = OAKit/Classes/OA.Func.swift; sourceTree = "<group>"; };
+		9CC89B38F7D991FF6D84CEEA861C8990 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A11E60F36DD41BF4D623404ED607CF3F /* Pods-OAKit_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Example-Info.plist"; sourceTree = "<group>"; };
+		C114EBFA5C8A004D8B663FE167DF019A /* OAKit-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "OAKit-Info.plist"; sourceTree = "<group>"; };
+		C2D7B0AED6B25F2563896BC861A50BF0 /* OAKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OAKit-prefix.pch"; sourceTree = "<group>"; };
+		C6424F5E48E4F18838DFB50A42553BCE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		C6E80FCA167FEDD10FD23DC21141C267 /* OAKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.debug.xcconfig; sourceTree = "<group>"; };
+		D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D24FE264A2C74BBE464636A43536538F /* OA.Storage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Storage.swift; path = OAKit/Classes/OA.Storage.swift; sourceTree = "<group>"; };
+		D2A9F65AE54E54E04B2488ACDB084D69 /* OAKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OAKit.release.xcconfig; sourceTree = "<group>"; };
+		D2B496F9189816CCAEEC5B25040F39F8 /* Pods-OAKit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OAKit_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		D6BE6B28E440E9430EBFA1FD5F6384A5 /* OA.Layout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Layout.swift; path = OAKit/Classes/OA.Layout.swift; sourceTree = "<group>"; };
+		E4AFDFD531CB0C276F62A7BE9B13B9E3 /* Extension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = OAKit/Classes/Extension.swift; sourceTree = "<group>"; };
+		EAA87EF1ED59AEF85995553D3556889F /* Pods-OAKit_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OAKit_Tests-umbrella.h"; sourceTree = "<group>"; };
+		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		ED97B6FB811BEA84A4C0F918BCE65B55 /* Pods-OAKit_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OAKit_Example-dummy.m"; sourceTree = "<group>"; };
+		F66482EDAD7C00EA1460D07342280A30 /* Pods-OAKit_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OAKit_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
+		FD8413A2108B696308A3E00F4CAAE058 /* OA.Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OA.Request.swift; path = OAKit/Classes/OA.Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0C78CFE114820342C149DED04A3F06A5 /* Frameworks */ = {
+		31828AB63FDD45B765DBABF379559CD8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0C5D85997821AD52F3F92B9E12EA795 /* Foundation.framework in Frameworks */,
+				F0BBED90FDC82C1B2B19099E4B67F7DB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5C959ADE41193D6B0E182FE1F3959FA9 /* Frameworks */ = {
+		3DAFE06DA7C67E6BBCB5D293F4D51B75 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CDCDD6020ED6FC50749304F14FA8A79 /* Foundation.framework in Frameworks */,
+				539928096139A6B055752305EE252F21 /* Foundation.framework in Frameworks */,
+				52D9B82D1CAA5792B234DF0BB98B54A1 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F1BA42DC3515D0A0492F19274366820C /* Frameworks */ = {
+		7675A300BD2C08F221F6392EB010CF09 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CC64B3FFE8B7B9DF597173FD8ECCFE3 /* Foundation.framework in Frameworks */,
+				36C01CDFD25817EAF9BF73DF3B260BA6 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		082C0CC7BA45DB9974CBEF7963EBC9D2 /* OAKit */ = {
-			isa = PBXGroup;
-			children = (
-				0EE946B123D6CA8B00D73E0A /* Core.swift */,
-				0E04DD2D2292AC7200DEA262 /* Extension.swift */,
-				0E04DD252292A52800DEA262 /* Func.swift */,
-				0EEDFBFA2770EF5A009B6417 /* OA.Func.swift */,
-				0E63299227DCF406000DDDB3 /* OA.UI.swift */,
-				0EEDFBFC2770F029009B6417 /* OA.Request.swift */,
-				0EEDFBFE2770F06E009B6417 /* OA.API.swift */,
-				0EEDFC002770F090009B6417 /* OA.Storage.swift */,
-				0EEDFC022770F0BB009B6417 /* OA.Timer.swift */,
-				0EEDFC042770F125009B6417 /* OA.Layout.swift */,
-				0EEDFC062770F3E6009B6417 /* OA.Cell.swift */,
-				0E25818E277ACE3F00EB4C63 /* OA.HUD.swift */,
-				96631C0DFBA0476022703100A5DB7773 /* Pod */,
-				B2A3B2686353587789CD56E961E76BC5 /* Support Files */,
-			);
-			name = OAKit;
-			path = ../..;
-			sourceTree = "<group>";
-		};
 		0DB82E4515ECC451CA6EACF24F007158 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				5AB45D26D4A7E1D0F55752120A215498 /* Pods-OAKit_Example */,
-				70F5352837151A66AC2B215FF4BA6727 /* Pods-OAKit_Tests */,
+				41D7B818B96876F5AE6D183868FF3C77 /* Pods-OAKit_Example */,
+				15764413BFAF2C4D4F94E37788405DDF /* Pods-OAKit_Tests */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		5AB45D26D4A7E1D0F55752120A215498 /* Pods-OAKit_Example */ = {
+		15764413BFAF2C4D4F94E37788405DDF /* Pods-OAKit_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				71ACEA1956C86CB95640D1026FED89D3 /* Pods-OAKit_Example.modulemap */,
-				13D5FE7EEFAE904ECCF0A2AB7262F410 /* Pods-OAKit_Example-acknowledgements.markdown */,
-				C140B173D2BB5BBAA9219CFAFD587D3C /* Pods-OAKit_Example-acknowledgements.plist */,
-				F8FD8515A453FF80482BEEC4CD960F0C /* Pods-OAKit_Example-dummy.m */,
-				36189A79A8EC6D114E896B07D5F411F5 /* Pods-OAKit_Example-frameworks.sh */,
-				615E22D483340E729DF660D2641482B5 /* Pods-OAKit_Example-Info.plist */,
-				85DB92E73C0A4BBD6B7C1B8C3EA9AA65 /* Pods-OAKit_Example-umbrella.h */,
-				03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */,
-				39EA327129E0AC93CB1D84DEB28B9386 /* Pods-OAKit_Example.release.xcconfig */,
-			);
-			name = "Pods-OAKit_Example";
-			path = "Target Support Files/Pods-OAKit_Example";
-			sourceTree = "<group>";
-		};
-		70F5352837151A66AC2B215FF4BA6727 /* Pods-OAKit_Tests */ = {
-			isa = PBXGroup;
-			children = (
-				8140679B0AD2E7073FD27A65E6629D48 /* Pods-OAKit_Tests.modulemap */,
-				A9FD412F8F85B1608818B9D4994F88CE /* Pods-OAKit_Tests-acknowledgements.markdown */,
-				6ED68FFDC40D1B500A6C757EAF512CDA /* Pods-OAKit_Tests-acknowledgements.plist */,
-				D4E4869BED123670CEB4FD2AB4C70589 /* Pods-OAKit_Tests-dummy.m */,
-				897581F30AFF0CFCC2411B74F5AD3899 /* Pods-OAKit_Tests-Info.plist */,
-				2DB9B95ED91481F0C77E9E32A595B3C7 /* Pods-OAKit_Tests-umbrella.h */,
-				32437A08D8139EB3CD0CD9829CCAC99F /* Pods-OAKit_Tests.debug.xcconfig */,
-				AD97AE6B6623A0DB8177073274039163 /* Pods-OAKit_Tests.release.xcconfig */,
+				0AE80D716801F22F7A52DC70C198760E /* Pods-OAKit_Tests.modulemap */,
+				3E7F7B7D32BBF144F963198CF58B39B4 /* Pods-OAKit_Tests-acknowledgements.markdown */,
+				F66482EDAD7C00EA1460D07342280A30 /* Pods-OAKit_Tests-acknowledgements.plist */,
+				36607082F2341FAAE7E8DEA9EB556028 /* Pods-OAKit_Tests-dummy.m */,
+				4DD40203D43A57FFDA5A79D35474903C /* Pods-OAKit_Tests-Info.plist */,
+				EAA87EF1ED59AEF85995553D3556889F /* Pods-OAKit_Tests-umbrella.h */,
+				291CC30C7F8130148A87E2122D5956EC /* Pods-OAKit_Tests.debug.xcconfig */,
+				D2B496F9189816CCAEEC5B25040F39F8 /* Pods-OAKit_Tests.release.xcconfig */,
 			);
 			name = "Pods-OAKit_Tests";
 			path = "Target Support Files/Pods-OAKit_Tests";
 			sourceTree = "<group>";
 		};
-		96631C0DFBA0476022703100A5DB7773 /* Pod */ = {
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6045EB71E804D221069A3C0F84DA2281 /* LICENSE */,
-				9D01A2307DA3BA7DB233AB27C555AA66 /* OAKit.podspec */,
-				317B037679ED2151A304836027AF7E4C /* README.md */,
+				59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */,
 			);
-			name = Pod;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AAED196BEBAE2D0B07334590F8566951 /* Products */ = {
+		41D7B818B96876F5AE6D183868FF3C77 /* Pods-OAKit_Example */ = {
 			isa = PBXGroup;
 			children = (
-				4F799DB892E62D55E23913BA2DC000AA /* OAKit.framework */,
-				E83A542DF16D23777FF35617C97D49C7 /* Pods_OAKit_Example.framework */,
-				153FEFB2487673E613D57853D3CB5805 /* Pods_OAKit_Tests.framework */,
+				1E8AED7FFD019058FAF4F7298D0F6827 /* Pods-OAKit_Example.modulemap */,
+				468526071674088A8C4B4D14CFC5DB5F /* Pods-OAKit_Example-acknowledgements.markdown */,
+				260A8144A0A491287D186E63DFA3EFB3 /* Pods-OAKit_Example-acknowledgements.plist */,
+				ED97B6FB811BEA84A4C0F918BCE65B55 /* Pods-OAKit_Example-dummy.m */,
+				3C61BB5CA4521A2C72A6114EE22DAC10 /* Pods-OAKit_Example-frameworks.sh */,
+				A11E60F36DD41BF4D623404ED607CF3F /* Pods-OAKit_Example-Info.plist */,
+				51D38F07248AFEB6822F945AEFA631B7 /* Pods-OAKit_Example-umbrella.h */,
+				680A183256A6983DB3AA49DE953D14DB /* Pods-OAKit_Example.debug.xcconfig */,
+				70D9CD4536E3723A273976D9AD0E7732 /* Pods-OAKit_Example.release.xcconfig */,
 			);
-			name = Products;
+			name = "Pods-OAKit_Example";
+			path = "Target Support Files/Pods-OAKit_Example";
 			sourceTree = "<group>";
 		};
-		B2A3B2686353587789CD56E961E76BC5 /* Support Files */ = {
+		59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				635697F1D28348D89D2C0A661E6EF3EB /* OAKit.modulemap */,
-				0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */,
-				ABCACCBA1A9B67596F917CBF2DD83F4E /* OAKit-dummy.m */,
-				103DBFF0AFC14CA47035749041F02FD1 /* OAKit-Info.plist */,
-				072A5BCDF2C1EDEC23CF28882EC1F15E /* OAKit-prefix.pch */,
-				0F1E56E27007584E32BA62C6D272CB86 /* OAKit-umbrella.h */,
+				EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */,
+				D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		6DEEECF0D7BEC674A89FE6E6D8ED5439 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4CFD5A17F9C9E01CEDC7E3AA89597A03 /* OAKit.modulemap */,
+				421A3448B9457F1C03A97DB4B5362573 /* OAKit-dummy.m */,
+				C114EBFA5C8A004D8B663FE167DF019A /* OAKit-Info.plist */,
+				C2D7B0AED6B25F2563896BC861A50BF0 /* OAKit-prefix.pch */,
+				91B0F55DBFC0B2D0F283E4C5C493CF8D /* OAKit-umbrella.h */,
+				C6E80FCA167FEDD10FD23DC21141C267 /* OAKit.debug.xcconfig */,
+				D2A9F65AE54E54E04B2488ACDB084D69 /* OAKit.release.xcconfig */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/OAKit";
 			sourceTree = "<group>";
 		};
-		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+		7AD048FCAEE62224073D01F49A802FDA /* OAKit */ = {
 			isa = PBXGroup;
 			children = (
-				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+				402D28D3228D9633D7F0EFA92B101659 /* Core.swift */,
+				E4AFDFD531CB0C276F62A7BE9B13B9E3 /* Extension.swift */,
+				31BF599439F096E6442215B077976A94 /* Func.swift */,
+				53773D1F288C2D554A4FD479F74B6E88 /* OA.API.swift */,
+				1C0DD8D1783921EDB0B34127172A67BB /* OA.Cell.swift */,
+				993F12B13B6AE0A51F6F97BE293BC928 /* OA.Func.swift */,
+				48477EEC86CA8453A49B5702ACA0440D /* OA.HUD.swift */,
+				D6BE6B28E440E9430EBFA1FD5F6384A5 /* OA.Layout.swift */,
+				FD8413A2108B696308A3E00F4CAAE058 /* OA.Request.swift */,
+				D24FE264A2C74BBE464636A43536538F /* OA.Storage.swift */,
+				2FFF55A60C229FB24098641C9300BB43 /* OA.Timer.swift */,
+				24F927D77DDA96F1AF1C1706E9205EAA /* OA.UI.swift */,
+				B75D9BB6BF63E0AA82B15253C5C4F6D0 /* Pod */,
+				6DEEECF0D7BEC674A89FE6E6D8ED5439 /* Support Files */,
 			);
-			name = iOS;
+			name = OAKit;
+			path = ../..;
 			sourceTree = "<group>";
 		};
-		C93A509F7542C06BA0FC81746E4FC2AA /* Development Pods */ = {
+		B75D9BB6BF63E0AA82B15253C5C4F6D0 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				082C0CC7BA45DB9974CBEF7963EBC9D2 /* OAKit */,
+				9CC89B38F7D991FF6D84CEEA861C8990 /* LICENSE */,
+				226065C00FB1992E63B24E0EB663A13D /* OAKit.podspec */,
+				C6424F5E48E4F18838DFB50A42553BCE /* README.md */,
 			);
-			name = "Development Pods";
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				C93A509F7542C06BA0FC81746E4FC2AA /* Development Pods */,
-				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				AAED196BEBAE2D0B07334590F8566951 /* Products */,
+				F9091F1D7231EBE10BCEF9200B813700 /* Development Pods */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				FBF13145B685C329D4C8DA46C130FB2F /* Products */,
 				0DB82E4515ECC451CA6EACF24F007158 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+		F9091F1D7231EBE10BCEF9200B813700 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+				7AD048FCAEE62224073D01F49A802FDA /* OAKit */,
 			);
-			name = Frameworks;
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		FBF13145B685C329D4C8DA46C130FB2F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78A02DC9B9FECE459871FA07F79F6B55 /* OAKit */,
+				302EA03E36C1D277220D9244015D238B /* Pods-OAKit_Example */,
+				5570A5A29282D9E5565A8220D6B65DAE /* Pods-OAKit_Tests */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		5E7BB7905AD88FF576DBEE8A33B42E4D /* Headers */ = {
+		AE19DBE7B4A6580D48243A2BE51F8EC1 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE01E41079A68E7A45DC79A3C39221B0 /* OAKit-umbrella.h in Headers */,
+				1F2CF77AAE320A9A903FDCA769F55C10 /* OAKit-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A36344B4295521A4D9F4450B424D1EFC /* Headers */ = {
+		DE38A9F4AB938E30246434D190649F52 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E6E03C217C0227CFDCB6BE1388A1DFB /* Pods-OAKit_Tests-umbrella.h in Headers */,
+				C32153736937999EEDF021042618C6FA /* Pods-OAKit_Tests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CCBCBC1B2297847CFA55E038EDEB0F72 /* Headers */ = {
+		F34A62D09043ACB7E34A5A28D550FC53 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F7506E3BD325EE24EBA8D2F333E5CE4 /* Pods-OAKit_Example-umbrella.h in Headers */,
+				62C6107E671150C1D6522810C7892072 /* Pods-OAKit_Example-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		74EFC783712FA3DECD4AFAC730341D2D /* OAKit */ = {
+		3742BFD6CA73107486A21330B6D4FA8B /* Pods-OAKit_Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65D5C10E4EFD7EBDC8139C6C31F1A9E7 /* Build configuration list for PBXNativeTarget "OAKit" */;
+			buildConfigurationList = C604837D3811313F16B3EC0484651A2E /* Build configuration list for PBXNativeTarget "Pods-OAKit_Tests" */;
 			buildPhases = (
-				5E7BB7905AD88FF576DBEE8A33B42E4D /* Headers */,
-				D5A615F258E41FBFFABC65C11161E7AF /* Sources */,
-				5C959ADE41193D6B0E182FE1F3959FA9 /* Frameworks */,
-				9BE1924490DC258298EE33549A9802C7 /* Resources */,
+				DE38A9F4AB938E30246434D190649F52 /* Headers */,
+				382A0F23EB91C135E460FC8F0D84AC6B /* Sources */,
+				7675A300BD2C08F221F6392EB010CF09 /* Frameworks */,
+				EE9E77B4F518F690995FD348C6755542 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2208033DB74033354C06A9E3E1479F77 /* PBXTargetDependency */,
+			);
+			name = "Pods-OAKit_Tests";
+			productName = Pods_OAKit_Tests;
+			productReference = 5570A5A29282D9E5565A8220D6B65DAE /* Pods-OAKit_Tests */;
+			productType = "com.apple.product-type.framework";
+		};
+		399646582946357B2F7051812AEE2EB0 /* Pods-OAKit_Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B92EED724D53CF278CEE958F8F8F93C3 /* Build configuration list for PBXNativeTarget "Pods-OAKit_Example" */;
+			buildPhases = (
+				F34A62D09043ACB7E34A5A28D550FC53 /* Headers */,
+				23FF21A9C3A197ACD29885C04703F851 /* Sources */,
+				31828AB63FDD45B765DBABF379559CD8 /* Frameworks */,
+				4BD472B0E6EAB22976B615691ED20E9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B44F0D0B2383FC405EBA4B92D777E1FE /* PBXTargetDependency */,
+			);
+			name = "Pods-OAKit_Example";
+			productName = Pods_OAKit_Example;
+			productReference = 302EA03E36C1D277220D9244015D238B /* Pods-OAKit_Example */;
+			productType = "com.apple.product-type.framework";
+		};
+		BD62A47A8063FE3CC4DAD24E83E17E8A /* OAKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA6D89C18DEA8B57D8568ED3887B6406 /* Build configuration list for PBXNativeTarget "OAKit" */;
+			buildPhases = (
+				AE19DBE7B4A6580D48243A2BE51F8EC1 /* Headers */,
+				4B5E1A87166BBB678B12C2C9B37CD66F /* Sources */,
+				3DAFE06DA7C67E6BBCB5D293F4D51B75 /* Frameworks */,
+				EFDCB90A242C0B5B4951CBA803336FAB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -299,45 +343,7 @@
 			);
 			name = OAKit;
 			productName = OAKit;
-			productReference = 4F799DB892E62D55E23913BA2DC000AA /* OAKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		8D0DF25F91D9C81CA58F515A378F40B2 /* Pods-OAKit_Example */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 173C51C92A157A2D5F69DFA99FFAD77A /* Build configuration list for PBXNativeTarget "Pods-OAKit_Example" */;
-			buildPhases = (
-				CCBCBC1B2297847CFA55E038EDEB0F72 /* Headers */,
-				088252DC76F363F0762F80728FA23E1A /* Sources */,
-				F1BA42DC3515D0A0492F19274366820C /* Frameworks */,
-				A9AAB65B4C1F45395C86645021762244 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BDD86BD4DD24FBA8A71C2B7EA0ACE233 /* PBXTargetDependency */,
-			);
-			name = "Pods-OAKit_Example";
-			productName = "Pods-OAKit_Example";
-			productReference = E83A542DF16D23777FF35617C97D49C7 /* Pods_OAKit_Example.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		D651E0E08960FD23DD6516CC88CC1970 /* Pods-OAKit_Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 844324BA263E04D9654159A55DC5BF25 /* Build configuration list for PBXNativeTarget "Pods-OAKit_Tests" */;
-			buildPhases = (
-				A36344B4295521A4D9F4450B424D1EFC /* Headers */,
-				F01176DA9BDDCD6241BDC6012C110BF2 /* Sources */,
-				0C78CFE114820342C149DED04A3F06A5 /* Frameworks */,
-				D33C92BFBCCC0B0B5849E1423811C86B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C06DD84F52598533FA82B71FCF9958F6 /* PBXTargetDependency */,
-			);
-			name = "Pods-OAKit_Tests";
-			productName = "Pods-OAKit_Tests";
-			productReference = 153FEFB2487673E613D57853D3CB5805 /* Pods_OAKit_Tests.framework */;
+			productReference = 78A02DC9B9FECE459871FA07F79F6B55 /* OAKit */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -346,50 +352,45 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
-				TargetAttributes = {
-					74EFC783712FA3DECD4AFAC730341D2D = {
-						LastSwiftMigration = 1160;
-					};
-				};
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = AAED196BEBAE2D0B07334590F8566951 /* Products */;
+			productRefGroup = FBF13145B685C329D4C8DA46C130FB2F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				74EFC783712FA3DECD4AFAC730341D2D /* OAKit */,
-				8D0DF25F91D9C81CA58F515A378F40B2 /* Pods-OAKit_Example */,
-				D651E0E08960FD23DD6516CC88CC1970 /* Pods-OAKit_Tests */,
+				BD62A47A8063FE3CC4DAD24E83E17E8A /* OAKit */,
+				399646582946357B2F7051812AEE2EB0 /* Pods-OAKit_Example */,
+				3742BFD6CA73107486A21330B6D4FA8B /* Pods-OAKit_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9BE1924490DC258298EE33549A9802C7 /* Resources */ = {
+		4BD472B0E6EAB22976B615691ED20E9B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A9AAB65B4C1F45395C86645021762244 /* Resources */ = {
+		EE9E77B4F518F690995FD348C6755542 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D33C92BFBCCC0B0B5849E1423811C86B /* Resources */ = {
+		EFDCB90A242C0B5B4951CBA803336FAB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -399,65 +400,66 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		088252DC76F363F0762F80728FA23E1A /* Sources */ = {
+		23FF21A9C3A197ACD29885C04703F851 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB2613D85D68CF76091DD42D7B4EA53 /* Pods-OAKit_Example-dummy.m in Sources */,
+				9D979AD806B58C5EB8F678EBE173FAE3 /* Pods-OAKit_Example-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D5A615F258E41FBFFABC65C11161E7AF /* Sources */ = {
+		382A0F23EB91C135E460FC8F0D84AC6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EEDFBFD2770F029009B6417 /* OA.Request.swift in Sources */,
-				0E63299327DCF406000DDDB3 /* OA.UI.swift in Sources */,
-				0E04DD282292A52800DEA262 /* Func.swift in Sources */,
-				0742E5EDD0C3D9CEDE31E62C6027BDBD /* OAKit-dummy.m in Sources */,
-				0EEDFC072770F3E6009B6417 /* OA.Cell.swift in Sources */,
-				0E04DD2E2292AC7200DEA262 /* Extension.swift in Sources */,
-				0EEDFC032770F0BB009B6417 /* OA.Timer.swift in Sources */,
-				0E25818F277ACE3F00EB4C63 /* OA.HUD.swift in Sources */,
-				0EEDFBFF2770F06E009B6417 /* OA.API.swift in Sources */,
-				0EEDFBFB2770EF5A009B6417 /* OA.Func.swift in Sources */,
-				0EEDFC012770F090009B6417 /* OA.Storage.swift in Sources */,
-				0EEDFC052770F125009B6417 /* OA.Layout.swift in Sources */,
-				0EE946B223D6CA8B00D73E0A /* Core.swift in Sources */,
+				636263432838AB0EE2F23732D4E7D965 /* Pods-OAKit_Tests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F01176DA9BDDCD6241BDC6012C110BF2 /* Sources */ = {
+		4B5E1A87166BBB678B12C2C9B37CD66F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1E8D910F8650A014A9D6DA2878B3BE9 /* Pods-OAKit_Tests-dummy.m in Sources */,
+				4545AFB773D8890535063F5E3803CA21 /* Core.swift in Sources */,
+				53B18F69EAED1D491172F8C18DD7FCA4 /* Extension.swift in Sources */,
+				DA8392FB4725CB6190CF0FADD52DE0B0 /* Func.swift in Sources */,
+				A80E059A572DEADCC2836B2611F5A1A0 /* OA.API.swift in Sources */,
+				3FF1DFA3586134A898E87222FEEC5E28 /* OA.Cell.swift in Sources */,
+				B7F329DE3CD0CC8B5FC398FFEFE88733 /* OA.Func.swift in Sources */,
+				2E429837D0B5EE927E1AFB87828513FD /* OA.HUD.swift in Sources */,
+				CF8A7978B4FACEECFA4B2A882D75246E /* OA.Layout.swift in Sources */,
+				71F9C4ED2AB7895BC45A82EFC86D5C77 /* OA.Request.swift in Sources */,
+				A0580554570CEE7A56E5ACF1DE8050A3 /* OA.Storage.swift in Sources */,
+				483B608A3A4D61A380D95E913B8F32EB /* OA.Timer.swift in Sources */,
+				415805E88DBB8CEA136F535A089FA207 /* OA.UI.swift in Sources */,
+				6257206EDC134608D4F65825C9AC7296 /* OAKit-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BDD86BD4DD24FBA8A71C2B7EA0ACE233 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = OAKit;
-			target = 74EFC783712FA3DECD4AFAC730341D2D /* OAKit */;
-			targetProxy = 40AB86C5CE2BF6BB8A2791B4625DEA7B /* PBXContainerItemProxy */;
-		};
-		C06DD84F52598533FA82B71FCF9958F6 /* PBXTargetDependency */ = {
+		2208033DB74033354C06A9E3E1479F77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-OAKit_Example";
-			target = 8D0DF25F91D9C81CA58F515A378F40B2 /* Pods-OAKit_Example */;
-			targetProxy = BC0D6D6A5D0161ACF574F06308BB8F8E /* PBXContainerItemProxy */;
+			target = 399646582946357B2F7051812AEE2EB0 /* Pods-OAKit_Example */;
+			targetProxy = B174B7DCA4AAAA20F01821044820EE2F /* PBXContainerItemProxy */;
+		};
+		B44F0D0B2383FC405EBA4B92D777E1FE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAKit;
+			target = BD62A47A8063FE3CC4DAD24E83E17E8A /* OAKit */;
+			targetProxy = 2C20E4B9D3DBC4F59046A48EA19D1E2C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		32C26AF6B1F02BA56C0703B760393140 /* Debug */ = {
+		0A8FE9DF3B0023954BD28B2CE99565B7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */;
+			baseConfigurationReference = D2A9F65AE54E54E04B2488ACDB084D69 /* OAKit.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -479,17 +481,19 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		70A3E885FB4E0E670D603C61F825F26E /* Debug */ = {
+		2F63AA8FC0441BF6E752EA113E55596A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03194671571888FB83A7CD5E814A45ED /* Pods-OAKit_Example.debug.xcconfig */;
+			baseConfigurationReference = 680A183256A6983DB3AA49DE953D14DB /* Pods-OAKit_Example.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -500,7 +504,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OAKit_Example/Pods-OAKit_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OAKit_Example/Pods-OAKit_Example.modulemap";
@@ -517,12 +521,13 @@
 			};
 			name = Debug;
 		};
-		7840CFB576114DA2716792B1CBDC8EA2 /* Release */ = {
+		555496B1A44CD3206ACC585AA18F397F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD97AE6B6623A0DB8177073274039163 /* Pods-OAKit_Tests.release.xcconfig */;
+			baseConfigurationReference = D2B496F9189816CCAEEC5B25040F39F8 /* Pods-OAKit_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -533,7 +538,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OAKit_Tests/Pods-OAKit_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OAKit_Tests/Pods-OAKit_Tests.modulemap";
@@ -551,42 +556,11 @@
 			};
 			name = Release;
 		};
-		923CF9BFD5BBE6B50D45F2971C101B15 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0829F9A65441714DC848A05BCA83CCDE /* OAKit.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/OAKit/OAKit-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/OAKit/OAKit-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/OAKit/OAKit.modulemap";
-				PRODUCT_MODULE_NAME = OAKit;
-				PRODUCT_NAME = OAKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		B0087CB4594321EF41619F3181FE120E /* Release */ = {
+		8DE5143C03248BB6CD542DE3963D6F3A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -609,65 +583,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		B8BCBD0110C2658BB5DAADB9B7D97B92 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -693,10 +609,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -706,12 +622,13 @@
 			};
 			name = Debug;
 		};
-		BF5B5936886268D8E303DE50EDB8A0C5 /* Release */ = {
+		991937153E70AC3F3C6F6924B317C512 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39EA327129E0AC93CB1D84DEB28B9386 /* Pods-OAKit_Example.release.xcconfig */;
+			baseConfigurationReference = 70D9CD4536E3723A273976D9AD0E7732 /* Pods-OAKit_Example.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -722,7 +639,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OAKit_Example/Pods-OAKit_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OAKit_Example/Pods-OAKit_Example.modulemap";
@@ -740,12 +657,75 @@
 			};
 			name = Release;
 		};
-		C2B71BDDADB4DF6D9CAB6D09BB3AE1D7 /* Debug */ = {
+		9E406C6AAF85E580207CD97B0044DEAB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 32437A08D8139EB3CD0CD9829CCAC99F /* Pods-OAKit_Tests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		B41DDA17DA1695EA810E748CDC9FC8ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 291CC30C7F8130148A87E2122D5956EC /* Pods-OAKit_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -756,7 +736,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OAKit_Tests/Pods-OAKit_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OAKit_Tests/Pods-OAKit_Tests.modulemap";
@@ -773,41 +753,73 @@
 			};
 			name = Debug;
 		};
+		D302FE1F660EDA7AA08B485DE0AAE198 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6E80FCA167FEDD10FD23DC21141C267 /* OAKit.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/OAKit/OAKit-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/OAKit/OAKit-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/OAKit/OAKit.modulemap";
+				PRODUCT_MODULE_NAME = OAKit;
+				PRODUCT_NAME = OAKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		173C51C92A157A2D5F69DFA99FFAD77A /* Build configuration list for PBXNativeTarget "Pods-OAKit_Example" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				70A3E885FB4E0E670D603C61F825F26E /* Debug */,
-				BF5B5936886268D8E303DE50EDB8A0C5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B8BCBD0110C2658BB5DAADB9B7D97B92 /* Debug */,
-				B0087CB4594321EF41619F3181FE120E /* Release */,
+				8DE5143C03248BB6CD542DE3963D6F3A /* Debug */,
+				9E406C6AAF85E580207CD97B0044DEAB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		65D5C10E4EFD7EBDC8139C6C31F1A9E7 /* Build configuration list for PBXNativeTarget "OAKit" */ = {
+		B92EED724D53CF278CEE958F8F8F93C3 /* Build configuration list for PBXNativeTarget "Pods-OAKit_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				32C26AF6B1F02BA56C0703B760393140 /* Debug */,
-				923CF9BFD5BBE6B50D45F2971C101B15 /* Release */,
+				2F63AA8FC0441BF6E752EA113E55596A /* Debug */,
+				991937153E70AC3F3C6F6924B317C512 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		844324BA263E04D9654159A55DC5BF25 /* Build configuration list for PBXNativeTarget "Pods-OAKit_Tests" */ = {
+		BA6D89C18DEA8B57D8568ED3887B6406 /* Build configuration list for PBXNativeTarget "OAKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C2B71BDDADB4DF6D9CAB6D09BB3AE1D7 /* Debug */,
-				7840CFB576114DA2716792B1CBDC8EA2 /* Release */,
+				D302FE1F660EDA7AA08B485DE0AAE198 /* Debug */,
+				0A8FE9DF3B0023954BD28B2CE99565B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C604837D3811313F16B3EC0484651A2E /* Build configuration list for PBXNativeTarget "Pods-OAKit_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B41DDA17DA1695EA810E748CDC9FC8ED /* Debug */,
+				555496B1A44CD3206ACC585AA18F397F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

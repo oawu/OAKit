@@ -1,8 +1,8 @@
 {
   "name": "OAKit",
-  "version": "0.1.0",
-  "summary": "A short description of OAKit.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "0.5.9",
+  "summary": "OA's Swift UIKit.",
+  "description": "OA 個人常用的 Swift Lib",
   "homepage": "https://github.com/comdan66/OAKit",
   "license": {
     "type": "MIT",
@@ -13,10 +13,15 @@
   },
   "source": {
     "git": "https://github.com/comdan66/OAKit.git",
-    "tag": "0.1.0"
+    "tag": "0.5.9"
   },
+  "social_media_url": "https://www.ioa.tw",
   "platforms": {
-    "ios": "8.0"
+    "ios": "13.0"
   },
-  "source_files": "OAKit/Classes/**/*"
+  "source_files": "OAKit/Classes/**/*",
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ]
 }

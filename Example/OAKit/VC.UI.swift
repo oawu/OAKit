@@ -43,7 +43,7 @@ extension VC {
             
             let scroll = OA.UI.scroll(to: self.view, enable: "x; y")
                 .append(horizontal)
-                .append(OA.UI.Input(title: "標題"))
+                .append(OA.UI.Input(title: "標題", bgColor: .red))
                 .append(OA.UI.Input(title: "地址", icon: .init(systemName: "location.magnifyingglass")))
                 .append(OA.UI.Input(title: "數字", type: .uint))
                 .append(OA.UI.Input(title: "內容", type: .textView))

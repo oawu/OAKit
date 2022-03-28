@@ -230,11 +230,11 @@ public extension OA {
             return button
         }
         @discardableResult public static func button<T: OA_UI_Action_Delegate>(to view: UIView, action: T? = nil, enable: String = "l; r; t; b") -> UIButton { Self.button(to: view, target: (action: action, tag: 0), enable: enable) }
-        @discardableResult public static func section(to base: UIView, title: String = "") -> (cell: UIView, header: UILabel?) {
+        @discardableResult public static func section(to base: UIView, title: String = "", bgColor: UIColor = .systemBackground) -> (cell: UIView, header: UILabel?) {
             let cell: UIView = .init()
             cell.border(1, .separator.withAlphaComponent(0.16))
             cell.layer.cornerRadius = 16.0
-            cell.backgroundColor = .systemBackground
+            cell.backgroundColor = bgColor
             cell.add(to: base, enable: "x; l; b; r")
 
             let space: CGFloat = 20.0
@@ -969,7 +969,7 @@ public extension OA {
 
             private let _view: UIView
             private let _picker: UIDatePicker
-            private let _d4: (title: String, must: Bool, header: String, type: `Type`)
+            private let _d4: (title: String, must: Bool, header: String, type: `Type`, bgColor: UIColor)
             
             private lazy var _onChanges: [(TimeInterval, String) -> ()] = []
 
@@ -984,12 +984,12 @@ public extension OA {
                 set { DispatchQueue.main.async { self._picker.date = Date(timeIntervalSince1970: newValue) } }
             }
 
-            public init(title: String, value: TimeInterval = NSDate().timeIntervalSince1970, must: Bool = true, header: String = "", type: `Type` = .date, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, isShow: Bool? = true) {
+            public init(title: String, value: TimeInterval = NSDate().timeIntervalSince1970, must: Bool = true, header: String = "", type: `Type` = .date, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
 
                 self._view = .init()
                 self._picker = .init()
 
-                self._d4 = (title: title, must: must, header: header, type: type)
+                self._d4 = (title: title, must: must, header: header, type: type, bgColor: bgColor)
 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
                 
@@ -999,7 +999,7 @@ public extension OA {
             }
 
             private func _initUI() {
-                let section = section(to: self._view, title: self._d4.header)
+                let section = section(to: self._view, title: self._d4.header, bgColor: self._d4.bgColor)
                 let header = self._ui(base: section.cell, text: self._d4.title, must: self._d4.must)
 
                 self._picker.border(1, .red, OA.UI.debug)
@@ -1073,7 +1073,7 @@ public extension OA {
             private let _view: UIView
             private var _last: String
             private let _action: Action.TextInput
-            private let _d4: (title: String, value: String, must: Bool, placeholder: String, header: String, icon: UIImage?, type: `Type`, keyboard: UIKeyboardType)
+            private let _d4: (title: String, value: String, must: Bool, placeholder: String, header: String, icon: UIImage?, type: `Type`, keyboard: UIKeyboardType, bgColor: UIColor)
 
             private let _text: UITextView?
             private let _field: UITextField?
@@ -1092,8 +1092,8 @@ public extension OA {
             private weak var _button: UIButton? = nil
             private weak var _cell: UIView? = nil
 
-            public init(title: String, value: String = "", must: Bool = true, placeholder: String? = nil, header: String = "", icon: UIImage? = nil, type: `Type` = .textField, keyboard: UIKeyboardType? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, isShow: Bool? = true) {
-                self._d4 = (title: title, value: value, must: must, placeholder: placeholder ?? "請輸入\(title)…", header: header, icon: icon, type: type, keyboard: keyboard ?? type.keyboardType)
+            public init(title: String, value: String = "", must: Bool = true, placeholder: String? = nil, header: String = "", icon: UIImage? = nil, type: `Type` = .textField, keyboard: UIKeyboardType? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+                self._d4 = (title: title, value: value, must: must, placeholder: placeholder ?? "請輸入\(title)…", header: header, icon: icon, type: type, keyboard: keyboard ?? type.keyboardType, bgColor: bgColor)
                 self._view = .init()
                 self._last = ""
                 self._action = .init()
@@ -1170,7 +1170,7 @@ public extension OA {
             @discardableResult public func blur(completion: @escaping (Self) -> ()) -> Self { self.blur { completion(self) } }
 
             private func _initUI() {
-                let section = section(to: self._view, title: self._d4.header)
+                let section = section(to: self._view, title: self._d4.header, bgColor: self._d4.bgColor)
                 self._cell = section.cell
 
                 let header = self._ui(base: section.cell, text: self._d4.title, must: self._d4.must)
@@ -1348,7 +1348,7 @@ public extension OA {
             private let _view: UIView
             private var _value: C?
             private let _action: Action.Check<C>
-            private let _d4: (title: String, values: [C])
+            private let _d4: (title: String, values: [C], bgColor: UIColor)
 
             private lazy var _items: [Item] = []
             private lazy var _onClicks: [(C?) -> ()] = []
@@ -1370,11 +1370,11 @@ public extension OA {
                 }
             }
 
-            public init(title: String, values: [C], value: C? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, isShow: Bool? = true) {
+            public init(title: String, values: [C], value: C? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
                 self._view = .init()
                 self._value = value
                 self._action = .init()
-                self._d4 = (title: title, values: values)
+                self._d4 = (title: title, values: values, bgColor: bgColor)
                 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
 
@@ -1408,7 +1408,7 @@ public extension OA {
                 }
             }
             private func _initUI() {
-                let cell = section(to: self._view, title: self._d4.title).cell
+                let cell = section(to: self._view, title: self._d4.title, bgColor: self._d4.bgColor).cell
 
                 self._d4.values.enumerated().forEach { self._items.append(self._check(to: cell, tag: $0, item: $1, action: self._action)) }
                 self._items.last?.view.add(to: cell).b().e()
@@ -1472,7 +1472,7 @@ public extension OA {
 
         public class Choice: Unit {
             private let _view: UIView
-            private let _d4: (title: String, placeholder: String)
+            private let _d4: (title: String, placeholder: String, bgColor: UIColor)
             private let _label: UILabel
             private var _value: String
             
@@ -1493,12 +1493,12 @@ public extension OA {
                 }
             }
 
-            public init(title: String, placeholder: String? = nil, value: String = "", padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, isShow: Bool? = true) {
+            public init(title: String, placeholder: String? = nil, value: String = "", padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
                 self._view = .init()
                 self._label = .init()
                 self._value = value
 
-                self._d4 = (title: title, placeholder: placeholder ?? "請選擇\(title)…")
+                self._d4 = (title: title, placeholder: placeholder ?? "請選擇\(title)…", bgColor: bgColor)
                 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
 
@@ -1544,7 +1544,7 @@ public extension OA {
                 }
             }
             private func _initUI() {
-                let cell = section(to: self._view, title: self._d4.title).cell
+                let cell = section(to: self._view, title: self._d4.title, bgColor: self._d4.bgColor).cell
                 self._cell = cell
 
                 let icon: UIImageView = .init(image: .init(systemName: "chevron.forward"))
@@ -1562,7 +1562,9 @@ public extension OA {
         public class Error: Unit {
             private let _view: UIView
             private var _messages: [String]
+            private var _bgColor: UIColor
             private var _onChanges: [(Bool) -> ()] = []
+            
             private weak var _cell: UIView? = nil
             
             public var messages: [String] {
@@ -1573,9 +1575,10 @@ public extension OA {
                 }
             }
 
-            public init(messages: [String] = [], padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero) {
+            public init(messages: [String] = [], padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground) {
                 self._view = .init()
                 self._messages = messages
+                self._bgColor = bgColor
 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: !messages.isEmpty)
 
@@ -1623,7 +1626,7 @@ public extension OA {
                 self.show(animated: true) { self._onChanges.forEach { $0(true) } }
             }
             private func _initUI() {
-                self._cell = section(to: self._view).cell
+                self._cell = section(to: self._view, bgColor: self._bgColor).cell
                 self._cell?.border(1, .clear)
                 self._cell?.backgroundColor = .systemRed
             }
@@ -1632,13 +1635,15 @@ public extension OA {
         public class Button: Unit {
             private let _title: String
             private let _view: UIView
+            private let _bgColor: UIColor
 
             private lazy var _action: Action.Button = .init()
             private lazy var _onClicks: [Closure] = []
 
-            public init(title: String, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, isShow: Bool? = true) {
+            public init(title: String, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
                 self._view = .init()
                 self._title = title
+                self._bgColor = bgColor
 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
                 self._initUI()
@@ -1651,7 +1656,7 @@ public extension OA {
                 title.textAlignment = .center
                 title.adjustsFontForContentSizeCategory = true
                 title.font = .preferredFont(forTextStyle: .body)
-                title.add(to: section(to: self._view).cell, enable: "t; b; l; r; h>48")
+                title.add(to: section(to: self._view, bgColor: self._bgColor).cell, enable: "t; b; l; r; h>48")
             }
 
             @discardableResult public func on(click: @escaping Closure) -> Self {
