@@ -295,7 +295,7 @@ public extension OA {
             public var parent: Stack? { self._parent }
             public var next: Unit? { self._next }
             public var prev: Unit? { self._prev }
-            
+
             public var margin: UIEdgeInsets { self._margin }
             public var padding: UIEdgeInsets { self._padding }
             public var frame: UIView { self._isShow == nil ? self._body : self._frame }
@@ -500,7 +500,7 @@ public extension OA {
                         }
                     }
                 }
-                
+
                 guard let stock = self as? Stack else {
                     completion?()
                     return self
@@ -594,7 +594,7 @@ public extension OA {
             @discardableResult public func show(animated: Bool = true, completion: @escaping (Self) -> ()) -> Self { self.show(animated: animated) { completion(self) } }
             @discardableResult public func padding(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil, animated: Bool = false, completion: @escaping (Self) -> ()) -> Self { self.padding(top: top, left: left, bottom: bottom, right: right) { completion(self) } }
             @discardableResult public func margin(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil, animated: Bool = false, completion: @escaping (Self) -> ()) -> Self { self.margin(top: top, left: left, bottom: bottom, right: right) { completion(self) } }
-            
+
             @discardableResult public func reloadX() -> Self {
                 guard let parent = self.parent else { return self }
 
@@ -902,7 +902,7 @@ public extension OA {
             public enum `Type` {
                 case auto, vertical, horizontal
             }
-            
+
             private let _type: `Type`
             private lazy var _children: [Unit] = []
 
@@ -925,11 +925,7 @@ public extension OA {
 
                 child.add(to: self)
 
-                child
-                    .reloadT()
-                    .reloadL()
-                    .reloadB()
-                    .reloadR()
+                child.reloadT().reloadL().reloadB().reloadR()
 
                 switch self.type {
                     case .auto: child.reloadW().reloadH().reloadX().reloadY()
@@ -992,9 +988,9 @@ public extension OA {
                 self._d4 = (title: title, must: must, header: header, type: type, bgColor: bgColor)
 
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
-                
+
                 self._initUI()
-                
+
                 self.on(add: { self.value = value })
             }
 
@@ -1088,7 +1084,7 @@ public extension OA {
             private lazy var _onFocues: [Closure] = []
             private lazy var _onChanges: [(String) -> ()] = []
             private lazy var _onBlurs: [Closure] = []
-            
+
             private weak var _button: UIButton? = nil
             private weak var _cell: UIView? = nil
 
@@ -1107,7 +1103,7 @@ public extension OA {
                     self._text = nil
                     self._placeholder = nil
                 }
-                
+
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
                 self._initUI()
                 self._last = self._done(str: self._d4.value)
@@ -1264,7 +1260,7 @@ public extension OA {
 
             private func _ui(to base: UIView, field: UITextField) -> UITextField {
                 field.border(1, .red, OA.UI.debug)
-                
+
                 field.sizeToFit()
                 field.delegate = self._action
                 field.textColor = .label
@@ -1282,7 +1278,7 @@ public extension OA {
             }
             private func _ui(to base: UIView, header: UIView, text: UITextView) -> UITextView {
                 text.border(1, .red, OA.UI.debug)
-                
+
                 text.sizeToFit()
                 text.delegate = self._action
                 text.textColor = .label
@@ -1375,7 +1371,7 @@ public extension OA {
                 self._value = value
                 self._action = .init()
                 self._d4 = (title: title, values: values, bgColor: bgColor)
-                
+
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
 
                 self._initUI()
@@ -1395,7 +1391,7 @@ public extension OA {
             @discardableResult public func on(click: @escaping Closure) -> Self { self.on(click: { _ in click() }) }
             @discardableResult public func on(change: @escaping (C?, Self) -> ()) -> Self { self.on(change: { change($0, self) }) }
             @discardableResult public func on(change: @escaping Closure) -> Self { self.on(change: { _ in change() }) }
-    
+
             private func _reflash() {
                 self._d4.values.enumerated().forEach {
                     guard $0 < self._items.count else { return }
@@ -1422,7 +1418,7 @@ public extension OA {
                 let view: UIView = .init()
                 view.add(to: base, enable: "l; r")
                 view.border(1, .red, OA.UI.debug)
-                
+
                 if let top = self._items.last?.view {
                     let line: UIView = .init()
                     line.backgroundColor = .separator.withAlphaComponent(0.18)
@@ -1432,7 +1428,6 @@ public extension OA {
                 } else {
                     view.add(to: base, enable: "t")
                 }
-
 
                 let icon: UIImageView = .init(image: .init(systemName: "checkmark.circle.fill"))
                 icon.border(1, .red, OA.UI.debug)
@@ -1447,7 +1442,7 @@ public extension OA {
                 title.font = .preferredFont(forTextStyle: .body)
                 title.add(to: view, enable: "t=12; r=-12")
                 title.add(to: view).l().q(icon).r(10).e()
-                
+
                 if !item.subtitle.isEmpty {
                     let subtitle: UILabel = .init()
                     subtitle.text = item.subtitle
@@ -1475,7 +1470,7 @@ public extension OA {
             private let _d4: (title: String, placeholder: String, bgColor: UIColor)
             private let _label: UILabel
             private var _value: String
-            
+
             private lazy var _action: Action.Button = .init()
             private lazy var _onClicks: [Closure] = []
             private lazy var _onUpdates: [(String) -> ()] = []
@@ -1499,7 +1494,7 @@ public extension OA {
                 self._value = value
 
                 self._d4 = (title: title, placeholder: placeholder ?? "請選擇\(title)…", bgColor: bgColor)
-                
+
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
 
                 self._initUI()
