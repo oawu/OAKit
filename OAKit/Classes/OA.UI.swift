@@ -193,7 +193,11 @@ public extension OA {
         @discardableResult public static func loading(to base: UIView, enable: String = "t; r; l; b; x; y") -> UIView {
             let view: UIView = .init()
             view.isHidden = false
-            view.backgroundColor = .secondarySystemBackground
+            if #available(iOS 13.0, *) {
+                view.backgroundColor = .secondarySystemBackground
+            } else {
+                view.backgroundColor = rgba(242, 242, 247, 1.0)
+            }
             view.add(to: base, enable: enable)
 
             let base: UIView = .init()
@@ -234,9 +238,25 @@ public extension OA {
             return button
         }
         @discardableResult public static func button<T: OA_UI_Action_Delegate>(to view: UIView, action: T? = nil, enable: String = "l; r; t; b") -> UIButton { Self.button(to: view, target: (action: action, tag: 0), enable: enable) }
-        @discardableResult public static func section(to base: UIView, title: String = "", bgColor: UIColor = .systemBackground) -> (cell: UIView, header: UILabel?) {
+        
+        @discardableResult public static func section(to base: UIView, title: String = "", bgColor color: UIColor? = nil) -> (cell: UIView, header: UILabel?) {
+            let bgColor: UIColor
+            if let color = color {
+                bgColor = color
+            } else {
+                if #available(iOS 13.0, *) {
+                    bgColor = .systemBackground
+                } else {
+                    bgColor = rgba(255, 255, 255, 1.0)
+                }
+            }
+            
             let cell: UIView = .init()
-            cell.border(1, .separator.withAlphaComponent(0.16))
+            if #available(iOS 13.0, *) {
+                cell.border(1, .separator.withAlphaComponent(0.16))
+            } else {
+                cell.border(1, rgba(60, 60, 67, 0.29).withAlphaComponent(0.16))
+            }
             cell.layer.cornerRadius = 16.0
             cell.backgroundColor = bgColor
             cell.add(to: base, enable: "x; l; b; r")
@@ -248,7 +268,11 @@ public extension OA {
                 header = .init()
                 header?.border(1, .red, OA.UI.debug)
                 header?.text = title
-                header?.textColor = .secondaryLabel
+                if #available(iOS 13.0, *) {
+                    header?.textColor = .secondaryLabel
+                } else {
+                    header?.textColor = rgba(60, 60, 67, 0.6)
+                }
                 header?.adjustsFontForContentSizeCategory = true
                 header?.font = .preferredFont(forTextStyle: .caption1)
                 header?.add(to: base, enable: "x; t=\(4.0 + space); l=16; r=-16")
@@ -264,6 +288,7 @@ public extension OA {
 
             return (cell: cell, header: header)
         }
+        
         @discardableResult public static func scroll(to base: UIView, type: OA.UI.Stack.`Type` = .vertical, padding: UIEdgeInsets = .init(top: 4, left: 16, bottom: 24, right: 16), enable: String = "t; l; b; r; x; y") -> OA.UI.Stack {
             OA.UI.Stack(ui: { () -> UIScrollView in
                 let scroll: UIScrollView = .init()
@@ -984,7 +1009,17 @@ public extension OA {
                 set { DispatchQueue.main.async { self._picker.date = Date(timeIntervalSince1970: newValue) } }
             }
 
-            public init(title: String, value: TimeInterval = NSDate().timeIntervalSince1970, must: Bool = true, header: String = "", type: `Type` = .date, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+            public init(title: String, value: TimeInterval = NSDate().timeIntervalSince1970, must: Bool = true, header: String = "", type: `Type` = .date, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1.0)
+                    }
+                }
 
                 self._view = .init()
                 self._picker = .init()
@@ -1023,7 +1058,11 @@ public extension OA {
 
                 let title: UILabel = .init()
                 title.text = text
-                title.textColor = .secondaryLabel
+                if #available(iOS 13.0, *) {
+                    title.textColor = .secondaryLabel
+                } else {
+                    title.textColor = rgba(60, 60, 67, 0.6)
+                }
                 title.border(1, .red, OA.UI.debug)
                 title.adjustsFontForContentSizeCategory = true
                 title.font = .preferredFont(forTextStyle: .caption1)
@@ -1092,7 +1131,17 @@ public extension OA {
             private weak var _button: UIButton? = nil
             private weak var _cell: UIView? = nil
 
-            public init(title: String, value: String = "", must: Bool = true, placeholder: String? = nil, header: String = "", icon: UIImage? = nil, type: `Type` = .textField, keyboard: UIKeyboardType? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+            public init(title: String, value: String = "", must: Bool = true, placeholder: String? = nil, header: String = "", icon: UIImage? = nil, type: `Type` = .textField, keyboard: UIKeyboardType? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1.0)
+                    }
+                }
                 self._d4 = (title: title, value: value, must: must, placeholder: placeholder ?? "請輸入\(title)…", header: header, icon: icon, type: type, keyboard: keyboard ?? type.keyboardType, bgColor: bgColor)
                 self._view = .init()
                 self._last = ""
@@ -1140,7 +1189,11 @@ public extension OA {
                 }
 
                 self._button?.isHidden = true
-                self._cell?.border(3, .link)
+                if #available(iOS 13.0, *) {
+                    self._cell?.border(3, .link)
+                } else {
+                    self._cell?.border(3, rgba(0, 122, 255, 1.0))
+                }
                 self._onFocues.forEach { $0() }
                 completion?()
                 return self
@@ -1155,7 +1208,11 @@ public extension OA {
                 }
 
                 self._button?.isHidden = false
-                self._cell?.border(1, .separator.withAlphaComponent(0.16))
+                if #available(iOS 13.0, *) {
+                    self._cell?.border(1, .separator.withAlphaComponent(0.16))
+                } else {
+                    self._cell?.border(1, rgba(60, 60, 67, 0.29).withAlphaComponent(0.16))
+                }
                 self._onBlurs.forEach { $0() }
                 completion?()
                 return self
@@ -1200,7 +1257,11 @@ public extension OA {
                     image.add(to: view, enable: "x=2; y; w=32; h=32")
 
                     let line: UIView = .init()
-                    line.backgroundColor = .separator.withAlphaComponent(0.18)
+                    if #available(iOS 13.0, *) {
+                        line.backgroundColor = .separator.withAlphaComponent(0.18)
+                    } else {
+                        line.backgroundColor = rgba(60, 60, 67, 0.29).withAlphaComponent(0.18)
+                    }
                     line.add(to: view, enable: "l=5; t=12; b=-12; w=1")
 
                     return view
@@ -1267,7 +1328,11 @@ public extension OA {
 
                 field.sizeToFit()
                 field.delegate = self._action
-                field.textColor = .label
+                if #available(iOS 13.0, *) {
+                    field.textColor = .label
+                } else {
+                    field.textColor = rgba(0, 0, 0, 1)
+                }
                 field.returnKeyType = .done
                 field.backgroundColor = .clear
                 field.adjustsFontForContentSizeCategory = true
@@ -1277,7 +1342,11 @@ public extension OA {
                 field.placeholder = self._d4.placeholder
                 field.add(to: base, enable: "h=36")
                 field.addTarget(self._action, action: #selector(self._action.editingChanged(_:)), for: .editingChanged)
-                field.attributedPlaceholder = .init(string: self._d4.placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel, NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+                if #available(iOS 13.0, *) {
+                    field.attributedPlaceholder = .init(string: self._d4.placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.tertiaryLabel, NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+                } else {
+                    field.attributedPlaceholder = .init(string: self._d4.placeholder, attributes: [NSAttributedString.Key.foregroundColor:rgba(60, 60, 67, 0.3), NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+                }
                 return field
             }
             private func _ui(to base: UIView, header: UIView, text: UITextView) -> UITextView {
@@ -1285,7 +1354,11 @@ public extension OA {
 
                 text.sizeToFit()
                 text.delegate = self._action
-                text.textColor = .label
+                if #available(iOS 13.0, *) {
+                    text.textColor = .label
+                } else {
+                    text.textColor = rgba(0, 0, 0, 1)
+                }
                 text.returnKeyType = .default
                 text.backgroundColor = .clear
                 text.adjustsFontForContentSizeCategory = true
@@ -1298,7 +1371,11 @@ public extension OA {
 
                 self._placeholder?.border(1, .red, OA.UI.debug)
                 
-                self._placeholder?.textColor = .tertiaryLabel
+                if #available(iOS 13.0, *) {
+                    self._placeholder?.textColor = .tertiaryLabel
+                } else {
+                    self._placeholder?.textColor = rgba(60, 60, 67, 0.3)
+                }
                 self._placeholder?.text = self._d4.placeholder
                 self._placeholder?.adjustsFontForContentSizeCategory = true
                 self._placeholder?.font = .preferredFont(forTextStyle: .caption1)
@@ -1314,7 +1391,11 @@ public extension OA {
 
                 let title: UILabel = .init()
                 title.text = text
-                title.textColor = .secondaryLabel
+                if #available(iOS 13.0, *) {
+                    title.textColor = .secondaryLabel
+                } else {
+                    title.textColor = rgba(60, 60, 67, 0.6)
+                }
                 title.border(1, .red, OA.UI.debug)
                 title.adjustsFontForContentSizeCategory = true
                 title.font = .preferredFont(forTextStyle: .caption1)
@@ -1370,7 +1451,17 @@ public extension OA {
                 }
             }
 
-            public init(title: String, values: [C], value: C? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+            public init(title: String, values: [C], value: C? = nil, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1)
+                    }
+                }
                 self._view = .init()
                 self._value = value
                 self._action = .init()
@@ -1401,9 +1492,17 @@ public extension OA {
                     guard $0 < self._items.count else { return }
 
                     if let val = self._value, val == $1 {
-                        self._items[$0].icon.tintColor = .link
+                        if #available(iOS 13.0, *) {
+                            self._items[$0].icon.tintColor = .link
+                        } else {
+                            self._items[$0].icon.tintColor = rgba(0, 122, 255, 1)
+                        }
                     } else {
-                        self._items[$0].icon.tintColor = .quaternaryLabel
+                        if #available(iOS 13.0, *) {
+                            self._items[$0].icon.tintColor = .quaternaryLabel
+                        } else {
+                            self._items[$0].icon.tintColor = rgba(60, 60, 67, 0.18)
+                        }
                     }
                 }
             }
@@ -1425,7 +1524,11 @@ public extension OA {
 
                 if let top = self._items.last?.view {
                     let line: UIView = .init()
-                    line.backgroundColor = .separator.withAlphaComponent(0.18)
+                    if #available(iOS 13.0, *) {
+                        line.backgroundColor = .separator.withAlphaComponent(0.18)
+                    } else {
+                        line.backgroundColor = rgba(60, 60, 67, 0.29).withAlphaComponent(0.18)
+                    }
                     line.add(to: base, enable: "r; l=\(10 + 36 + 7); h=1")
                     line.add(to: base).t().q(top).b().e()
                     view.add(to: base).t().q(line).b().e()
@@ -1440,13 +1543,21 @@ public extension OA {
                     icon = .init(image: nil)
                 }
                 icon.border(1, .red, OA.UI.debug)
-                icon.tintColor = .quaternaryLabel
+                if #available(iOS 13.0, *) {
+                    icon.tintColor = .quaternaryLabel
+                } else {
+                    icon.tintColor = rgba(60, 60, 67, 0.18)
+                }
                 icon.add(to: view, enable: "y; l=10; w=36; h=36")
 
                 let title: UILabel = .init()
                 title.border(1, .red, OA.UI.debug)
                 title.text = item.title
-                title.textColor = .label
+                if #available(iOS 13.0, *) {
+                    title.textColor = .label
+                } else {
+                    title.textColor = rgba(0, 0, 0, 1)
+                }
                 title.adjustsFontForContentSizeCategory = true
                 title.font = .preferredFont(forTextStyle: .body)
                 title.add(to: view, enable: "t=12; r=-12")
@@ -1456,7 +1567,11 @@ public extension OA {
                     let subtitle: UILabel = .init()
                     subtitle.text = item.subtitle
                     subtitle.numberOfLines = 0
-                    subtitle.textColor = .secondaryLabel
+                    if #available(iOS 13.0, *) {
+                        subtitle.textColor = .secondaryLabel
+                    } else {
+                        subtitle.textColor = rgba(60, 60, 67, 0.6)
+                    }
                     subtitle.lineBreakMode = .byWordWrapping
                     subtitle.adjustsFontForContentSizeCategory = true
                     subtitle.font = .preferredFont(forTextStyle: .caption1)
@@ -1497,7 +1612,17 @@ public extension OA {
                 }
             }
 
-            public init(title: String, placeholder: String? = nil, value: String = "", padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+            public init(title: String, placeholder: String? = nil, value: String = "", padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1)
+                    }
+                }
                 self._view = .init()
                 self._label = .init()
                 self._value = value
@@ -1541,10 +1666,18 @@ public extension OA {
             private func _reflash() {
                 if !self._value.isEmpty {
                     self._label.text = self._value
-                    self._label.textColor = .label
+                    if #available(iOS 13.0, *) {
+                        self._label.textColor = .label
+                    } else {
+                        self._label.textColor = rgba(0, 0, 0, 1)
+                    }
                 } else {
                     self._label.text = self._d4.placeholder
-                    self._label.textColor = .link
+                    if #available(iOS 13.0, *) {
+                        self._label.textColor = .link
+                    } else {
+                        self._label.textColor = rgba(0, 122, 255, 1)
+                    }
                 }
             }
             private func _initUI() {
@@ -1558,7 +1691,11 @@ public extension OA {
                     icon = .init(image: nil)
                 }
                 icon.border(1, .red, OA.UI.debug )
-                icon.tintColor = .secondaryLabel
+                if #available(iOS 13.0, *) {
+                    icon.tintColor = .secondaryLabel
+                } else {
+                    icon.tintColor = rgba(60, 60, 67, 0.6)
+                }
                 icon.add(to: cell, enable: "y; r=-12; w=10; h=18")
 
                 self._label.border(1, .red, OA.UI.debug )
@@ -1584,7 +1721,17 @@ public extension OA {
                 }
             }
 
-            public init(messages: [String] = [], padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground) {
+            public init(messages: [String] = [], padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1)
+                    }
+                }
                 self._view = .init()
                 self._messages = messages
                 self._bgColor = bgColor
@@ -1649,7 +1796,18 @@ public extension OA {
             private lazy var _action: Action.Button = .init()
             private lazy var _onClicks: [Closure] = []
 
-            public init(title: String, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor: UIColor = .systemBackground, isShow: Bool? = true) {
+            public init(title: String, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
+                let bgColor: UIColor
+                if let color = color {
+                    bgColor = color
+                } else {
+                    if #available(iOS 13.0, *) {
+                        bgColor = .systemBackground
+                    } else {
+                        bgColor = rgba(255, 255, 255, 1)
+                    }
+                }
+                
                 self._view = .init()
                 self._title = title
                 self._bgColor = bgColor
@@ -1661,7 +1819,11 @@ public extension OA {
             private func _initUI() {
                 let title: UILabel = .init()
                 title.text = self._title
-                title.textColor = .link
+                if #available(iOS 13.0, *) {
+                    title.textColor = .link
+                } else {
+                    title.textColor = rgba(0, 122, 255, 1)
+                }
                 title.textAlignment = .center
                 title.adjustsFontForContentSizeCategory = true
                 title.font = .preferredFont(forTextStyle: .body)
