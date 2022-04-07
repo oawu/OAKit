@@ -14,7 +14,7 @@ extension VC {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.backgroundColor = .secondarySystemBackground
+            self.view.backgroundColor = UIColor.secondarySystemBackground
 
             let label: UILabel = .init()
             label.text = "aaaaaaaaaaaaaaaaaa"

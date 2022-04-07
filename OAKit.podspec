@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OAKit'
-  s.version          = '0.5.10'
+  s.version          = '0.5.11'
   s.summary          = "OA's Swift UIKit."
   s.description      = <<-DESC
 OA 個人常用的 Swift Lib
@@ -19,7 +19,7 @@ OA 個人常用的 Swift Lib
   s.author           = { 'comdan66' => 'comdan66@gmail.com' }
   s.source           = { :git => 'https://github.com/comdan66/OAKit.git', :tag => s.version.to_s }
   s.social_media_url = 'https://www.ioa.tw'
-  s.ios.deployment_target = '13.0'
+  s.ios.deployment_target = '12.0'
   s.source_files = 'OAKit/Classes/**/*'
   s.frameworks = 'UIKit', 'Foundation'
 

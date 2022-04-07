@@ -28,7 +28,7 @@ extension VC {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.backgroundColor = .secondarySystemBackground
+            self.view.backgroundColor = UIColor.secondarySystemBackground
             
             let error = OA.UI.Error()
             
@@ -44,8 +44,14 @@ extension VC {
             let scroll = OA.UI.scroll(to: self.view, enable: "x; y")
                 .append(horizontal)
                 .append(OA.UI.Input(title: "標題", bgColor: .red))
-                .append(OA.UI.Input(title: "地址", icon: .init(systemName: "location.magnifyingglass")))
-                .append(OA.UI.Input(title: "數字", type: .uint))
+            
+            if #available(iOS 13.0, *) {
+                scroll.append(OA.UI.Input(title: "地址", icon: .init(systemName: "location.magnifyingglass")))
+            } else {
+                scroll.append(OA.UI.Input(title: "地址", icon: nil))
+            }
+            
+            scroll.append(OA.UI.Input(title: "數字", type: .uint))
                 .append(OA.UI.Input(title: "內容", type: .textView))
                 .append(OA.UI.Check<Item>(title: "選擇", values: [.item1, .item2]).on(change: {
                     error.messages = []

@@ -200,7 +200,11 @@ public extension OA {
             base.add(to: view, enable: "x; b=y")
 
             let spinner: UIActivityIndicatorView = .init()
-            spinner.style = .medium
+            if #available(iOS 13.0, *) {
+                spinner.style = .medium
+            } else {
+                spinner.style = .gray
+            }
             spinner.startAnimating()
             spinner.add(to: base, enable: "l; t")
 
@@ -1428,8 +1432,13 @@ public extension OA {
                 } else {
                     view.add(to: base, enable: "t")
                 }
-
-                let icon: UIImageView = .init(image: .init(systemName: "checkmark.circle.fill"))
+                
+                let icon: UIImageView
+                if #available(iOS 13.0, *) {
+                    icon = .init(image: .init(systemName: "checkmark.circle.fill"))
+                } else {
+                    icon = .init(image: nil)
+                }
                 icon.border(1, .red, OA.UI.debug)
                 icon.tintColor = .quaternaryLabel
                 icon.add(to: view, enable: "y; l=10; w=36; h=36")
@@ -1542,7 +1551,12 @@ public extension OA {
                 let cell = section(to: self._view, title: self._d4.title, bgColor: self._d4.bgColor).cell
                 self._cell = cell
 
-                let icon: UIImageView = .init(image: .init(systemName: "chevron.forward"))
+                let icon: UIImageView
+                if #available(iOS 13.0, *) {
+                    icon = .init(image: .init(systemName: "chevron.forward"))
+                } else {
+                    icon = .init(image: nil)
+                }
                 icon.border(1, .red, OA.UI.debug )
                 icon.tintColor = .secondaryLabel
                 icon.add(to: cell, enable: "y; r=-12; w=10; h=18")
