@@ -67,6 +67,14 @@ extension VC {
                 error.messages = ["錯誤 1", "錯誤 2"]
             }))
             
+            let b = OA.UI.Button(title: "確定")
+            b.on(click: {
+                b.text = "\(OA.Func.randomString())"
+                b.isEnable = false
+                b.color = .red
+            })
+            scroll.append(b)
+            
             scroll.frame.border(1, .red)
             scroll.frame.add(to: self.view).t().q(self.view.safeAreaLayoutGuide).t().e()
             scroll.frame.add(to: self.view).l().q(self.view.safeAreaLayoutGuide).l().e()

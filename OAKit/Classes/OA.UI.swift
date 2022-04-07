@@ -1716,7 +1716,9 @@ public extension OA {
             public var messages: [String] {
                 get { self._messages }
                 set {
-                    self._messages = newValue
+                    DispatchQueue.main.async {
+                        self._messages = newValue
+                    }
                     self._reflash()
                 }
             }
@@ -1792,9 +1794,25 @@ public extension OA {
             private let _title: String
             private let _view: UIView
             private let _bgColor: UIColor
+            
+            private let title: UILabel = .init()
 
             private lazy var _action: Action.Button = .init()
             private lazy var _onClicks: [Closure] = []
+            private lazy var _isEnable: Bool = true
+            
+            public var text: String {
+                get { self.title.text ?? "" }
+                set { self.title.text = newValue }
+            }
+            public var color: UIColor {
+                get { self.title.textColor }
+                set { self.title.textColor = newValue }
+            }
+            public var isEnable: Bool {
+                get { self._isEnable }
+                set { self._isEnable = newValue }
+            }
 
             public init(title: String, padding: UIEdgeInsets = .zero, margin: UIEdgeInsets = .zero, bgColor color: UIColor? = nil, isShow: Bool? = true) {
                 let bgColor: UIColor
@@ -1817,17 +1835,16 @@ public extension OA {
             }
 
             private func _initUI() {
-                let title: UILabel = .init()
-                title.text = self._title
+                self.title.text = self._title
                 if #available(iOS 13.0, *) {
-                    title.textColor = .link
+                    self.title.textColor = .link
                 } else {
-                    title.textColor = rgba(0, 122, 255, 1)
+                    self.title.textColor = rgba(0, 122, 255, 1)
                 }
-                title.textAlignment = .center
-                title.adjustsFontForContentSizeCategory = true
-                title.font = .preferredFont(forTextStyle: .body)
-                title.add(to: section(to: self._view, bgColor: self._bgColor).cell, enable: "t; b; l; r; h>48")
+                self.title.textAlignment = .center
+                self.title.adjustsFontForContentSizeCategory = true
+                self.title.font = .preferredFont(forTextStyle: .body)
+                self.title.add(to: section(to: self._view, bgColor: self._bgColor).cell, enable: "t; b; l; r; h>48")
             }
 
             @discardableResult public func on(click: @escaping Closure) -> Self {
@@ -1836,7 +1853,11 @@ public extension OA {
                     return self
                 }
 
-                UI.button(to: self.frame, action: self._action.on(click: { self._onClicks.forEach { $0() } }))
+                UI.button(to: self.frame, action: self._action.on(click: {
+                    guard self._isEnable else { return }
+                    self._onClicks.forEach { $0() }
+                }))
+
                 self._onClicks.append(click)
                 return self
             }
