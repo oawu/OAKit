@@ -1286,6 +1286,7 @@ public extension OA {
                     self.blur()
                 }).on(change: {
                     let val = self._text?.text ?? self._field?.text ?? ""
+                    
                     self._reflash(str: self._ing(str: val))
                     _ = self._check(str: val)
                 }).on(clickIcon: {
@@ -1318,8 +1319,10 @@ public extension OA {
                 return val
             }
             private func _reflash(str: String) {
-                self._text?.text = str
-                self._field?.text = str
+                if [.uint, .ufloat].contains(self._d4.type) {
+                    self._text?.text = str
+                    self._field?.text = str
+                }
                 self._placeholder?.isHidden = !(self._text?.text ?? "").isEmpty
             }
 
