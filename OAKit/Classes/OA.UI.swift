@@ -1120,7 +1120,7 @@ public extension OA {
 
             public var value: String {
                 get { self._d4.type == .textView ? (self._text?.text ?? "") : (self._field?.text ?? "") }
-                set { self._reflash(str: self._check(str: newValue)) }
+                set { self._reflash(str: self._check(str: newValue), write: true) }
             }
 
             private lazy var _onClickIcons: [Closure] = []
@@ -1160,7 +1160,7 @@ public extension OA {
                 super.init(ui: self._view, padding: padding, margin: margin, isShow: isShow)
                 self._initUI()
                 self._last = self._done(str: self._d4.value)
-                self._reflash(str: self._last)
+                self._reflash(str: self._last, write: true)
             }
 
             @discardableResult public func on(clickIcon: @escaping Closure) -> Self {
@@ -1181,10 +1181,10 @@ public extension OA {
             }
             @discardableResult public func focus(completion: Closure? = nil) -> Self {
                 if let text = self._text {
-                    self._reflash(str: self._ing(str: text.text ?? ""))
+                    self._reflash(str: self._ing(str: text.text ?? ""), write: false)
                     text.becomeFirstResponder()
                 } else if let field = self._field {
-                    self._reflash(str: self._ing(str: field.text ?? ""))
+                    self._reflash(str: self._ing(str: field.text ?? ""), write: false)
                     field.becomeFirstResponder()
                 }
 
@@ -1200,10 +1200,10 @@ public extension OA {
             }
             @discardableResult public func blur(completion: Closure? = nil) -> Self {
                 if let text = self._text {
-                    self._reflash(str: self._done(str: text.text ?? ""))
+                    self._reflash(str: self._done(str: text.text ?? ""), write: false)
                     text.resignFirstResponder()
                 } else if let field = self._field {
-                    self._reflash(str: self._done(str: field.text ?? ""))
+                    self._reflash(str: self._done(str: field.text ?? ""), write: false)
                     field.resignFirstResponder()
                 }
 
@@ -1287,7 +1287,7 @@ public extension OA {
                 }).on(change: {
                     let val = self._text?.text ?? self._field?.text ?? ""
                     
-                    self._reflash(str: self._ing(str: val))
+                    self._reflash(str: self._ing(str: val), write: false)
                     _ = self._check(str: val)
                 }).on(clickIcon: {
                     self._onClickIcons.forEach { $0() }
@@ -1318,8 +1318,8 @@ public extension OA {
                 self._onChanges.forEach { $0(self._done(str: self._last)) }
                 return val
             }
-            private func _reflash(str: String) {
-                if [.uint, .ufloat].contains(self._d4.type) {
+            private func _reflash(str: String, write: Bool) {
+                if write || [.uint, .ufloat].contains(self._d4.type) {
                     self._text?.text = str
                     self._field?.text = str
                 }
