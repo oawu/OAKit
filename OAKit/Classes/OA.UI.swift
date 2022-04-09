@@ -1719,9 +1719,7 @@ public extension OA {
             public var messages: [String] {
                 get { self._messages }
                 set {
-                    DispatchQueue.main.async {
-                        self._messages = newValue
-                    }
+                    self._messages = newValue
                     self._reflash()
                 }
             }
