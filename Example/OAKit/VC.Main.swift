@@ -41,6 +41,9 @@ extension VC {
             super.viewDidLoad()
             self.title = "OAKit 範例"
             self.tableView.reg(cell: Cell.self)
+            setTimeout(second: 0.1, block: {
+                self.tableView(self.tableView, didSelectRowAt: .init(row: 2, section: 0))
+            })
         }
 
         override func numberOfSections(in tableView: UITableView) -> Int { 1 }
