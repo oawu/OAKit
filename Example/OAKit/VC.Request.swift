@@ -130,16 +130,6 @@ extension VC {
                 "put - query + delay(2s)",
                 "delete - query + delay(2s)",
                 
-                "get - query + empty1",
-                "post - query + empty1",
-                "put - query + empty1",
-                "delete - query + empty1",
-                
-                "get - query + empty2",
-                "post - query + empty2",
-                "put - query + empty2",
-                "delete - query + empty2",
-                
                 "get - query + form + before + after",
                 "post - query + form + before + after",
                 "put - query + form + before + after",
@@ -261,16 +251,6 @@ extension VC {
             case [1, 33]: return self.getSample_1_33()
             case [1, 34]: return self.getSample_1_34()
             case [1, 35]: return self.getSample_1_35()
-                
-            case [1, 36]: return self.getSample_1_36()
-            case [1, 37]: return self.getSample_1_37()
-            case [1, 38]: return self.getSample_1_38()
-            case [1, 39]: return self.getSample_1_39()
-                
-            case [1, 40]: return self.getSample_1_40()
-            case [1, 41]: return self.getSample_1_41()
-            case [1, 42]: return self.getSample_1_42()
-            case [1, 43]: return self.getSample_1_43()
 
             default: break
             }
@@ -371,19 +351,10 @@ extension VC {
         private func getSample_1_30() { OA.API(url: self.url).delay(second: 2).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").put { (model: Model) in print(model) } }
         private func getSample_1_31() { OA.API(url: self.url).delay(second: 2).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").delete { (model: Model) in print(model) } }
         
-        private func getSample_1_32() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").get {} }
-        private func getSample_1_33() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").post {} }
-        private func getSample_1_34() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").put {} }
-        private func getSample_1_35() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").delete {} }
+        private func getSample_1_32() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.get() }
+        private func getSample_1_33() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.post() }
+        private func getSample_1_34() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.put() }
+        private func getSample_1_35() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.delete() }
         
-        private func getSample_1_36() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").get() }
-        private func getSample_1_37() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").post() }
-        private func getSample_1_38() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").put() }
-        private func getSample_1_39() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").delete() }
-        
-        private func getSample_1_40() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.get() }
-        private func getSample_1_41() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.post() }
-        private func getSample_1_42() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.put() }
-        private func getSample_1_43() { OA.API<Model>(url: self.url).progress { print($0) }.header(key: "h", val: "aa").query(key: "a", val: "1").query(key: "b", val: "?1@2 3+%").form(key: "c", val: "2").form(key: "d", val: "?1@2 3+%").before { print(1) }.before { print(2) }.after { print(3) }.after { print(4) }.delete() }
     }
 }

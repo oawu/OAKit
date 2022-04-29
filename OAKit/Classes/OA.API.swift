@@ -115,10 +115,6 @@ extension OA {
             if let fail = fail { self.fail { _ in fail() } }
             return self
         }
-        @discardableResult public func done(done: (() -> ())?) -> Self {
-            if let done = done { self.done { (_: Done<E>) in done() } }
-            return self
-        }
         @discardableResult public func done(done: ((E) -> ())?) -> Self {
             if let done = done { self.done { (_done: Done<E>) in done(_done.decode) } }
             return self
@@ -137,11 +133,6 @@ extension OA {
         @discardableResult public func post(done: ((Done<E>) -> ())? = nil) -> Self { self.method(.post).done(done: done).send() }
         @discardableResult public func put(done: ((Done<E>) -> ())? = nil) -> Self { self.method(.put).done(done: done).send() }
         @discardableResult public func delete(done: ((Done<E>) -> ())? = nil) -> Self { self.method(.delete).done(done: done).send() }
-        
-        @discardableResult public func get(done: (() -> ())?) -> Self { self.method(.get).done(done: done).send() }
-        @discardableResult public func post(done: (() -> ())?) -> Self { self.method(.post).done(done: done).send() }
-        @discardableResult public func put(done: (() -> ())?) -> Self { self.method(.put).done(done: done).send() }
-        @discardableResult public func delete(done: (() -> ())?) -> Self { self.method(.delete).done(done: done).send() }
         
         @discardableResult public func get(done: ((E) -> ())?) -> Self { self.method(.get).done(done: done).send() }
         @discardableResult public func post(done: ((E) -> ())?) -> Self { self.method(.post).done(done: done).send() }
