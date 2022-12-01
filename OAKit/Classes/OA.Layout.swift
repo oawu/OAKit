@@ -16,10 +16,17 @@ public extension OA {
             var mdf = ori.trimmingCharacters(in: .whitespaces).lowercased()
             
             guard mdf.count > 0 else { return nil }
+            
+            var isSafeArea: Bool = false
+
+            if mdf.count > 1 && ["sl", "sr", "st", "sb"].contains(.init(mdf[..<mdf.index(mdf.startIndex, offsetBy: 2)])) {
+                isSafeArea = true
+                mdf = String(mdf[mdf.index(mdf.startIndex, offsetBy: 1)...]).trimmingCharacters(in: .whitespaces)
+            }
 
             var index = mdf.index(mdf.startIndex, offsetBy: 1)
             let key1 = String(mdf[..<index])
-
+            
             guard ["l", "r", "t", "b", "x", "y", "w", "h"].contains(key1) else { return nil }
 
             mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
@@ -32,13 +39,18 @@ public extension OA {
             guard ["=", "<", ">", ","].contains(relation) else { return nil }
             mdf = String(mdf[index...]).trimmingCharacters(in: .whitespaces)
             if mdf.isEmpty { mdf = "\(key1)" }
-
+            
             if let num = Double(mdf) {
                 if ["w", "h"].contains(key1) {
                     mdf = "?,\(num)"
                 } else {
                     mdf = "\(key1),\(num)"
                 }
+            }
+            
+            if mdf.count > 1 && ["sl", "sr", "st", "sb"].contains(.init(mdf[..<mdf.index(mdf.startIndex, offsetBy: 2)])) {
+                isSafeArea = true
+                mdf = String(mdf[mdf.index(mdf.startIndex, offsetBy: 1)...]).trimmingCharacters(in: .whitespaces)
             }
 
             index = mdf.index(mdf.startIndex, offsetBy: 1)
@@ -59,7 +71,7 @@ public extension OA {
             let isWH: Bool = ["w", "h"].contains(key1) && ["w", "h"].contains(key2) && constant == 0
 
             let layout: Layout = .init(parent: parent, child: child, for: view)
-            
+
             switch key1 {
             case "t": _ = layout.top()
             case "b": _ = layout.bottom()
@@ -73,9 +85,9 @@ public extension OA {
             }
 
             switch relation {
-            case "=", ",": _ = layout.equal(isWH ? child : nil)
-            case "<": _ = layout.lessThanOrEqual(isWH ? child : nil)
-            case ">": _ = layout.greaterThanOrEqual(isWH ? child : nil)
+            case "=", ",": _ = layout.equal(isWH ? child : isSafeArea ? parent.safeAreaLayoutGuide : nil)
+            case "<": _ = layout.lessThanOrEqual(isWH ? child : isSafeArea ? parent.safeAreaLayoutGuide : nil)
+            case ">": _ = layout.greaterThanOrEqual(isWH ? child : isSafeArea ? parent.safeAreaLayoutGuide : nil)
             default: return nil
             }
 

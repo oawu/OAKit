@@ -14,12 +14,16 @@ extension VC {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.backgroundColor = UIColor.secondarySystemBackground
+            self.view.backgroundColor = UIColor.secondarySystemBackground()
 
             let label: UILabel = .init()
             label.text = "aaaaaaaaaaaaaaaaaa"
             label.backgroundColor = .green
-            label.add(to: self.view, enable: "x;y;w=100;h>w")
+            label.add(to: self.view, enable: "st; sl; sr; sb")
+//            label.add(to: self.view, enable: "st")
+//            label.add(to: self.view, enable: "st=20")
+//            label.add(to: self.view, enable: "t=st,20")
+//            label.add(to: self.view, enable: "t=sb,-100")
         }
     }
 }

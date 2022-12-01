@@ -28,7 +28,7 @@ extension VC {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            self.view.backgroundColor = UIColor.secondarySystemBackground
+            self.view.backgroundColor = UIColor.secondarySystemBackground()
             
             let error = OA.UI.Error()
             

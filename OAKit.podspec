@@ -8,16 +8,16 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OAKit'
-  s.version          = '0.6.7'
+  s.version          = '0.6.8'
   s.summary          = "OA's Swift UIKit."
   s.description      = <<-DESC
 OA 個人常用的 Swift Lib
                        DESC
 
-  s.homepage         = 'https://github.com/comdan66/OAKit'
+  s.homepage         = 'https://github.com/oawu/OAKit'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'comdan66' => 'comdan66@gmail.com' }
-  s.source           = { :git => 'https://github.com/comdan66/OAKit.git', :tag => s.version.to_s }
+  s.author           = { 'oawu' => 'oawu.tw@gmail.com' }
+  s.source           = { :git => 'https://github.com/oawu/OAKit.git', :tag => s.version.to_s }
   s.social_media_url = 'https://www.ioa.tw'
   s.ios.deployment_target = '12.0'
   s.source_files = 'OAKit/Classes/**/*'
