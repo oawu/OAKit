@@ -40,8 +40,8 @@ extension UITableView {
 }
 
 extension UICollectionView {
-    func reg<T: OA.CollectionCell>(cell: T.Type) { self.register(cell, forCellWithReuseIdentifier: cell.id) }
-    @discardableResult func gen<T: OA.CollectionCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withReuseIdentifier: cell.id, for: indexPath) as! T }
+    public func reg<T: OA.CollectionCell>(cell: T.Type) { self.register(cell, forCellWithReuseIdentifier: cell.id) }
+    @discardableResult public func gen<T: OA.CollectionCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withReuseIdentifier: cell.id, for: indexPath) as! T }
 }
 
 extension UIAlertController {

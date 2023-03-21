@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import UIKit
 
 public protocol OA_Table_Cell: UITableViewCell {
@@ -17,10 +16,10 @@ extension OA {
     public typealias TableCell = OA_Table_Cell
 }
 
-protocol OA_Collection_Cell: UICollectionViewCell {
+public protocol OA_Collection_Cell: UICollectionViewCell {
     static var id: String { get }
 }
 
 extension OA {
-    typealias CollectionCell = OA_Collection_Cell
+    public typealias CollectionCell = OA_Collection_Cell
 }
