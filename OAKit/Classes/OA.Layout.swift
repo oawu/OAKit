@@ -161,6 +161,7 @@ public extension OA {
         private func join() -> Self {
             guard !self.parent.subviews.contains(self.child) else { return self }
             self.child.translatesAutoresizingMaskIntoConstraints = false
+            guard self.parent != self.child else { return self }
             self.parent.addSubview(self.child)
             return self
         }

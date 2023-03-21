@@ -39,6 +39,11 @@ extension UITableView {
     @discardableResult public func gen<T: OA.TableCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withIdentifier: cell.id, for: indexPath) as! T }
 }
 
+extension UICollectionView {
+    func reg<T: OA.CollectionCell>(cell: T.Type) { self.register(cell, forCellWithReuseIdentifier: cell.id) }
+    @discardableResult func gen<T: OA.CollectionCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withReuseIdentifier: cell.id, for: indexPath) as! T }
+}
+
 extension UIAlertController {
     public func presentTo(_ vc: UIViewController?, animated: Bool = true, completion: (() -> ())? = nil) {
         guard let vc = vc, !vc.isKind(of: UIAlertController.self) else { return }

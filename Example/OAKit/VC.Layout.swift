@@ -20,6 +20,8 @@ extension VC {
             label.text = "aaaaaaaaaaaaaaaaaa"
             label.backgroundColor = .green
             label.add(to: self.view, enable: "st; sl; sr; sb")
+//            label.add(to: self.view, enable: "x;y")
+//            label.add(to: label, enable: "w=100;h=100")
 //            label.add(to: self.view, enable: "st")
 //            label.add(to: self.view, enable: "st=20")
 //            label.add(to: self.view, enable: "t=st,20")
