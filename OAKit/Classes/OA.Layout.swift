@@ -12,7 +12,14 @@ import UIKit
 public extension OA {
 
     class Layout {
-        private static func quick(short ori: String, parent: UIView, child: UIView, for view: UIView? = nil) -> Layout? {
+        
+        public enum QuickFull: String {
+            case fill = "f"
+            case force = "ff"
+            case safe = "sf"
+        }
+
+        private static func _quick(short ori: String, parent: UIView, child: UIView, for view: UIView? = nil) -> Layout? {
             var mdf = ori.trimmingCharacters(in: .whitespaces).lowercased()
             
             guard mdf.count > 0 else { return nil }
@@ -108,22 +115,29 @@ public extension OA {
         }
 
         public static func quick(parent: UIView, child: UIView, enables: [String] = [], for view: UIView? = nil) -> [NSLayoutConstraint] {
-            var results: [NSLayoutConstraint] = []
-            for enable in enables {
-                if let result = self.quick(short: enable, parent: parent, child: child, for: view), let constraint = result.e() {
-                    results.append(constraint)
-                }
+
+            let tokens: [String]
+            
+            switch enables.first?.trimmingCharacters(in: .whitespaces).lowercased() {
+            case "f": tokens = ["t", "b", "l", "r"]
+            case "sf": tokens = ["st", "sb", "sl", "sr"]
+            case "ff": tokens = ["t", "b", "l", "r", "x", "y", "w", "h"]
+            default: tokens = enables
             }
-            return results
+            
+            return tokens.compactMap { self._quick(short: $0, parent: parent, child: child, for: view)?.e() }
         }
         public static func quick(parent: UIView, child: UIView, disables: [String] = [], for view: UIView? = nil) -> [NSLayoutConstraint] {
-            var results: [NSLayoutConstraint] = []
-            for disable in disables {
-                if let result = self.quick(short: disable, parent: parent, child: child, for: view), let constraint = result.d() {
-                    results.append(constraint)
-                }
+            
+            let tokens: [String]
+            switch disables.first?.trimmingCharacters(in: .whitespaces).lowercased() {
+            case "f": tokens = ["t", "b", "l", "r"]
+            case "sf": tokens = ["st", "sb", "sl", "sr"]
+            case "ff": tokens = ["t", "b", "l", "r", "x", "y", "w", "h"]
+            default: tokens = disables
             }
-            return results
+        
+            return tokens.compactMap { self._quick(short: $0, parent: parent, child: child, for: view)?.d() }
         }
 
         private let parent: UIView

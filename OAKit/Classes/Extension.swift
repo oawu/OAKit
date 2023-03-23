@@ -35,7 +35,6 @@ extension UINavigationController {
 
 extension UITableView {
     public func reg<T: OA.TableCell>(cell: T.Type) { self.register(cell, forCellReuseIdentifier: cell.id) }
-
     @discardableResult public func gen<T: OA.TableCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withIdentifier: cell.id, for: indexPath) as! T }
 }
 
@@ -49,7 +48,6 @@ extension UIAlertController {
         guard let vc = vc, !vc.isKind(of: UIAlertController.self) else { return }
         vc.present(self, animated: animated, completion: completion)
     }
-
     @discardableResult public func addAction(_ action: UIAlertAction, isPreferred: Bool = false) -> Self {
         self.addAction(action)
         if isPreferred {
@@ -57,7 +55,6 @@ extension UIAlertController {
         }
         return self
     }
-
     @discardableResult public func addTextField(placeholder: String, configurationHandler: ((UITextField) -> Void)? = nil) -> Self {
         self.addTextField { input in
             input.placeholder = placeholder
@@ -69,10 +66,42 @@ extension UIAlertController {
 
 extension UIFont {
     public func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont { UIFont(descriptor: fontDescriptor.withSymbolicTraits(traits)!, size: 0) }
-
     public func bold() -> UIFont { self.withTraits(traits: .traitBold) }
-
     public func italic() -> UIFont { self.withTraits(traits: .traitItalic) }
+}
+
+extension UITextField {
+    public var autoFont: UIFont? {
+        set {
+            self.font = newValue
+            self.adjustsFontForContentSizeCategory = true
+        }
+        get {
+            self.font
+        }
+    }
+}
+extension UITextView {
+    public var autoFont: UIFont? {
+        set {
+            self.font = newValue
+            self.adjustsFontForContentSizeCategory = true
+        }
+        get {
+            self.font
+        }
+    }
+}
+extension UILabel {
+    public var textFont: UIFont? {
+        set {
+            self.font = newValue
+            self.adjustsFontForContentSizeCategory = true
+        }
+        get {
+            self.font
+        }
+    }
 }
 
 extension SFSafariViewController {
@@ -88,16 +117,19 @@ extension UIView {
 
     @discardableResult public func add(to parent: UIView, enables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: nil) }
     @discardableResult public func add(to parent: UIView, disables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: nil) }
-
     @discardableResult public func add(to parent: UIView, enables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: view) }
     @discardableResult public func add(to parent: UIView, disables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: view) }
 
     @discardableResult public func add(to parent: UIView, enable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }) }
     @discardableResult public func add(to parent: UIView, disable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }) }
-
     @discardableResult public func add(to parent: UIView, enable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }, for: view) }
     @discardableResult public func add(to parent: UIView, disable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }, for: view) }
-
+    
+    @discardableResult public func add(to parent: UIView, enable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }) }
+    @discardableResult public func add(to parent: UIView, disable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }) }
+    @discardableResult public func add(to parent: UIView, enable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
+    @discardableResult public func add(to parent: UIView, disable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
+    
     @discardableResult public func shadow(_ x: CGFloat, _ y: CGFloat, _ blur: CGFloat, _ color: UIColor, _ opacity: CGFloat? = nil) -> Self {
         self.layer.shadowOpacity = .init(opacity ?? 1)
         self.layer.shadowRadius  = blur / UIScreen.main.scale
@@ -126,6 +158,21 @@ extension UIView {
         blur.layer.maskedCorners = self.layer.maskedCorners
         blur.add(to: self, enable: "t; l; b; r")
         return blur
+    }
+    
+    @discardableResult public func removeSubviewsAndConstraints() -> Self {
+        self.subviews.forEach { $0.removeSubviewsAndConstraints() }
+        
+        self.constraints.filter { [weak self] constraint in
+            guard let v1 = constraint.firstItem as? UIView, let v2 = self else { return false }
+            return v1 != v2
+        }.forEach { [weak self] constraint in
+            self?.removeConstraint(constraint)
+        }
+
+        self.subviews.forEach { $0.removeFromSuperview() }
+
+        return self
     }
 }
 
