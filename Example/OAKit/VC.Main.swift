@@ -19,7 +19,7 @@ extension VC {
 
         class Cell: UITableViewCell, OA.TableCell {
             static var id: String = "Main.Cell"
-            
+
             @discardableResult
             public func fetchUI(data: Sample) -> Self {
                 self.textLabel?.text = data.title
@@ -41,9 +41,9 @@ extension VC {
             super.viewDidLoad()
             self.title = "OAKit 範例"
             self.tableView.reg(cell: Cell.self)
-            setTimeout(second: 0.1, block: {
-                self.tableView(self.tableView, didSelectRowAt: .init(row: 4, section: 0))
-            })
+//            setTimeout(second: 0.1, block: {
+//                self.tableView(self.tableView, didSelectRowAt: .init(row: 4, section: 0))
+//            })
         }
 
         override func numberOfSections(in tableView: UITableView) -> Int { 1 }

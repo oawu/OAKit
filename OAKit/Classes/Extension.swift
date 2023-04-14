@@ -9,8 +9,8 @@
 import UIKit
 import SafariServices
 
-extension UINavigationController {
-    public func pushViewController(_ viewController: UIViewController, animated: Bool, completion: (() -> ())?) {
+public extension UINavigationController {
+    func pushViewController(_ viewController: UIViewController, animated: Bool, completion: (() -> ())?) {
         guard let completion = completion else {
             self.pushViewController(viewController, animated: animated)
             return
@@ -21,7 +21,7 @@ extension UINavigationController {
         }
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
-    public func popViewController(animated: Bool, completion: (() -> ())?) {
+    func popViewController(animated: Bool, completion: (() -> ())?) {
         self.popViewController(animated: animated)
         guard let completion = completion else {
             return
@@ -33,29 +33,29 @@ extension UINavigationController {
     }
 }
 
-extension UITableView {
-    public func reg<T: OA.TableCell>(cell: T.Type) { self.register(cell, forCellReuseIdentifier: cell.id) }
-    @discardableResult public func gen<T: OA.TableCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withIdentifier: cell.id, for: indexPath) as! T }
+public extension UITableView {
+    func reg<T: OA.TableCell>(cell: T.Type) { self.register(cell, forCellReuseIdentifier: cell.id) }
+    @discardableResult func gen<T: OA.TableCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withIdentifier: cell.id, for: indexPath) as! T }
 }
 
-extension UICollectionView {
-    public func reg<T: OA.CollectionCell>(cell: T.Type) { self.register(cell, forCellWithReuseIdentifier: cell.id) }
-    @discardableResult public func gen<T: OA.CollectionCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withReuseIdentifier: cell.id, for: indexPath) as! T }
+public extension UICollectionView {
+    func reg<T: OA.CollectionCell>(cell: T.Type) { self.register(cell, forCellWithReuseIdentifier: cell.id) }
+    @discardableResult func gen<T: OA.CollectionCell>(cell: T.Type, indexPath: IndexPath) -> T { self.dequeueReusableCell(withReuseIdentifier: cell.id, for: indexPath) as! T }
 }
 
-extension UIAlertController {
-    public func presentTo(_ vc: UIViewController?, animated: Bool = true, completion: (() -> ())? = nil) {
+public extension UIAlertController {
+    func presentTo(_ vc: UIViewController?, animated: Bool = true, completion: (() -> ())? = nil) {
         guard let vc = vc, !vc.isKind(of: UIAlertController.self) else { return }
         vc.present(self, animated: animated, completion: completion)
     }
-    @discardableResult public func addAction(_ action: UIAlertAction, isPreferred: Bool = false) -> Self {
+    @discardableResult func addAction(_ action: UIAlertAction, isPreferred: Bool = false) -> Self {
         self.addAction(action)
         if isPreferred {
             self.preferredAction = action
         }
         return self
     }
-    @discardableResult public func addTextField(placeholder: String, configurationHandler: ((UITextField) -> Void)? = nil) -> Self {
+    @discardableResult func addTextField(placeholder: String, configurationHandler: ((UITextField) -> Void)? = nil) -> Self {
         self.addTextField { input in
             input.placeholder = placeholder
             configurationHandler?(input)
@@ -64,14 +64,14 @@ extension UIAlertController {
     }
 }
 
-extension UIFont {
-    public func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont { UIFont(descriptor: fontDescriptor.withSymbolicTraits(traits)!, size: 0) }
-    public func bold() -> UIFont { self.withTraits(traits: .traitBold) }
-    public func italic() -> UIFont { self.withTraits(traits: .traitItalic) }
+public extension UIFont {
+    func withTraits(traits: UIFontDescriptor.SymbolicTraits) -> UIFont { UIFont(descriptor: fontDescriptor.withSymbolicTraits(traits)!, size: 0) }
+    func bold() -> UIFont { self.withTraits(traits: .traitBold) }
+    func italic() -> UIFont { self.withTraits(traits: .traitItalic) }
 }
 
-extension UITextField {
-    public var autoFont: UIFont? {
+public extension UITextField {
+    var autoFont: UIFont? {
         set {
             self.font = newValue
             self.adjustsFontForContentSizeCategory = true
@@ -81,8 +81,8 @@ extension UITextField {
         }
     }
 }
-extension UITextView {
-    public var autoFont: UIFont? {
+public extension UITextView {
+    var autoFont: UIFont? {
         set {
             self.font = newValue
             self.adjustsFontForContentSizeCategory = true
@@ -92,8 +92,8 @@ extension UITextView {
         }
     }
 }
-extension UILabel {
-    public var textFont: UIFont? {
+public extension UILabel {
+    var textFont: UIFont? {
         set {
             self.font = newValue
             self.adjustsFontForContentSizeCategory = true
@@ -104,33 +104,33 @@ extension UILabel {
     }
 }
 
-extension SFSafariViewController {
-    public func presentTo(_ vc: UIViewController?, animated: Bool = true, completion: (() -> ())? = nil) {
+public extension SFSafariViewController {
+    func presentTo(_ vc: UIViewController?, animated: Bool = true, completion: (() -> ())? = nil) {
         guard let vc = vc, !vc.isKind(of: UIAlertController.self) else { return }
         vc.present(self, animated: animated, completion: completion)
     }
 }
 
-extension UIView {
-    @discardableResult public func add(to parent: UIView) -> OA.Layout { .init(parent: parent, child: self, for: nil) }
-    @discardableResult public func add(to parent: UIView, for view: UIView) -> OA.Layout { .init(parent: parent, child: self, for: view) }
+public extension UIView {
+    @discardableResult func add(to parent: UIView) -> OA.Layout { .init(parent: parent, child: self, for: nil) }
+    @discardableResult func add(to parent: UIView, for view: UIView) -> OA.Layout { .init(parent: parent, child: self, for: view) }
 
-    @discardableResult public func add(to parent: UIView, enables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: nil) }
-    @discardableResult public func add(to parent: UIView, disables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: nil) }
-    @discardableResult public func add(to parent: UIView, enables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: view) }
-    @discardableResult public func add(to parent: UIView, disables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: view) }
+    @discardableResult func add(to parent: UIView, enables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: nil) }
+    @discardableResult func add(to parent: UIView, disables: [String]) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: nil) }
+    @discardableResult func add(to parent: UIView, enables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enables, for: view) }
+    @discardableResult func add(to parent: UIView, disables: [String], for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disables, for: view) }
 
-    @discardableResult public func add(to parent: UIView, enable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }) }
-    @discardableResult public func add(to parent: UIView, disable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }) }
-    @discardableResult public func add(to parent: UIView, enable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }, for: view) }
-    @discardableResult public func add(to parent: UIView, disable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }, for: view) }
+    @discardableResult func add(to parent: UIView, enable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }) }
+    @discardableResult func add(to parent: UIView, disable: String) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }) }
+    @discardableResult func add(to parent: UIView, enable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.split(separator: ";").map { .init($0) }, for: view) }
+    @discardableResult func add(to parent: UIView, disable: String, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.split(separator: ";").map { .init($0) }, for: view) }
     
-    @discardableResult public func add(to parent: UIView, enable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }) }
-    @discardableResult public func add(to parent: UIView, disable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }) }
-    @discardableResult public func add(to parent: UIView, enable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
-    @discardableResult public func add(to parent: UIView, disable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
+    @discardableResult func add(to parent: UIView, enable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }) }
+    @discardableResult func add(to parent: UIView, disable: OA.Layout.QuickFull) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }) }
+    @discardableResult func add(to parent: UIView, enable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, enables: enable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
+    @discardableResult func add(to parent: UIView, disable: OA.Layout.QuickFull, for view: UIView) -> [NSLayoutConstraint] { OA.Layout.quick(parent: parent, child: self, disables: disable.rawValue.split(separator: ";").map { .init($0) }, for: view) }
     
-    @discardableResult public func shadow(_ x: CGFloat, _ y: CGFloat, _ blur: CGFloat, _ color: UIColor, _ opacity: CGFloat? = nil) -> Self {
+    @discardableResult func shadow(_ x: CGFloat, _ y: CGFloat, _ blur: CGFloat, _ color: UIColor, _ opacity: CGFloat? = nil) -> Self {
         self.layer.shadowOpacity = .init(opacity ?? 1)
         self.layer.shadowRadius  = blur / UIScreen.main.scale
         self.layer.shadowOffset  = .init(width: x, height: y)
@@ -138,19 +138,19 @@ extension UIView {
         return self
     }
 
-    @discardableResult public func border(_ width: CGFloat, _ color: UIColor) -> Self {
+    @discardableResult func border(_ width: CGFloat, _ color: UIColor) -> Self {
         self.layer.borderWidth = width / UIScreen.main.scale
         self.layer.borderColor = color.cgColor
         return self
     }
-    @discardableResult public func border(_ width: CGFloat, _ color: UIColor, _ debug: Bool) -> Self {
+    @discardableResult func border(_ width: CGFloat, _ color: UIColor, _ debug: Bool) -> Self {
         if debug {
             return self.border(width, color)
         }
         return self
     }
 
-    @discardableResult public func blur(style: UIBlurEffect.Style, radius: CGFloat? = nil) -> UIVisualEffectView {
+    @discardableResult func blur(style: UIBlurEffect.Style, radius: CGFloat? = nil) -> UIVisualEffectView {
         let blur = UIVisualEffectView()
         blur.effect = UIBlurEffect(style: style)
         blur.clipsToBounds = true
@@ -160,7 +160,7 @@ extension UIView {
         return blur
     }
     
-    @discardableResult public func removeSubviewsAndConstraints() -> Self {
+    @discardableResult func removeSubviewsAndConstraints() -> Self {
         self.subviews.forEach { $0.removeSubviewsAndConstraints() }
         
         self.constraints.filter { [weak self] constraint in
@@ -176,9 +176,8 @@ extension UIView {
     }
 }
 
-
-extension UIImage {
-    public func thumbnail(maxSize: Int, minSize: Int, times: Int = 5) -> Data? {
+public extension UIImage {
+    func thumbnail(maxSize: Int, minSize: Int, times: Int = 5) -> Data? {
         var maxQuality: CGFloat = 1.0
         var minQuality: CGFloat = 0.0
         var bestData: Data? = nil
@@ -202,92 +201,92 @@ extension UIImage {
         return bestData
     }
 }
-extension TimeInterval {
-    public var datetime: String {
+public extension TimeInterval {
+    var datetime: String {
         let format: DateFormatter = .init()
         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return format.string(from: .init(timeIntervalSince1970: self))
     }
-    public static var today: TimeInterval {
+    static var today: TimeInterval {
         let format: DateFormatter = .init()
         format.dateFormat = "yyyy-MM-dd 00:00:00"
         format.timeZone = .current
         return format.date(from: format.string(from: .init(timeIntervalSince1970: .now)))?.timeIntervalSince1970 ?? .now
     }
-    public static var now: TimeInterval { NSDate().timeIntervalSince1970 }
+    static var now: TimeInterval { NSDate().timeIntervalSince1970 }
 }
-extension Date {
-    public func format(format str: String) -> String {
+public extension Date {
+    func format(format str: String) -> String {
         let format: DateFormatter = .init()
         format.dateFormat = str
         return format.string(from: self)
     }
 }
-extension Int {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension Int {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let fmt = NumberFormatter()
         fmt.numberStyle = style
         return fmt.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension UInt {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension UInt {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let fmt = NumberFormatter()
         fmt.numberStyle = style
         return fmt.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension Int8 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension Int8 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension UInt8 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension UInt8 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension Int16 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension Int16 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension UInt16 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension UInt16 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension Int32 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension Int32 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension UInt32 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension UInt32 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension Int64 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension Int64 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"
     }
 }
-extension UInt64 {
-    public func format(style: NumberFormatter.Style = .decimal) -> String {
+public extension UInt64 {
+    func format(style: NumberFormatter.Style = .decimal) -> String {
         let format: NumberFormatter = .init()
         format.numberStyle = style
         return format.string(from: NSNumber(value: self)) ?? "\(self)"

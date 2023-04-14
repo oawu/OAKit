@@ -5,20 +5,11 @@
 //  Created by 吳政賢 on 2021/12/21.
 //
 
-import Foundation
-
 import UIKit
 
 public extension OA {
 
     class Layout {
-        
-        public enum QuickFull: String {
-            case fill = "f"
-            case force = "ff"
-            case safe = "sf"
-        }
-
         private static func _quick(short ori: String, parent: UIView, child: UIView, for view: UIView? = nil) -> Layout? {
             var mdf = ori.trimmingCharacters(in: .whitespaces).lowercased()
             
@@ -143,14 +134,14 @@ public extension OA {
         private let parent: UIView
         private let child: UIView
         private let forui: UIView
-        private var goal: Any? = nil
+        private var goal: Any?
 
-        private var multiplier: CGFloat = 1
-        private var constant: CGFloat = 0
+        private lazy var multiplier: CGFloat = 1
+        private lazy var constant: CGFloat = 0
 
-        private var childAttr: NSLayoutConstraint.Attribute? = nil
-        private var goalAttr: NSLayoutConstraint.Attribute = .notAnAttribute
-        private var relation: NSLayoutConstraint.Relation = .equal
+        private lazy var childAttr: NSLayoutConstraint.Attribute? = nil
+        private lazy var goalAttr: NSLayoutConstraint.Attribute = .notAnAttribute
+        private lazy var relation: NSLayoutConstraint.Relation = .equal
 
         public init(parent: UIView, child: UIView, for view: UIView? = nil) {
             self.parent = parent
@@ -171,8 +162,7 @@ public extension OA {
             return self
         }
 
-        @discardableResult
-        private func join() -> Self {
+        @discardableResult private func join() -> Self {
             guard !self.parent.subviews.contains(self.child) else { return self }
             self.child.translatesAutoresizingMaskIntoConstraints = false
             guard self.parent != self.child else { return self }
@@ -271,5 +261,13 @@ public extension OA {
         @discardableResult public func d() -> NSLayoutConstraint? { self.disable() }
         @discardableResult public func e(constraint: inout NSLayoutConstraint?) -> NSLayoutConstraint? { self.enable(constraint: &constraint) }
         @discardableResult public func d(constraint: inout NSLayoutConstraint?) -> NSLayoutConstraint? { self.disable(constraint: &constraint) }
+    }
+}
+
+public extension OA.Layout {
+    enum QuickFull: String {
+        case fill = "f"
+        case force = "ff"
+        case safe = "sf"
     }
 }
