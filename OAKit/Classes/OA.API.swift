@@ -376,9 +376,9 @@ extension OA.API {
         public let code: UInt16
         public let messages: [String]
     }
-    public struct Done<E: Decodable> {
+    public struct Done<EE: Decodable> {
         public let code: UInt16
-        public let decode: E
+        public let decode: EE
     }
 
     fileprivate enum Param {
