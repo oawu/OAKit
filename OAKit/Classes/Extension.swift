@@ -11,13 +11,14 @@ import SafariServices
 
 public extension UINavigationController {
     func pushViewController(_ viewController: UIViewController, animated: Bool, completion: (() -> ())?) {
+        self.pushViewController(viewController, animated: animated)
+        
         guard let completion = completion else {
-            self.pushViewController(viewController, animated: animated)
             return
         }
 
         guard animated, let coordinator = transitionCoordinator else {
-            return completion()
+            return DispatchQueue.main.async { completion() }
         }
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }

@@ -478,9 +478,9 @@ public extension OA {
 }
 
 public extension OA.API {
-    struct Done<E: Decodable> {
+    struct Done<F: Decodable> {
         public let code: UInt16
-        public let decode: E
+        public let decode: F
         public let text: String
     }
 }
